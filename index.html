@@ -37,252 +37,207 @@
         }
         return gk_fileData[filename] || "";
         }
-        </script>
-		
-		
-<!DOCTYPE html>
+        </script><!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>دكتور نت - أدوات مايكروتك</title>
   <style>
-    /* إضافة خط كايرو */
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap');
-
-    /* تأثير الخلفية المتحركة */
-    @keyframes wave {
-        0% { background-position: 0% 0%; }
-        20% { background-position: 20% 80%; }
-        40% { background-position: 40% 20%; }
-        60% { background-position: 80% 40%; }
-        80% { background-position: 60% 90%; }
-        100% { background-position: 0% 0%; }
-    }
-
     * {
       -webkit-transition: all .3s ease-in;
       -moz-transition: all .3s ease-in;
       -ms-transition: all .3s ease-in;
       transition: all .3s ease-in;
       box-sizing: border-box;
-      font-family: 'Cairo', sans-serif; /* تطبيق الفونت على كل العناصر */
     }
-
+    body, div, span, ul, li, h1, h2, form, input, textarea, p {
+      margin: 0;
+      padding: 0;
+    }
     body {
-      color: #333;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #292929;
       height: 100%;
       width: 100%;
-      font-size: 16px;
-      background: linear-gradient(120deg, 
-        #5e0094,  /* بنفسجي داكن */
-        #7712b8,  /* بنفسجي متوسط */
-        #9226d9,  /* بنفسجي فاتح */
-        #b744f1,  /* أرجواني */
-        #cf6af5,  /* أرجواني فاتح */
-        #e48cff   /* وردي بنفسجي */
-      );
-      background-size: 300% 300%;
-      animation: wave 12s ease-in-out infinite;  /* تطبيق حركة الخلفية */
-      line-height: 1.6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      margin-top: 0;
       padding: 0;
-      margin: 0;
+      font-size: 14px;
+      background: #292929;
+      line-height: normal;
     }
-
     #wrap {
       max-width: 900px;
-      width: 100%;
-      padding: 0 20px;
+      margin: 0 auto;
+      padding: 0 5px;
     }
-
     .logo {
-      margin-top: 10px; /* تقليل الفراغ فوق اللوجو */
-      color: #fff;
+      margin-top: 15px;
+      color: #ddd;
       text-decoration: none;
-      font-size: 28px;
+      font-size: 25px;
       font-weight: 700;
       text-align: center;
     }
-
     .logo a {
-      color: #ffffff;
-      text-decoration: none;
+      color: #fff !important;
+      text-decoration: none !important;
     }
-
+    .credit {
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin: 10px 0;
+    }
     .main-wrap {
       display: flex;
-      flex-direction: column;
-      gap: 20px;
-      margin-top: 40px;
-      justify-content: center;
-      align-items: center;
     }
-
     .content {
-      width: 100%;
-      max-width: 600px;
-      padding: 20px;
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    label {
-      font-size: 16px;
-      color: #333;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    select, input[type="text"], textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      float: right;
+      width: 66%;
+      padding: 15px;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      background: #eee;
+      border-radius: 0 5px 5px 0;
       font-size: 14px;
     }
-
+    .sidebar {
+      float: left;
+      width: 34%;
+      background-color: #eee;
+      border: 1px solid #ccc;
+      border-radius: 5px 0 0 5px;
+      padding: 15px;
+    }
+    .sidebar ul {
+      list-style: none;
+    }
+    .sidebar li {
+      margin-bottom: 10px;
+    }
+    .sidebar a {
+      color: #292929;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .sidebar a:hover {
+      color: #4CAF50;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #292929;
+    }
+    select, input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
     button {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       border: none;
-      border-radius: 8px;
-      font-size: 16px;
+      border-radius: 4px;
+      font-size: 14px;
       cursor: pointer;
-      margin-bottom: 20px;
-      background-color: #4CAF50;
-      color: white;
-      font-weight: bold;
-      transition: background-color 0.3s ease-in-out;
+      margin-bottom: 10px;
     }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
     .add-btn, .remove-btn {
-      padding: 8px 16px;
+      width: auto;
+      padding: 5px 10px;
       background-color: #2196F3;
       color: #ffffff;
       margin-left: 10px;
       display: inline-block;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
     }
-
-    .add-btn:hover {
-      background-color: #1976D2;
-    }
-
     .remove-btn {
       background-color: #f44336;
     }
-
-    .remove-btn:hover {
-      background-color: #e53935;
+    #submit {
+      background-color: #4CAF50;
+      color: #ffffff;
     }
-
     #submit:disabled {
       background-color: #cccccc;
       cursor: not-allowed;
     }
-
     #copy {
       background-color: #000000;
       color: #ffffff;
     }
-
     #answer-text {
+      width: 100%;
       height: 200px;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 10px;
       border: 1px solid #ccc;
-      font-size: 14px;
+      border-radius: 4px;
+      font-size: 12px;
       resize: none;
       direction: ltr;
     }
-
     #answer {
       display: none;
       margin-top: 20px;
     }
-
     #error {
       color: #ff0000;
-      font-size: 14px;
+      font-size: 12px;
       margin-top: 10px;
       display: none;
     }
-
     .disclaimer {
-      font-size: 14px;
-      color: white;
+      font-size: 12px;
+      color: #666;
       text-align: center;
-      margin-top: 30px;
-      font-style: italic;
+      margin-top: 20px;
     }
-
     .input-group {
       border: 1px dashed #ccc;
-      padding: 12px;
-      margin-bottom: 20px;
+      padding: 10px;
+      margin-bottom: 15px;
       position: relative;
-      border-radius: 8px;
     }
-
     @media (max-width: 768px) {
+      .main-wrap {
+        flex-direction: column;
+      }
+      .content, .sidebar {
+        width: 100%;
+        border-radius: 5px;
+      }
       .content {
-        max-width: 100%;
-        padding: 10px;
+        border-right: none;
+      }
+      .sidebar {
+        margin-top: 15px;
       }
       .logo {
-        font-size: 24px;
+        font-size: 20px;
       }
-
+      .credit {
+        font-size: 16px;
+      }
       select, input[type="text"], button, #answer-text {
-        font-size: 14px;
+        font-size: 12px;
       }
     }
-	.warning-message {
-	  background-color: #f8d7da; /* خلفية باللون الأحمر الفاتح */
-	  color: #721c24; /* لون النص باللون الأحمر الداكن */
-	  padding: 15px;
-	  border-radius: 8px;
-	  font-size: 14px;
-	  margin-bottom: 20px;
-	  text-align: center;
-	  border: 1px solid #f5c6cb; /* حد بلون أخف */
-	}
-.footer {
-  text-align: center;
-  margin-top: 40px;
-  font-size: 14px;
-  color: #fff;
-}
-
-
-
   </style>
 </head>
 <body>
   <div id="wrap">
-<div class="header">
-  <div class="logo">
-    <a href="#">
-      <img src="https://i.imgur.com/Aw6u4Pj.png" alt="دكتور نت" style="width: 250px; height: auto;">
-    </a>
-  </div>
-</div>
-
+    <div class="header">
+      <div class="logo"><a href="#">دكتور نت</a></div>
+      <div class="credit">هذا الموقع تم إنشاؤه بشكل كامل من الدكتور مصطفى عاطف الشورى (دكتور نت) 🏥</div>
+    </div>
     <div class="main-wrap">
       <div class="content">
-        <div class="warning-message">دكتور نت غير مسؤول عن أي أضرار ناتجة عن الأستخدام الخاطئ لهذه الأدوات</div>
         <label for="tool">اختر الأداة:</label>
         <select id="tool">
           <option value="simple-queue">مولد Simple Queue</option>
@@ -302,7 +257,7 @@
           <option value="dns-doh">DNS over HTTPS (DoH)</option>
           <option value="dns-dot">DNS over TLS (DoT)</option>
           <option value="hotspot-setup">إعداد Hotspot</option>
-          <option value="hotspot-qr">Hotspot تسجيل QR Code</option>
+          <option value="hotspot-qr">Hotspot تسجيل الدخول</option>
           <option value="wireless-optimization">تحسين الواي فاي</option>
           <option value="capsman">إعداد CAPsMAN</option>
           <option value="static-routing">توجيه ثابت</option>
@@ -327,9 +282,48 @@
           <button id="copy">نسخ السكربت</button>
         </div>
       </div>
+      <div class="sidebar">
+        <ul>
+          <li><a href="#" data-tool="simple-queue">مولد Simple Queue</a></li>
+          <li><a href="#" data-tool="queue-tree">مولد Queue Tree</a></li>
+          <li><a href="#" data-tool="pcq">مولد PCQ</a></li>
+          <li><a href="#" data-tool="load-balancing-pcc">موازنة الحمل PCC</a></li>
+          <li><a href="#" data-tool="load-balancing-ecmp">موازنة الحمل ECMP</a></li>
+          <li><a href="#" data-tool="load-balancing-nth">موازنة الحمل NTH</a></li>
+          <li><a href="#" data-tool="vpn-pptp">نفق VPN PPTP</a></li>
+          <li><a href="#" data-tool="vpn-l2tp">نفق VPN L2TP</a></li>
+          <li><a href="#" data-tool="vpn-openvpn">نفق VPN OpenVPN</a></li>
+          <li><a href="#" data-tool="firewall-basic">جدار حماية أساسي</a></li>
+          <li><a href="#" data-tool="firewall-advanced">جدار حماية متقدم</a></li>
+          <li><a href="#" data-tool="firewall-block-social">حظر وسائل التواصل</a></li>
+          <li><a href="#" data-tool="netwatch">Netwatch</a></li>
+          <li><a href="#" data-tool="dhcp-server">خادم DHCP</a></li>
+          <li><a href="#" data-tool="dns-doh">DNS over HTTPS (DoH)</a></li>
+          <li><a href="#" data-tool="dns-dot">DNS over TLS (DoT)</a></li>
+          <li><a href="#" data-tool="hotspot-setup">إعداد Hotspot</a></li>
+          <li><a href="#" data-tool="hotspot-qr">Hotspot تسجيل الدخول</a></li>
+          <li><a href="#" data-tool="wireless-optimization">تحسين الواي فاي</a></li>
+          <li><a href="#" data-tool="capsman">إعداد CAPsMAN</a></li>
+          <li><a href="#" data-tool="static-routing">توجيه ثابت</a></li>
+          <li><a href="#" data-tool="ospf">إعداد OSPF</a></li>
+          <li><a href="#" data-tool="ipsec">إعداد IPsec</a></li>
+          <li><a href="#" data-tool="pppoe-server">خادم PPPoE</a></li>
+          <li><a href="#" data-tool="pppoe-client">عميل PPPoE</a></li>
+          <li><a href="#" data-tool="vrrp">إعداد VRRP</a></li>
+          <li><a href="#" data-tool="traffic-monitor">مراقبة الحركة</a></li>
+          <li><a href="#" data-tool="port-knocking">Port Knocking</a></li>
+          <li><a href="#" data-tool="ipv6-addressing">عناوين IPv6</a></li>
+          <li><a href="#" data-tool="dhcpv6">خادم DHCPv6</a></li>
+          <li><a href="#" data-tool="scheduled-script">سكربت مجدول</a></li>
+          <li><a href="#" data-tool="backup-script">سكربت النسخ الاحتياطي</a></li>
+          <li><a href="#" data-tool="general">سؤال عام</a></li>
+        </ul>
+      </div>
     </div>
-	<div class="footer"><p>جميع الحقوق محفوظة لـ <span class="brand-name">دكتور نت</span> &copy; 2025</p></div>
-		
+    <p class="disclaimer">
+      تنبيه: استخدم السكربتات بحذر. دكتور نت غير مسؤول عن أي أضرار ناتجة عن استخدام هذه الأدوات. الأدوات تعمل بشكل مستقل وليست تابعة لشركة MikroTik.
+    </p>
+  </div>
   <script>
     // قاعدة بيانات محلية موسعة للسكربتات (مستوحاة من https://wiki.mikrotik.com و https://buananetpbun.github.io/)
     const toolsDatabase = {
@@ -544,6 +538,7 @@
             const pass = params.pass || 'vpnpass';
             script += `add connect-to=${server} port=${port} user=${user} password=${pass} name=ovpn${index + 1}\n`;
           });
+          script += '# ملاحظة: يتطلب إعداد شهادات على الخادم\n';
           script += '# المصدر: دكتور نت';
           return script;
         }
@@ -570,7 +565,7 @@ add action=drop chain=input comment="Drop all else"
           entries.forEach((params, index) => {
             const port = params.port || '80';
             const protocol = params.protocol || 'tcp';
-            script += `add action=accept chain=input protocol=${protocol} dst-port=${port} comment="Allow ${protocol} port ${port}"\n`;
+            script += `add action=accept chain=input protocol=${protocol} dst递port=${port} comment="Allow ${protocol} port ${port}"\n`;
           });
           script += `add action=drop chain=input comment="Drop all else"\n`;
           script += '# المصدر: دكتور نت';
@@ -589,10 +584,7 @@ add action=drop chain=input comment="Drop all else"
             const site = params.site || `site${index + 1}`;
             script += `add action=drop chain=forward dst-address-list="Mikrotik-${site}" comment="Block ${site} - دكتور نت"\n`;
           });
-          script += '/ip firewall address-list\n';
-          entries.forEach(() => {
-            script += `add address=192.168.0.0/16 list=LOCAL-IP comment="LOCAL IP - دكتور نت"\n`;
-          });
+          script += '# ملاحظة: يجب إنشاء قائمة عناوين Mikrotik-<site> يدويًا باستخدام /ip firewall address-list\n';
           script += '# المصدر: دكتور نت';
           return script;
         }
@@ -696,7 +688,7 @@ set servers=${dotServer} use-dot=yes
         }
       },
       'hotspot-qr': {
-        description: 'إعداد تسجيل Hotspot باستخدام QR Code',
+        description: 'إعداد ملف تعريف Hotspot لتسجيل الدخول',
         inputs: [
           { id: 'ssid', label: 'اسم SSID', placeholder: 'MyHotspot' },
           { id: 'password', label: 'كلمة المرور', placeholder: 'pass123' }
@@ -707,8 +699,9 @@ set servers=${dotServer} use-dot=yes
           entries.forEach((params, index) => {
             const ssid = params.ssid || `MyHotspot${index + 1}`;
             const password = params.password || 'pass123';
-            script += `add name=profile${index + 1} login-by=http-pap,http-chap hotspot-address=192.168.${index + 1}.1\n`;
+            script += `add name=profile${index + 1} login-by=http-pap,http-chap hotspot-address=192.168.${index + 1}.1 ssid=${ssid} password=${password}\n`;
           });
+          script += '# ملاحظة: لإنشاء رمز QR، استخدم أداة خارجية مع بيانات تسجيل الدخول\n';
           script += '# المصدر: دكتور نت';
           return script;
         }
@@ -813,6 +806,7 @@ set servers=${dotServer} use-dot=yes
           entries.forEach((params, index) => {
             script += `add src-address=0.0.0.0/0 dst-address=0.0.0.0/0 action=encrypt\n`;
           });
+          script += '# ملاحظة: يتطلب تكوين مفصل على الطرفين\n';
           script += '# المصدر: دكتور نت';
           return script;
         }
@@ -1088,13 +1082,10 @@ set servers=${dotServer} use-dot=yes
 
     function handleSubmit() {
       const tool = toolSelect.value;
-      console.log('Tool selected:', tool);
-
       const data = toolsDatabase[tool];
       if (!data) {
         errorText.textContent = 'الأداة غير موجودة';
         errorText.style.display = 'block';
-        console.error('Error: Tool not found');
         return;
       }
 
@@ -1105,7 +1096,6 @@ set servers=${dotServer} use-dot=yes
           if (groups.length === 0) {
             errorText.textContent = 'يرجى إضافة خط واحد على الأقل';
             errorText.style.display = 'block';
-            console.error('Error: No input groups');
             return;
           }
           groups.forEach((group, index) => {
@@ -1115,7 +1105,6 @@ set servers=${dotServer} use-dot=yes
               if (!value && tool !== 'general') {
                 errorText.textContent = `يرجى ملء حقل ${input.label} في الخط ${index + 1}`;
                 errorText.style.display = 'block';
-                console.error(`Error: Missing input for ${input.id}-${index}`);
                 return;
               }
               params[input.id] = value;
@@ -1129,7 +1118,6 @@ set servers=${dotServer} use-dot=yes
             if (!value && tool !== 'general') {
               errorText.textContent = `يرجى ملء حقل ${input.label}`;
               errorText.style.display = 'block';
-              console.error(`Error: Missing input for ${input.id}`);
               return;
             }
             params[input.id] = value;
@@ -1145,13 +1133,11 @@ set servers=${dotServer} use-dot=yes
 
       try {
         const response = data.repeatable ? data.script(entries) : data.script(entries[0]);
-        console.log('Response generated:', response);
         answerText.value = response;
         answerDiv.style.display = 'block';
       } catch (error) {
         errorText.textContent = 'حدث خطأ أثناء معالجة الطلب';
         errorText.style.display = 'block';
-        console.error('Error:', error.message);
       } finally {
         submitButton.disabled = false;
         submitButton.textContent = 'إنشاء السكربت';
@@ -1175,9 +1161,9 @@ set servers=${dotServer} use-dot=yes
       } catch (error) {
         errorText.textContent = 'فشل النسخ. حاول يدويًا.';
         errorText.style.display = 'block';
-        console.error('Copy error:', error.message);
       }
     });
+
     copyButton.addEventListener('touchstart', (e) => {
       e.preventDefault();
       answerText.select();
@@ -1190,11 +1176,10 @@ set servers=${dotServer} use-dot=yes
       } catch (error) {
         errorText.textContent = 'فشل النسخ. حاول يدويًا.';
         errorText.style.display = 'block';
-        console.error('Copy error:', error.message);
       }
     });
 
-    // تحميل الحقول الافتراضية
+    // تحميل الأداة الافتراضية عند تحميل الصفحة
     renderInputs(toolSelect.value);
   </script>
 </body>
