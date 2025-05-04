@@ -1,0 +1,1186 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>دكتور نت - أدوات مايكروتك</title>
+  <style>
+    * {
+      -webkit-transition: all .3s ease-in;
+      -moz-transition: all .3s ease-in;
+      -ms-transition: all .3s ease-in;
+      transition: all .3s ease-in;
+      box-sizing: border-box;
+    }
+    body, div, span, ul, li, h1, h2, form, input, textarea, p {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #292929;
+      height: 100%;
+      width: 100%;
+      margin-top: 0;
+      padding: 0;
+      font-size: 14px;
+      background: #292929;
+      line-height: normal;
+    }
+    #wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 5px;
+    }
+    .logo {
+      margin-top: 15px;
+      color: #ddd;
+      text-decoration: none;
+      font-size: 25px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .logo a {
+      color: #fff !important;
+      text-decoration: none !important;
+    }
+    .credit {
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin: 10px 0;
+    }
+    .main-wrap {
+      display: flex;
+    }
+    .content {
+      float: right;
+      width: 66%;
+      padding: 15px;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      background: #eee;
+      border-radius: 0 5px 5px 0;
+      font-size: 14px;
+    }
+    .sidebar {
+      float: left;
+      width: 34%;
+      background-color: #eee;
+      border: 1px solid #ccc;
+      border-radius: 5px 0 0 5px;
+      padding: 15px;
+    }
+    .sidebar ul {
+      list-style: none;
+    }
+    .sidebar li {
+      margin-bottom: 10px;
+    }
+    .sidebar a {
+      color: #292929;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .sidebar a:hover {
+      color: #4CAF50;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #292929;
+    }
+    select, input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .add-btn, .remove-btn {
+      width: auto;
+      padding: 5px 10px;
+      background-color: #2196F3;
+      color: #ffffff;
+      margin-left: 10px;
+      display: inline-block;
+    }
+    .remove-btn {
+      background-color: #f44336;
+    }
+    #submit {
+      background-color: #4CAF50;
+      color: #ffffff;
+    }
+    #submit:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    #copy {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    #answer-text {
+      width: 100%;
+      height: 200px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 12px;
+      resize: none;
+      direction: ltr;
+    }
+    #answer {
+      display: none;
+      margin-top: 20px;
+    }
+    #error {
+      color: #ff0000;
+      font-size: 12px;
+      margin-top: 10px;
+      display: none;
+    }
+    .disclaimer {
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .input-group {
+      border: 1px dashed #ccc;
+      padding: 10px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+    @media (max-width: 768px) {
+      .main-wrap {
+        flex-direction: column;
+      }
+      .content, .sidebar {
+        width: 100%;
+        border-radius: 5px;
+      }
+      .content {
+        border-right: none;
+      }
+      .sidebar {
+        margin-top: 15px;
+      }
+      .logo {
+        font-size: 20px;
+      }
+      .credit {
+        font-size: 16px;
+      }
+      select, input[type="text"], button, #answer-text {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div class="header">
+      <div class="logo"><a href="#">دكتور نت</a></div>
+      <div class="credit">هذا الموقع تم إنشاؤه بشكل كامل من الدكتور مصطفى عاطف الشورى (دكتور نت) 🏥</div>
+    </div>
+    <div class="main-wrap">
+      <div class="content">
+        <label for="tool">اختر الأداة:</label>
+        <select id="tool">
+          <option value="simple-queue">مولد Simple Queue</option>
+          <option value="queue-tree">مولد Queue Tree</option>
+          <option value="pcq">مولد PCQ</option>
+          <option value="load-balancing-pcc">موازنة الحمل PCC</option>
+          <option value="load-balancing-ecmp">موازنة الحمل ECMP</option>
+          <option value="load-balancing-nth">موازنة الحمل NTH</option>
+          <option value="vpn-pptp">نفق VPN PPTP</option>
+          <option value="vpn-l2tp">نفق VPN L2TP</option>
+          <option value="vpn-openvpn">نفق VPN OpenVPN</option>
+          <option value="firewall-basic">جدار حماية أساسي</option>
+          <option value="firewall-advanced">جدار حماية متقدم</option>
+          <option value="firewall-block-social">حظر وسائل التواصل</option>
+          <option value="netwatch">Netwatch</option>
+          <option value="dhcp-server">خادم DHCP</option>
+          <option value="dns-doh">DNS over HTTPS (DoH)</option>
+          <option value="dns-dot">DNS over TLS (DoT)</option>
+          <option value="hotspot-setup">إعداد Hotspot</option>
+          <option value="hotspot-qr">Hotspot تسجيل الدخول</option>
+          <option value="wireless-optimization">تحسين الواي فاي</option>
+          <option value="capsman">إعداد CAPsMAN</option>
+          <option value="static-routing">توجيه ثابت</option>
+          <option value="ospf">إعداد OSPF</option>
+          <option value="ipsec">إعداد IPsec</option>
+          <option value="pppoe-server">خادم PPPoE</option>
+          <option value="pppoe-client">عميل PPPoE</option>
+          <option value="vrrp">إعداد VRRP</option>
+          <option value="traffic-monitor">مراقبة الحركة</option>
+          <option value="port-knocking">Port Knocking</option>
+          <option value="ipv6-addressing">عناوين IPv6</option>
+          <option value="dhcpv6">خادم DHCPv6</option>
+          <option value="scheduled-script">سكربت مجدول</option>
+          <option value="backup-script">سكربت النسخ الاحتياطي</option>
+          <option value="general">سؤال عام</option>
+        </select>
+        <div id="inputs"></div>
+        <button id="submit">إنشاء السكربت</button>
+        <p id="error"></p>
+        <div id="answer">
+          <textarea id="answer-text" readonly></textarea>
+          <button id="copy">نسخ السكربت</button>
+        </div>
+      </div>
+      <div class="sidebar">
+        <ul>
+          <li><a href="#" data-tool="simple-queue">مولد Simple Queue</a></li>
+          <li><a href="#" data-tool="queue-tree">مولد Queue Tree</a></li>
+          <li><a href="#" data-tool="pcq">مولد PCQ</a></li>
+          <li><a href="#" data-tool="load-balancing-pcc">موازنة الحمل PCC</a></li>
+          <li><a href="#" data-tool="load-balancing-ecmp">موازنة الحمل ECMP</a></li>
+          <li><a href="#" data-tool="load-balancing-nth">موازنة الحمل NTH</a></li>
+          <li><a href="#" data-tool="vpn-pptp">نفق VPN PPTP</a></li>
+          <li><a href="#" data-tool="vpn-l2tp">نفق VPN L2TP</a></li>
+          <li><a href="#" data-tool="vpn-openvpn">نفق VPN OpenVPN</a></li>
+          <li><a href="#" data-tool="firewall-basic">جدار حماية أساسي</a></li>
+          <li><a href="#" data-tool="firewall-advanced">جدار حماية متقدم</a></li>
+          <li><a href="#" data-tool="firewall-block-social">حظر وسائل التواصل</a></li>
+          <li><a href="#" data-tool="netwatch">Netwatch</a></li>
+          <li><a href="#" data-tool="dhcp-server">خادم DHCP</a></li>
+          <li><a href="#" data-tool="dns-doh">DNS over HTTPS (DoH)</a></li>
+          <li><a href="#" data-tool="dns-dot">DNS over TLS (DoT)</a></li>
+          <li><a href="#" data-tool="hotspot-setup">إعداد Hotspot</a></li>
+          <li><a href="#" data-tool="hotspot-qr">Hotspot تسجيل الدخول</a></li>
+          <li><a href="#" data-tool="wireless-optimization">تحسين الواي فاي</a></li>
+          <li><a href="#" data-tool="capsman">إعداد CAPsMAN</a></li>
+          <li><a href="#" data-tool="static-routing">توجيه ثابت</a></li>
+          <li><a href="#" data-tool="ospf">إعداد OSPF</a></li>
+          <li><a href="#" data-tool="ipsec">إعداد IPsec</a></li>
+          <li><a href="#" data-tool="pppoe-server">خادم PPPoE</a></li>
+          <li><a href="#" data-tool="pppoe-client">عميل PPPoE</a></li>
+          <li><a href="#" data-tool="vrrp">إعداد VRRP</a></li>
+          <li><a href="#" data-tool="traffic-monitor">مراقبة الحركة</a></li>
+          <li><a href="#" data-tool="port-knocking">Port Knocking</a></li>
+          <li><a href="#" data-tool="ipv6-addressing">عناوين IPv6</a></li>
+          <li><a href="#" data-tool="dhcpv6">خادم DHCPv6</a></li>
+          <li><a href="#" data-tool="scheduled-script">سكربت مجدول</a></li>
+          <li><a href="#" data-tool="backup-script">سكربت النسخ الاحتياطي</a></li>
+          <li><a href="#" data-tool="general">سؤال عام</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="disclaimer">
+      تنبيه: استخدم السكربتات بحذر. دكتور نت غير مسؤول عن أي أضرار ناتجة عن استخدام هذه الأدوات. الأدوات تعمل بشكل مستقل وليست تابعة لشركة MikroTik.
+    </p>
+  </div>
+  <script>
+    // قاعدة بيانات محلية موسعة للسكربتات (مستوحاة من https://wiki.mikrotik.com و https://buananetpbun.github.io/)
+    const toolsDatabase = {
+      'simple-queue': {
+        description: 'مولد Simple Queue لتحديد سرعة العملاء',
+        inputs: [
+          { id: 'ip', label: 'عنوان IP', placeholder: '192.168.1.2' },
+          { id: 'speed', label: 'السرعة (تحميل/رفع)', placeholder: '2M/2M' },
+          { id: 'name', label: 'اسم العميل', placeholder: 'client1' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/queue simple\n';
+          entries.forEach((params, index) => {
+            const ip = params.ip || `192.168.1.${index + 2}`;
+            const speed = params.speed || '2M/2M';
+            const name = params.name || `client${index + 1}`;
+            script += `add max-limit=${speed} name=${name} target=${ip}/32\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'queue-tree': {
+        description: 'مولد Queue Tree لإدارة النطاق الترددي',
+        inputs: [
+          { id: 'name', label: 'اسم Queue', placeholder: 'queue1' },
+          { id: 'limit', label: 'الحد الأقصى', placeholder: '10M' },
+          { id: 'parent', label: 'الأصل', placeholder: 'global' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/queue tree\n';
+          entries.forEach((params, index) => {
+            const name = params.name || `queue${index + 1}`;
+            const limit = params.limit || '10M';
+            const parent = params.parent || 'global';
+            script += `add name=${name} parent=${parent} max-limit=${limit}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'pcq': {
+        description: 'مولد PCQ لتوزيع النطاق الترددي بالتساوي',
+        inputs: [
+          { id: 'name', label: 'اسم PCQ', placeholder: 'pcq1' },
+          { id: 'rate', label: 'السرعة لكل مستخدم', placeholder: '1M' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/queue type\n';
+          entries.forEach((params, index) => {
+            const name = params.name || `pcq${index + 1}`;
+            const rate = params.rate || '1M';
+            script += `add kind=pcq name=${name} pcq-rate=${rate}\n`;
+          });
+          script += '/queue tree\n';
+          entries.forEach((params, index) => {
+            const name = params.name || `pcq${index + 1}`;
+            script += `add name=${name} parent=global queue=${name}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'load-balancing-pcc': {
+        description: 'موازنة الحمل PCC لتوزيع الحمل',
+        inputs: [
+          { id: 'wanIp', label: 'عنوان IP لـ WAN', placeholder: '192.168.1.2' },
+          { id: 'wanGw', label: 'بوابة WAN', placeholder: '192.168.1.1' },
+          { id: 'wanInterface', label: 'واجهة WAN', placeholder: 'ether1' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ip address\n';
+          entries.forEach((params, index) => {
+            const wanIp = params.wanIp || `192.168.${index + 1}.2`;
+            const wanInterface = params.wanInterface || `ether${index + 1}`;
+            script += `add address=${wanIp}/24 interface=${wanInterface}\n`;
+          });
+          script += '/ip route\n';
+          const gateways = entries.map((params, index) => params.wanGw || `192.168.${index + 1}.1`).join(',');
+          script += `add dst-address=0.0.0.0/0 gateway=${gateways}\n`;
+          script += '/ip firewall mangle\n';
+          entries.forEach((params, index) => {
+            script += `add chain=prerouting dst-address-type=!local in-interface=lan per-connection-classifier=both-addresses:${entries.length}/${index} action=mark-connection new-connection-mark=wan${index + 1}_conn passthrough=yes\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'load-balancing-ecmp': {
+        description: 'موازنة الحمل ECMP لتوزيع الحمل',
+        inputs: [
+          { id: 'wanIp', label: 'عنوان IP لـ WAN', placeholder: '192.168.1.2' },
+          { id: 'wanGw', label: 'بوابة WAN', placeholder: '192.168.1.1' },
+          { id: 'wanInterface', label: 'واجهة WAN', placeholder: 'ether1' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ip address\n';
+          entries.forEach((params, index) => {
+            const wanIp = params.wanIp || `192.168.${index + 1}.2`;
+            const wanInterface = params.wanInterface || `ether${index + 1}`;
+            script += `add address=${wanIp}/24 interface=${wanInterface}\n`;
+          });
+          script += '/ip route\n';
+          const gateways = entries.map((params, index) => params.wanGw || `192.168.${index + 1}.1`).join(',');
+          script += `add dst-address=0.0.0.0/0 gateway=${gateways}\n`;
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'load-balancing-nth': {
+        description: 'موازنة الحمل NTH لتوزيع الحمل',
+        inputs: [
+          { id: 'wanIp', label: 'عنوان IP لـ WAN', placeholder: '192.168.1.2' },
+          { id: 'wanGw', label: 'بوابة WAN', placeholder: '192.168.1.1' },
+          { id: 'wanInterface', label: 'واجهة WAN', placeholder: 'ether1' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ip address\n';
+          entries.forEach((params, index) => {
+            const wanIp = params.wanIp || `192.168.${index + 1}.2`;
+            const wanInterface = params.wanInterface || `ether${index + 1}`;
+            script += `add address=${wanIp}/24 interface=${wanInterface}\n`;
+          });
+          script += '/ip firewall mangle\n';
+          entries.forEach((params, index) => {
+            script += `add chain=prerouting dst-address-type=!local in-interface=lan nth=${entries.length},${index} action=mark-routing new-routing-mark=to_wan${index + 1} passthrough=yes\n`;
+          });
+          script += '/ip route\n';
+          entries.forEach((params, index) => {
+            const wanGw = params.wanGw || `192.168.${index + 1}.1`;
+            script += `add dst-address=0.0.0.0/0 gateway=${wanGw} routing-mark=to_wan${index + 1}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'vpn-pptp': {
+        description: 'إعداد نفق VPN PPTP',
+        inputs: [
+          { id: 'server', label: 'عنوان الخادم', placeholder: 'vpn.server.com' },
+          { id: 'user', label: 'اسم المستخدم', placeholder: 'vpnuser' },
+          { id: 'pass', label: 'كلمة المرور', placeholder: 'vpnpass' },
+          { id: 'interface', label: 'اسم الواجهة', placeholder: 'pptp-out1' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/interface pptp-client\n';
+          entries.forEach((params, index) => {
+            const server = params.server || 'vpn.server.com';
+            const user = params.user || `vpnuser${index + 1}`;
+            const pass = params.pass || 'vpnpass';
+            const interface = params.interface || `pptp-out${index + 1}`;
+            script += `add connect-to=${server} user=${user} password=${pass} name=${interface}\n`;
+          });
+          script += '/ip route\n';
+          entries.forEach((params, index) => {
+            const interface = params.interface || `pptp-out${index + 1}`;
+            script += `add dst-address=0.0.0.0/0 gateway=${interface}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'vpn-l2tp': {
+        description: 'إعداد نفق VPN L2TP',
+        inputs: [
+          { id: 'server', label: 'عنوان الخادم', placeholder: 'vpn.server.com' },
+          { id: 'user', label: 'اسم المستخدم', placeholder: 'vpnuser' },
+          { id: 'pass', label: 'كلمة المرور', placeholder: 'vpnpass' },
+          { id: 'interface', label: 'اسم الواجهة', placeholder: 'l2tp-out1' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/interface l2tp-client\n';
+          entries.forEach((params, index) => {
+            const server = params.server || 'vpn.server.com';
+            const user = params.user || `vpnuser${index + 1}`;
+            const pass = params.pass || 'vpnpass';
+            const interface = params.interface || `l2tp-out${index + 1}`;
+            script += `add connect-to=${server} user=${user} password=${pass} name=${interface}\n`;
+          });
+          script += '/ip route\n';
+          entries.forEach((params, index) => {
+            const interface = params.interface || `l2tp-out${index + 1}`;
+            script += `add dst-address=0.0.0.0/0 gateway=${interface}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'vpn-openvpn': {
+        description: 'إعداد نفق VPN OpenVPN',
+        inputs: [
+          { id: 'server', label: 'عنوان الخادم', placeholder: 'vpn.server.com' },
+          { id: 'port', label: 'المنفذ', placeholder: '1194' },
+          { id: 'user', label: 'اسم المستخدم', placeholder: 'vpnuser' },
+          { id: 'pass', label: 'كلمة المرور', placeholder: 'vpnpass' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/interface ovpn-client\n';
+          entries.forEach((params, index) => {
+            const server = params.server || 'vpn.server.com';
+            const port = params.port || '1194';
+            const user = params.user || `vpnuser${index + 1}`;
+            const pass = params.pass || 'vpnpass';
+            script += `add connect-to=${server} port=${port} user=${user} password=${pass} name=ovpn${index + 1}\n`;
+          });
+          script += '# ملاحظة: يتطلب إعداد شهادات على الخادم\n';
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'firewall-basic': {
+        description: 'جدار حماية أساسي لتأمين الراوتر',
+        inputs: [],
+        script: function() {
+          return `/ip firewall filter
+add action=accept chain=input protocol=icmp comment="Allow ICMP"
+add action=drop chain=input comment="Drop all else"
+# المصدر: دكتور نت`;
+        }
+      },
+      'firewall-advanced': {
+        description: 'جدار حماية متقدم مع حماية إضافية',
+        inputs: [
+          { id: 'port', label: 'المنفذ', placeholder: '80' },
+          { id: 'protocol', label: 'البروتوكول', placeholder: 'tcp' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ip firewall filter\n';
+          entries.forEach((params, index) => {
+            const port = params.port || '80';
+            const protocol = params.protocol || 'tcp';
+            script += `add action=accept chain=input protocol=${protocol} dst-port=${port} comment="Allow ${protocol} port ${port}"\n`;
+          });
+          script += `add action=drop chain=input comment="Drop all else"\n`;
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'firewall-block-social': {
+        description: 'حظر وسائل التواصل الاجتماعي',
+        inputs: [
+          { id: 'site', label: 'الموقع (مثل YouTube)', placeholder: 'YouTube' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ip firewall filter\n';
+          entries.forEach((params, index) => {
+            const site = params.site || `site${index + 1}`;
+            script += `add action=drop chain=forward dst-address-list="Mikrotik-${site}" comment="Block ${site} - دكتور نت"\n`;
+          });
+          script += '# ملاحظة: يجب إنشاء قائمة عناوين Mikrotik-<site> يدويًا باستخدام /ip firewall address-list\n';
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'netwatch': {
+        description: 'Netwatch لمراقبة الاتصال',
+        inputs: [
+          { id: 'host', label: 'عنوان المضيف', placeholder: '8.8.8.8' },
+          { id: 'upScript', label: 'سكربت Up', placeholder: '/system script run up-script' },
+          { id: 'downScript', label: 'سكربت Down', placeholder: '/system script run down-script' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/tool netwatch\n';
+          entries.forEach((params, index) => {
+            const host = params.host || `8.8.8.${index + 8}`;
+            const upScript = params.upScript || '/system script run up-script';
+            const downScript = params.downScript || '/system script run down-script';
+            script += `add host=${host} interval=10s up-script="${upScript}" down-script="${downScript}"\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'dhcp-server': {
+        description: 'إعداد خادم DHCP',
+        inputs: [
+          { id: 'interface', label: 'الواجهة', placeholder: 'ether2' },
+          { id: 'gateway', label: 'البوابة', placeholder: '192.168.1.1' },
+          { id: 'pool', label: 'نطاق IP', placeholder: '192.168.1.2-192.168.1.254' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ip pool\n';
+          entries.forEach((params, index) => {
+            const pool = params.pool || `192.168.${index + 1}.2-192.168.${index + 1}.254`;
+            script += `add name=dhcp_pool${index + 1} ranges=${pool}\n`;
+          });
+          script += '/ip dhcp-server\n';
+          entries.forEach((params, index) => {
+            const interface = params.interface || `ether${index + 2}`;
+            script += `add name=dhcp${index + 1} interface=${interface} address-pool=dhcp_pool${index + 1}\n`;
+          });
+          script += '/ip dhcp-server network\n';
+          entries.forEach((params, index) => {
+            const gateway = params.gateway || `192.168.${index + 1}.1`;
+            script += `add address=192.168.${index + 1}.0/24 gateway=${gateway}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'dns-doh': {
+        description: 'إعداد DNS over HTTPS (DoH)',
+        inputs: [
+          { id: 'dohServer', label: 'خادم DoH', placeholder: 'dns.google' }
+        ],
+        repeatable: false,
+        script: function(params) {
+          const dohServer = params.dohServer || 'dns.google';
+          return `/ip dns
+set allow-remote-requests=yes use-doh-server=https://${dohServer}/dns-query verify-doh-cert=yes
+# المصدر: دكتور نت`;
+        }
+      },
+      'dns-dot': {
+        description: 'إعداد DNS over TLS (DoT)',
+        inputs: [
+          { id: 'dotServer', label: 'خادم DoT', placeholder: '1.1.1.1' }
+        ],
+        repeatable: false,
+        script: function(params) {
+          const dotServer = params.dotServer || '1.1.1.1';
+          return `/ip dns
+set servers=${dotServer} use-dot=yes
+# المصدر: دكتور نت`;
+        }
+      },
+      'hotspot-setup': {
+        description: 'إعداد Hotspot بسيط',
+        inputs: [
+          { id: 'interface', label: 'واجهة Hotspot', placeholder: 'wlan1' },
+          { id: 'user', label: 'اسم المستخدم', placeholder: 'user1' },
+          { id: 'pass', label: 'كلمة المرور', placeholder: 'pass123' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ip hotspot\n';
+          entries.forEach((params, index) => {
+            const interface = params.interface || `wlan${index + 1}`;
+            script += `add name=hotspot${index + 1} interface=${interface}\n`;
+          });
+          script += '/ip hotspot user\n';
+          entries.forEach((params, index) => {
+            const user = params.user || `user${index + 1}`;
+            const pass = params.pass || 'pass123';
+            script += `add name=${user} password=${pass}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'hotspot-qr': {
+        description: 'إعداد ملف تعريف Hotspot لتسجيل الدخول',
+        inputs: [
+          { id: 'ssid', label: 'اسم SSID', placeholder: 'MyHotspot' },
+          { id: 'password', label: 'كلمة المرور', placeholder: 'pass123' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ip hotspot profile\n';
+          entries.forEach((params, index) => {
+            const ssid = params.ssid || `MyHotspot${index + 1}`;
+            const password = params.password || 'pass123';
+            script += `add name=profile${index + 1} login-by=http-pap,http-chap hotspot-address=192.168.${index + 1}.1 ssid=${ssid} password=${password}\n`;
+          });
+          script += '# ملاحظة: لإنشاء رمز QR، استخدم أداة خارجية مع بيانات تسجيل الدخول\n';
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'wireless-optimization': {
+        description: 'تحسين إعدادات الواي فاي',
+        inputs: [
+          { id: 'channel', label: 'القناة', placeholder: '6' },
+          { id: 'band', label: 'النطاق', placeholder: '2.4ghz' },
+          { id: 'interface', label: 'الواجهة', placeholder: 'wlan1' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/interface wireless\n';
+          entries.forEach((params, index) => {
+            const channel = params.channel || '6';
+            const band = params.band || '2.4ghz';
+            const interface = params.interface || `wlan${index + 1}`;
+            script += `set ${interface} channel=${channel} band=${band}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'capsman': {
+        description: 'إعداد CAPsMAN لإدارة نقاط الوصول',
+        inputs: [
+          { id: 'name', label: 'اسم CAPsMAN', placeholder: 'capsman1' },
+          { id: 'interface', label: 'الواجهة', placeholder: 'wlan1' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/caps-man manager\n';
+          script += 'set enabled=yes\n';
+          script += '/caps-man configuration\n';
+          entries.forEach((params, index) => {
+            const name = params.name || `capsman${index + 1}`;
+            const interface = params.interface || `wlan${index + 1}`;
+            script += `add name=${name} ssid=${name} interfaces=${interface}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'static-routing': {
+        description: 'إعداد توجيه ثابت',
+        inputs: [
+          { id: 'dst', label: 'عنوان الوجهة', placeholder: '192.168.2.0/24' },
+          { id: 'gateway', label: 'البوابة', placeholder: '192.168.1.1' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ip route\n';
+          entries.forEach((params, index) => {
+            const dst = params.dst || `192.168.${index + 2}.0/24`;
+            const gateway = params.gateway || `192.168.1.1`;
+            script += `add dst-address=${dst} gateway=${gateway}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'ospf': {
+        description: 'إعداد بروتوكول OSPF',
+        inputs: [
+          { id: 'area', label: 'معرف المنطقة', placeholder: '0.0.0.0' },
+          { id: 'interface', label: 'الواجهة', placeholder: 'ether1' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/routing ospf instance\n';
+          script += 'set [find default=yes] router-id=0.0.0.0\n';
+          script += '/routing ospf interface\n';
+          entries.forEach((params, index) => {
+            const interface = params.interface || `ether${index + 1}`;
+            script += `add interface=${interface}\n`;
+          });
+          script += '/routing ospf area\n';
+          entries.forEach((params, index) => {
+            const area = params.area || '0.0.0.0';
+            script += `add area-id=${area} name=area${index + 1}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'ipsec': {
+        description: 'إعداد IPsec للتشفير',
+        inputs: [
+          { id: 'peer', label: 'عنوان Peer', placeholder: '192.168.1.2' },
+          { id: 'secret', label: 'مفتاح مشترك', placeholder: 'mysecret' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ip ipsec peer\n';
+          entries.forEach((params, index) => {
+            const peer = params.peer || `192.168.1.${index + 2}`;
+            const secret = params.secret || 'mysecret';
+            script += `add address=${peer} secret=${secret}\n`;
+          });
+          script += '/ip ipsec policy\n';
+          entries.forEach((params, index) => {
+            script += `add src-address=0.0.0.0/0 dst-address=0.0.0.0/0 action=encrypt\n`;
+          });
+          script += '# ملاحظة: يتطلب تكوين مفصل على الطرفين\n';
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'pppoe-server': {
+        description: 'إعداد خادم PPPoE',
+        inputs: [
+          { id: 'interface', label: 'الواجهة', placeholder: 'ether2' },
+          { id: 'user', label: 'اسم المستخدم', placeholder: 'user1' },
+          { id: 'pass', label: 'كلمة المرور', placeholder: 'pass123' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ppp profile\n';
+          script += 'add name=pppoe-profile\n';
+          script += '/interface pppoe-server server\n';
+          entries.forEach((params, index) => {
+            const interface = params.interface || `ether${index + 2}`;
+            script += `add service-name=pppoe${index + 1} interface=${interface} profile=pppoe-profile\n`;
+          });
+          script += '/ppp secret\n';
+          entries.forEach((params, index) => {
+            const user = params.user || `user${index + 1}`;
+            const pass = params.pass || 'pass123';
+            script += `add name=${user} password=${pass} service=pppoe\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'pppoe-client': {
+        description: 'إعداد عميل PPPoE',
+        inputs: [
+          { id: 'interface', label: 'الواجهة', placeholder: 'ether1' },
+          { id: 'user', label: 'اسم المستخدم', placeholder: 'user1' },
+          { id: 'pass', label: 'كلمة المرور', placeholder: 'pass123' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/interface pppoe-client\n';
+          entries.forEach((params, index) => {
+            const interface = params.interface || `ether${index + 1}`;
+            const user = params.user || `user${index + 1}`;
+            const pass = params.pass || 'pass123';
+            script += `add interface=${interface} user=${user} password=${pass} name=pppoe${index + 1}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'vrrp': {
+        description: 'إعداد VRRP للتكرار',
+        inputs: [
+          { id: 'interface', label: 'الواجهة', placeholder: 'ether1' },
+          { id: 'virtualIp', label: 'عنوان IP افتراضي', placeholder: '192.168.1.254' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/interface vrrp\n';
+          entries.forEach((params, index) => {
+            const interface = params.interface || `ether${index + 1}`;
+            const virtualIp = params.virtualIp || `192.168.1.${254 - index}`;
+            script += `add interface=${interface} vrid=${index + 1} virtual-router-ip=${virtualIp}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'traffic-monitor': {
+        description: 'مراقبة الحركة المرورية',
+        inputs: [
+          { id: 'interface', label: 'الواجهة', placeholder: 'ether1' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/tool traffic-monitor\n';
+          entries.forEach((params, index) => {
+            const interface = params.interface || `ether${index + 1}`;
+            script += `add interface=${interface} name=monitor${index + 1}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'port-knocking': {
+        description: 'إعداد Port Knocking للأمان',
+        inputs: [
+          { id: 'port', label: 'المنفذ', placeholder: '12345' },
+          { id: 'protocol', label: 'البروتوكول', placeholder: 'tcp' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ip firewall filter\n';
+          entries.forEach((params, index) => {
+            const port = params.port || `123${index + 45}`;
+            const protocol = params.protocol || 'tcp';
+            script += `add chain=input protocol=${protocol} dst-port=${port} action=add-src-to-address-list address-list=allowed comment="Port Knocking ${port}"\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'ipv6-addressing': {
+        description: 'إعداد عناوين IPv6',
+        inputs: [
+          { id: 'interface', label: 'الواجهة', placeholder: 'ether1' },
+          { id: 'address', label: 'عنوان IPv6', placeholder: '2001:db8::1/64' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ipv6 address\n';
+          entries.forEach((params, index) => {
+            const interface = params.interface || `ether${index + 1}`;
+            const address = params.address || `2001:db8::${index + 1}/64`;
+            script += `add address=${address} interface=${interface}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'dhcpv6': {
+        description: 'إعداد خادم DHCPv6',
+        inputs: [
+          { id: 'interface', label: 'الواجهة', placeholder: 'ether1' },
+          { id: 'pool', label: 'نطاق IPv6', placeholder: '2001:db8::/64' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/ipv6 pool\n';
+          entries.forEach((params, index) => {
+            const pool = params.pool || `2001:db8::${index}/64`;
+            script += `add name=pool${index + 1} prefix=${pool}\n`;
+          });
+          script += '/ipv6 dhcp-server\n';
+          entries.forEach((params, index) => {
+            const interface = params.interface || `ether${index + 1}`;
+            script += `add name=dhcpv6${index + 1} interface=${interface} address-pool=pool${index + 1}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'scheduled-script': {
+        description: 'إعداد سكربت مجدول',
+        inputs: [
+          { id: 'name', label: 'اسم السكربت', placeholder: 'script1' },
+          { id: 'interval', label: 'الفاصل الزمني', placeholder: '1h' },
+          { id: 'command', label: 'الأمر', placeholder: '/system reboot' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/system scheduler\n';
+          entries.forEach((params, index) => {
+            const name = params.name || `script${index + 1}`;
+            const interval = params.interval || '1h';
+            const command = params.command || '/system reboot';
+            script += `add name=${name} interval=${interval} on-event="${command}"\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'backup-script': {
+        description: 'سكربت النسخ الاحتياطي',
+        inputs: [
+          { id: 'name', label: 'اسم النسخة الاحتياطية', placeholder: 'backup1' }
+        ],
+        repeatable: true,
+        script: function(entries) {
+          let script = '/system backup\n';
+          entries.forEach((params, index) => {
+            const name = params.name || `backup${index + 1}`;
+            script += `save name=${name}\n`;
+          });
+          script += '# المصدر: دكتور نت';
+          return script;
+        }
+      },
+      'general': {
+        description: 'إجابة عامة لأسئلة MikroTik',
+        inputs: [
+          { id: 'question', label: 'السؤال', placeholder: 'مثال: كيف أضبط VLAN؟' }
+        ],
+        repeatable: false,
+        script: function(params) {
+          const question = params.question || '';
+          return `إجابة من دكتور نت لسؤالك: ${question}
+مثال: لإعداد VLAN، استخدم الأمر: /interface vlan add name=vlan10 vlan-id=10 interface=ether1.
+# المصدر: دكتور نت`;
+        }
+      }
+    };
+
+    const toolSelect = document.getElementById('tool');
+    const inputsDiv = document.getElementById('inputs');
+    const submitButton = document.getElementById('submit');
+    const errorText = document.getElementById('error');
+    const answerDiv = document.getElementById('answer');
+    const answerText = document.getElementById('answer-text');
+    const copyButton = document.getElementById('copy');
+    const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+    function renderInputs(tool) {
+      inputsDiv.innerHTML = '';
+      const data = toolsDatabase[tool];
+      if (data && data.inputs) {
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'input-group';
+        groupDiv.id = `input-group-0`;
+        data.inputs.forEach(input => {
+          const label = document.createElement('label');
+          label.textContent = input.label;
+          const inputElement = document.createElement('input');
+          inputElement.type = 'text';
+          inputElement.id = `${input.id}-0`;
+          inputElement.placeholder = input.placeholder;
+          groupDiv.appendChild(label);
+          groupDiv.appendChild(inputElement);
+        });
+        if (data.repeatable) {
+          const removeBtn = document.createElement('button');
+          removeBtn.className = 'remove-btn';
+          removeBtn.textContent = 'إزالة';
+          removeBtn.style.display = 'none';
+          removeBtn.onclick = () => groupDiv.remove();
+          groupDiv.appendChild(removeBtn);
+        }
+        inputsDiv.appendChild(groupDiv);
+
+        if (data.repeatable) {
+          const addBtn = document.createElement('button');
+          addBtn.className = 'add-btn';
+          addBtn.textContent = 'إضافة خط';
+          addBtn.onclick = () => {
+            const index = inputsDiv.querySelectorAll('.input-group').length;
+            const newGroup = document.createElement('div');
+            newGroup.className = 'input-group';
+            newGroup.id = `input-group-${index}`;
+            data.inputs.forEach(input => {
+              const label = document.createElement('label');
+              label.textContent = input.label;
+              const inputElement = document.createElement('input');
+              inputElement.type = 'text';
+              inputElement.id = `${input.id}-${index}`;
+              inputElement.placeholder = input.placeholder;
+              newGroup.appendChild(label);
+              newGroup.appendChild(inputElement);
+            });
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-btn';
+            removeBtn.textContent = 'إزالة';
+            removeBtn.onclick = () => newGroup.remove();
+            newGroup.appendChild(removeBtn);
+            inputsDiv.appendChild(newGroup);
+          };
+          inputsDiv.appendChild(addBtn);
+        }
+      }
+    }
+
+    toolSelect.addEventListener('change', () => {
+      renderInputs(toolSelect.value);
+    });
+
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tool = link.getAttribute('data-tool');
+        toolSelect.value = tool;
+        renderInputs(tool);
+      });
+    });
+
+    function handleSubmit() {
+      const tool = toolSelect.value;
+      const data = toolsDatabase[tool];
+      if (!data) {
+        errorText.textContent = 'الأداة غير موجودة';
+        errorText.style.display = 'block';
+        return;
+      }
+
+      let entries = [];
+      if (data.inputs) {
+        if (data.repeatable) {
+          const groups = inputsDiv.querySelectorAll('.input-group');
+          if (groups.length === 0) {
+            errorText.textContent = 'يرجى إضافة خط واحد على الأقل';
+            errorText.style.display = 'block';
+            return;
+          }
+          groups.forEach((group, index) => {
+            const params = {};
+            data.inputs.forEach(input => {
+              const value = document.getElementById(`${input.id}-${index}`)?.value.trim();
+              if (!value && tool !== 'general') {
+                errorText.textContent = `يرجى ملء حقل ${input.label} في الخط ${index + 1}`;
+                errorText.style.display = 'block';
+                return;
+              }
+              params[input.id] = value;
+            });
+            entries.push(params);
+          });
+        } else {
+          const params = {};
+          data.inputs.forEach(input => {
+            const value = document.getElementById(`${input.id}-0`)?.value.trim();
+            if (!value && tool !== 'general') {
+              errorText.textContent = `يرجى ملء حقل ${input.label}`;
+              errorText.style.display = 'block';
+              return;
+            }
+            params[input.id] = value;
+          });
+          entries = [params];
+        }
+      }
+
+      errorText.style.display = 'none';
+      submitButton.disabled = true;
+      submitButton.textContent = 'جارٍ المعالجة...';
+      answerDiv.style.display = 'none';
+
+      try {
+        const response = data.repeatable ? data.script(entries) : data.script(entries[0]);
+        answerText.value = response;
+        answerDiv.style.display = 'block';
+      } catch (error) {
+        errorText.textContent = 'حدث خطأ أثناء معالجة الطلب';
+        errorText.style.display = 'block';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'إنشاء السكربت';
+      }
+    }
+
+    submitButton.addEventListener('click', handleSubmit);
+    submitButton.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      handleSubmit();
+    });
+
+    copyButton.addEventListener('click', () => {
+      answerText.select();
+      try {
+        document.execCommand('copy');
+        copyButton.textContent = 'تم النسخ!';
+        setTimeout(() => {
+          copyButton.textContent = 'نسخ السكربت';
+        }, 2000);
+      } catch (error) {
+        errorText.textContent = 'فشل النسخ. حاول يدويًا.';
+        errorText.style.display = 'block';
+      }
+    });
+
+    copyButton.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      answerText.select();
+      try {
+        document.execCommand('copy');
+        copyButton.textContent = 'تم النسخ!';
+        setTimeout(() => {
+          copyButton.textContent = 'نسخ السكربت';
+        }, 2000);
+      } catch (error) {
+        errorText.textContent = 'فشل النسخ. حاول يدويًا.';
+        errorText.style.display = 'block';
+      }
+    });
+
+    // تحميل الأداة الافتراضية عند تحميل الصفحة
+    renderInputs(toolSelect.value);
+  </script>
+</body>
+</html>
