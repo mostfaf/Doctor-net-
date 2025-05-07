@@ -3,37 +3,34 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>دكتور نت 2.0 - أفضل أدوات MikroTik بالعالم</title>
-<meta name="description" content="دكتور نت 2.0 - منصة متطورة لأدوات MikroTik مع تصميم فريد وتجربة مستخدم استثنائية" />
+<title>دكتور نت - أدوات مايكروتيك</title>
+<meta name="description" content="دكتور نت - منصة متكاملة لأدوات MikroTik مع شرح تفصيلي وتصميم عصري وتجربة مستخدم مميزة." />
 <meta name="author" content="مصطفى عاطف الشوري" />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
-  /* Reset and base */
+  /* تصميم عصري */
   *, *::before, *::after { box-sizing: border-box; }
   body {
     margin:0; padding:0;
     font-family: 'Cairo', sans-serif;
-    background: linear-gradient(135deg, #001f4d, #004aad);
+    background: linear-gradient(135deg,#001f4d,#004aad);
     color: #222;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
   }
-  a { text-decoration: none; color: inherit; }
-  /* Container */
   #wrap {
     max-width: 1000px;
     width: 95%;
     background: #fff;
     border-radius: 20px;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-    margin: 40px 0 80px;
-    padding: 30px 40px 50px;
-    position: relative;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    padding: 40px 50px 80px;
+    margin: 40px 0;
   }
-  /* Header */
   header {
     text-align: center;
     margin-bottom: 30px;
@@ -43,183 +40,129 @@
     height: 160px;
     border-radius: 50%;
     border: 6px solid #004aad;
-    box-shadow: 0 0 20px #0073e6;
+    box-shadow: 0 0 25px #0073e6;
     transition: transform 0.3s ease;
   }
   .logo-img:hover {
-    transform: rotate(10deg);
+    transform: rotate(15deg);
   }
   h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color: #004aad;
-    margin-top: 15px;
+    margin-top: 20px;
     font-weight: 700;
     letter-spacing: 2px;
   }
-  /* Warning */
   .warning-message {
     background: #fff3cd;
     color: #856404;
-    padding: 15px 20px;
-    border-radius: 12px;
-    font-weight: 600;
-    margin-bottom: 30px;
+    padding: 18px 25px;
+    border-radius: 15px;
+    font-weight: 700;
+    margin-bottom: 35px;
     border: 1px solid #ffeeba;
-    box-shadow: 0 2px 12px rgba(255,193,7,0.3);
+    box-shadow: 0 3px 15px rgba(255,193,7,0.4);
     text-align: center;
-  }
-  /* Tool selector & description */
-  #tool-section {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 25px;
   }
   label {
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #004aad;
+    display: block;
+    margin-bottom: 10px;
   }
-  select {
-    padding: 14px 20px;
-    font-size: 1rem;
-    border-radius: 12px;
-    border: 2px solid #004aad;
+  select, input[type=text], textarea {
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    border: 3px solid #004aad;
+    border-radius: 15px;
+    font-size: 1.1rem;
     background: #eaf4ff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  select:hover, select:focus {
-    background-color: #d1e7ff;
     outline: none;
-  }
-  #tool-desc {
-    font-size: 1rem;
-    color: #333;
-    min-height: 50px;
-    padding: 10px 15px;
-    background: #f0f8ff;
-    border-radius: 12px;
     box-shadow: inset 0 0 10px #cce5ff;
   }
-  /* Inputs container */
-  #inputs {
-    margin-bottom: 20px;
+  select:hover, select:focus, input[type=text]:focus, textarea:focus {
+    background: #d1e7ff;
   }
-  .input-group {
-    margin-bottom: 18px;
-  }
-  .input-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-    color: #004aad;
-  }
-  .input-group input[type="text"],
-  .input-group textarea {
+  button {
     width: 100%;
-    padding: 12px 15px;
-    font-size: 1rem;
-    border-radius: 10px;
-    border: 2px solid #ccc;
-    transition: border-color 0.3s ease;
-  }
-  .input-group input[type="text"]:focus,
-  .input-group textarea:focus {
-    border-color: #004aad;
-    background-color: #eaf4ff;
-    outline: none;
-  }
-  textarea {
-    resize: vertical;
-    min-height: 80px;
-  }
-  /* Add/Remove buttons for repeatable inputs */
-  .repeat-controls {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .btn-add, .btn-remove {
-    background-color: #004aad;
-    color: white;
+    padding: 18px;
+    font-size: 1.3rem;
+    font-weight: 800;
     border: none;
-    padding: 10px 18px;
-    font-weight: 700;
-    border-radius: 12px;
+    border-radius: 20px;
+    background: #004aad;
+    color: #fff;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0,67,173,0.8);
+    user-select: none;
   }
-  .btn-add:hover, .btn-remove:hover {
-    background-color: #002e6d;
+  button:hover:not(:disabled) {
+    background: #002e6d;
+    box-shadow: 0 10px 30px rgba(0,48,135,0.9);
   }
-  /* Submit button */
-  #submit {
-    font-size: 1.2rem;
-    padding: 16px;
-    border-radius: 14px;
-    font-weight: 700;
-    box-shadow: 0 6px 16px rgba(0,67,173,0.7);
-  }
-  #submit:disabled {
-    background-color: #ccc !important;
+  button:disabled {
+    background: #ccc !important;
     cursor: not-allowed;
-    box-shadow: none;
-  }
-  /* Error message */
-  #error {
-    color: #dc3545;
-    font-weight: 700;
-    margin: 15px 0;
-    text-align: center;
-    display: none;
-  }
-  /* Script output */
-  #answer {
-    margin-top: 30px;
-    display: none;
-    position: relative;
+    box-shadow: none !important;
   }
   #answer-text {
     width: 100%;
-    font-family: 'Consolas', monospace;
-    font-size: 14px;
-    line-height: 1.5;
-    padding: 20px;
-    border-radius: 14px;
-    border: 2px solid #004aad;
-    background-color: #f0f8ff;
-    min-height: 280px;
+    font-family: Consolas, monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 25px;
+    border-radius: 20px;
+    border: 3px solid #004aad;
+    background: #f0f8ff;
+    min-height: 320px;
     white-space: pre-wrap;
     overflow-y: auto;
+    box-shadow: inset 0 0 15px #cce5ff;
+  }
+  #answer {
+    margin-top: 40px;
+    position: relative;
+    display: none;
   }
   #copy {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    background-color: #28a745;
+    top: 15px;
+    right: 15px;
+    background: #28a745;
     border: none;
-    color: white;
-    padding: 10px 18px;
+    color: #fff;
+    padding: 12px 25px;
     border-radius: 50px;
     cursor: pointer;
     font-weight: 700;
-    box-shadow: 0 6px 14px rgba(40,167,69,0.8);
-    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 24px rgba(40,167,69,0.8);
+    transition: background 0.3s ease;
   }
   #copy:hover {
-    background-color: #1e7e34;
+    background: #1e7e34;
   }
-  /* Footer */
+  #error {
+    color: #dc3545;
+    font-weight: 700;
+    margin: 20px 0;
+    text-align: center;
+    display: none;
+    font-size: 1.1rem;
+  }
   footer.disclaimer, footer.footer {
     text-align: center;
     color: #fff;
-    font-weight: 600;
-    margin-top: 40px;
+    font-weight: 700;
+    margin-top: 50px;
     user-select: none;
   }
-  /* Support floating buttons */
+  footer.footer {
+    margin-bottom: 30px;
+    font-weight: 500;
+    font-size: 1rem;
+  }
   .support-floating {
     position: fixed;
     bottom: 25px;
@@ -227,52 +170,54 @@
     z-index: 9999;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 18px;
   }
   .support-btn, .booking-btn {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
     background-color: #004aad;
     color: white;
     border-radius: 50px;
-    padding: 14px 24px;
+    padding: 16px 30px;
     font-weight: 700;
-    font-size: 16px;
-    box-shadow: 0 6px 20px rgba(0,67,173,0.7);
+    font-size: 18px;
+    box-shadow: 0 8px 28px rgba(0,67,173,0.85);
     cursor: pointer;
     user-select: none;
     border: none;
   }
   .support-btn:hover, .booking-btn:hover {
     background-color: #002e6d;
-    box-shadow: 0 8px 28px rgba(0,48,135,0.9);
+    box-shadow: 0 10px 35px rgba(0,48,135,0.95);
   }
   .support-btn i, .booking-btn i {
-    font-size: 22px;
+    font-size: 24px;
   }
-  /* Responsive */
   @media (max-width: 768px) {
     #wrap {
-      padding: 25px 20px 70px 20px;
+      padding: 30px 20px 70px 20px;
     }
     .logo-img {
-      width: 120px;
-      height: 120px;
+      width: 130px;
+      height: 130px;
     }
-    #submit {
-      font-size: 1rem;
-      padding: 14px;
+    button, select, input[type=text], textarea {
+      font-size: 1.1rem;
+      padding: 14px 18px;
+    }
+    #answer-text {
+      min-height: 260px;
     }
     .support-btn, .booking-btn {
-      padding: 12px 20px;
-      font-size: 14px;
+      padding: 14px 24px;
+      font-size: 16px;
     }
   }
   @media (max-width: 480px) {
     .logo-img {
-      width: 100px;
-      height: 100px;
+      width: 110px;
+      height: 110px;
     }
     #answer-text {
       min-height: 200px;
@@ -280,16 +225,20 @@
     .support-floating {
       bottom: 15px;
       left: 15px;
-      gap: 10px;
+      gap: 12px;
+    }
+    .support-btn, .booking-btn {
+      font-size: 14px;
+      padding: 12px 20px;
     }
   }
 </style>
 </head>
 <body>
-<div id="wrap" role="main" aria-label="موقع دكتور نت لأدوات مايكروتك">
+<div id="wrap" role="main" aria-label="موقع أدوات مايكروتيك دكتور نت">
   <header>
-    <img src="https://i.imgur.com/0PBLMuU.jpeg" alt="شعار دكتور نت" class="logo-img" loading="lazy" />
-    <h1>دكتور نت 2.0 - أفضل أدوات MikroTik بالعالم</h1>
+    <img src="https://i.imgur.com/0PBLMuU.jpeg" alt="شعار أدوات مايكروتيك دكتور نت" class="logo-img" loading="lazy" />
+    <h1>دكتور نت - أدوات مايكروتيك</h1>
   </header>
 
   <div class="warning-message" role="alert" aria-live="polite">
@@ -325,7 +274,7 @@
       <option value="backup-script">سكربت النسخ الاحتياطي</option>
       <option value="general">سؤال عام</option>
     </select>
-    <p id="tool-desc" style="min-height: 50px; margin-top: 5px; color: #004aad; font-weight: 600;"></p>
+    <p id="tool-desc" style="min-height: 60px; margin-top: 10px; color: #004aad; font-weight: 700;"></p>
   </section>
 
   <form id="tool-form" novalidate>
@@ -333,12 +282,10 @@
     <button id="submit" disabled>إنشاء السكربت</button>
   </form>
 
-  <section id="answer" aria-label="السكريبت الناتج" style="display:none; position: relative; margin-top: 30px;">
+  <section id="answer" aria-label="السكريبت الناتج" style="display:none; position: relative; margin-top: 40px;">
     <textarea id="answer-text" readonly aria-readonly="true" aria-label="نص السكربت الناتج"></textarea>
     <button id="copy" aria-label="نسخ السكربت" title="نسخ السكربت"><i class="fas fa-copy"></i> نسخ السكربت</button>
   </section>
-
-  <p id="error" role="alert" aria-live="assertive" style="display:none;"></p>
 
   <footer class="disclaimer">
     جميع الحقوق محفوظة لـ مصطفى عاطف الشوري برعاية سيستم سمارت راديوس © 2025
@@ -369,33 +316,33 @@
 <script>
 const toolsDatabase = {
   'simple-queue': {
-    description: 'مولد Simple Queue لتحديد سرعة العملاء',
+    description: 'مولد Simple Queue لتحديد سرعة العملاء. يسمح لك بتحديد حد أقصى للسرعة لكل IP أو عميل.',
     inputs: [
-      { id: 'ip', label: 'عنوان IP', placeholder: '192.168.1.2', type: 'text' },
-      { id: 'speed', label: 'السرعة (تحميل/رفع)', placeholder: '2M/2M', type: 'text' },
-      { id: 'name', label: 'اسم العميل', placeholder: 'client1', type: 'text' }
+      { id: 'ip', label: 'عنوان IP', placeholder: 'مثال: 192.168.1.10', type: 'text' },
+      { id: 'speed', label: 'السرعة (تحميل/رفع)', placeholder: 'مثال: 5M/5M', type: 'text' },
+      { id: 'name', label: 'اسم العميل', placeholder: 'مثال: client1', type: 'text' }
     ],
     repeatable: true,
     script(entries) {
-      let script = '# Simple Queue Script - Generated by Dr. Net\n# Author: مصطفى عاطف الشوري\n/queue simple\n';
-      entries.forEach((p,i) => {
-        const ip = p.ip || `192.168.1.${i+2}`;
-        const speed = p.speed || '2M/2M';
-        const name = p.name || `client${i+1}`;
-        script += `# Add queue for client: ${name}\nadd max-limit=${speed} name=${name} target=${ip}/32 comment="Generated by Dr. Net"\n`;
+      let script = '# Simple Queue Script\n# إعداد بواسطة مصطفى عاطف الشوري\n/queue simple\n';
+      entries.forEach((e,i) => {
+        const ip = e.ip || `192.168.1.${i+10}`;
+        const speed = e.speed || '2M/2M';
+        const name = e.name || `client${i+1}`;
+        script += `add name=${name} target=${ip}/32 max-limit=${speed} comment="Generated by Dr. Net"\n`;
       });
       return script;
     }
   },
-  // ... (كل الأدوات كما في الرد السابق مع السكربتات المجربة)
+  // (أكمل بقية الأدوات بنفس النمط مع شرح واضح لكل أداة)
   'general': {
-    description: 'سؤال عام أو طلب خاص',
+    description: 'سؤال عام أو طلب خاص، يمكن كتابته هنا.',
     inputs: [
       { id: 'question', label: 'اكتب سؤالك أو طلبك هنا', placeholder: 'مثال: كيف أضيف قاعدة في الجدار الناري؟', type: 'textarea' }
     ],
     repeatable: false,
     script(entries) {
-      return `# سؤال عام من المستخدم:\n# ${entries[0].question || ''}\n# يرجى التواصل مع الدعم الفني للمساعدة.`;
+      return `# سؤال عام من المستخدم:\n# ${entries[0].question || ''}\n# يرجى التواصل مع الدعم الفني للمساعدة.\n`;
     }
   }
 };
