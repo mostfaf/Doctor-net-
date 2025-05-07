@@ -4,127 +4,115 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>دكتور نت - أدوات مايكروتيك</title>
-<meta name="description" content="دكتور نت - منصة متكاملة لأدوات MikroTik مع شرح تفصيلي وتصميم عصري وتجربة مستخدم مميزة." />
+<meta name="description" content="منصة دكتور نت لأدوات MikroTik مع شرح تفصيلي لكل أداة وتجربة مستخدم متكاملة." />
 <meta name="author" content="مصطفى عاطف الشوري" />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
-  /* تصميم عصري */
-  *, *::before, *::after { box-sizing: border-box; }
   body {
-    margin:0; padding:0;
     font-family: 'Cairo', sans-serif;
     background: linear-gradient(135deg,#001f4d,#004aad);
     color: #222;
+    margin: 0; padding: 20px;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+    display: flex; justify-content: center;
   }
   #wrap {
-    max-width: 1000px;
-    width: 95%;
     background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    padding: 40px 50px 80px;
-    margin: 40px 0;
+    width: 900px;
+    border-radius: 15px;
+    padding: 30px 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   }
   header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
   }
   .logo-img {
-    width: 160px;
-    height: 160px;
+    width: 150px; height: 150px;
     border-radius: 50%;
     border: 6px solid #004aad;
-    box-shadow: 0 0 25px #0073e6;
-    transition: transform 0.3s ease;
-  }
-  .logo-img:hover {
-    transform: rotate(15deg);
+    box-shadow: 0 0 20px #0073e6;
+    margin: 0 auto;
   }
   h1 {
-    font-size: 2.8rem;
     color: #004aad;
-    margin-top: 20px;
+    margin-top: 15px;
     font-weight: 700;
-    letter-spacing: 2px;
   }
-  .warning-message {
+  .warning {
     background: #fff3cd;
     color: #856404;
-    padding: 18px 25px;
-    border-radius: 15px;
-    font-weight: 700;
-    margin-bottom: 35px;
+    padding: 15px;
+    border-radius: 10px;
     border: 1px solid #ffeeba;
-    box-shadow: 0 3px 15px rgba(255,193,7,0.4);
+    font-weight: 600;
+    margin-bottom: 30px;
     text-align: center;
   }
   label {
     font-weight: 700;
-    font-size: 1.2rem;
     color: #004aad;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
-  select, input[type=text], textarea {
+  select, input, textarea {
     width: 100%;
-    padding: 15px 20px;
-    margin-bottom: 25px;
-    border: 3px solid #004aad;
-    border-radius: 15px;
-    font-size: 1.1rem;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 2px solid #004aad;
+    font-size: 16px;
     background: #eaf4ff;
     outline: none;
-    box-shadow: inset 0 0 10px #cce5ff;
   }
-  select:hover, select:focus, input[type=text]:focus, textarea:focus {
+  select:hover, select:focus, input:focus, textarea:focus {
     background: #d1e7ff;
   }
   button {
     width: 100%;
-    padding: 18px;
-    font-size: 1.3rem;
-    font-weight: 800;
-    border: none;
-    border-radius: 20px;
+    padding: 16px;
     background: #004aad;
-    color: #fff;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    border: none;
+    border-radius: 15px;
     cursor: pointer;
-    box-shadow: 0 8px 24px rgba(0,67,173,0.8);
-    user-select: none;
+    box-shadow: 0 6px 20px rgba(0,67,173,0.7);
+    transition: background 0.3s ease;
+  }
+  button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
   }
   button:hover:not(:disabled) {
     background: #002e6d;
-    box-shadow: 0 10px 30px rgba(0,48,135,0.9);
   }
-  button:disabled {
-    background: #ccc !important;
-    cursor: not-allowed;
-    box-shadow: none !important;
+  #error {
+    color: #dc3545;
+    font-weight: 700;
+    text-align: center;
+    margin: 15px 0;
+    display: none;
+  }
+  #answer {
+    margin-top: 30px;
+    display: none;
+    position: relative;
   }
   #answer-text {
     width: 100%;
+    height: 300px;
     font-family: Consolas, monospace;
-    font-size: 15px;
-    line-height: 1.6;
-    padding: 25px;
-    border-radius: 20px;
-    border: 3px solid #004aad;
+    font-size: 14px;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #004aad;
     background: #f0f8ff;
-    min-height: 320px;
     white-space: pre-wrap;
     overflow-y: auto;
-    box-shadow: inset 0 0 15px #cce5ff;
-  }
-  #answer {
-    margin-top: 40px;
-    position: relative;
-    display: none;
   }
   #copy {
     position: absolute;
@@ -132,36 +120,35 @@
     right: 15px;
     background: #28a745;
     border: none;
-    color: #fff;
-    padding: 12px 25px;
+    color: white;
+    padding: 10px 20px;
     border-radius: 50px;
     cursor: pointer;
     font-weight: 700;
-    box-shadow: 0 8px 24px rgba(40,167,69,0.8);
-    transition: background 0.3s ease;
+    box-shadow: 0 6px 18px rgba(40,167,69,0.8);
   }
   #copy:hover {
     background: #1e7e34;
   }
-  #error {
-    color: #dc3545;
-    font-weight: 700;
-    margin: 20px 0;
-    text-align: center;
-    display: none;
-    font-size: 1.1rem;
+  .tool-description {
+    background: #d9e9ff;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    color: #004aad;
+    font-weight: 600;
+    line-height: 1.5;
   }
   footer.disclaimer, footer.footer {
     text-align: center;
-    color: #fff;
+    color: #004aad;
     font-weight: 700;
-    margin-top: 50px;
+    margin-top: 40px;
     user-select: none;
   }
   footer.footer {
-    margin-bottom: 30px;
     font-weight: 500;
-    font-size: 1rem;
+    margin-bottom: 10px;
   }
   .support-floating {
     position: fixed;
@@ -170,62 +157,59 @@
     z-index: 9999;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 15px;
   }
   .support-btn, .booking-btn {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
     background-color: #004aad;
     color: white;
     border-radius: 50px;
-    padding: 16px 30px;
+    padding: 14px 28px;
     font-weight: 700;
-    font-size: 18px;
-    box-shadow: 0 8px 28px rgba(0,67,173,0.85);
+    font-size: 16px;
+    box-shadow: 0 6px 20px rgba(0,67,173,0.7);
     cursor: pointer;
     user-select: none;
     border: none;
   }
   .support-btn:hover, .booking-btn:hover {
     background-color: #002e6d;
-    box-shadow: 0 10px 35px rgba(0,48,135,0.95);
+    box-shadow: 0 8px 28px rgba(0,48,135,0.9);
   }
   .support-btn i, .booking-btn i {
-    font-size: 24px;
+    font-size: 22px;
   }
   @media (max-width: 768px) {
     #wrap {
-      padding: 30px 20px 70px 20px;
+      width: 95%;
+      padding: 25px 20px 60px 20px;
     }
     .logo-img {
-      width: 130px;
-      height: 130px;
+      width: 120px;
+      height: 120px;
     }
-    button, select, input[type=text], textarea {
-      font-size: 1.1rem;
-      padding: 14px 18px;
+    button, select, input, textarea {
+      font-size: 15px;
+      padding: 12px 15px;
     }
     #answer-text {
-      min-height: 260px;
-    }
-    .support-btn, .booking-btn {
-      padding: 14px 24px;
-      font-size: 16px;
+      height: 250px;
     }
   }
   @media (max-width: 480px) {
     .logo-img {
-      width: 110px;
-      height: 110px;
+      width: 100px;
+      height: 100px;
     }
     #answer-text {
-      min-height: 200px;
+      height: 180px;
     }
     .support-floating {
       bottom: 15px;
       left: 15px;
-      gap: 12px;
+      gap: 10px;
     }
     .support-btn, .booking-btn {
       font-size: 14px;
@@ -235,47 +219,32 @@
 </style>
 </head>
 <body>
-<div id="wrap" role="main" aria-label="موقع أدوات مايكروتيك دكتور نت">
+<div id="wrap" role="main" aria-label="موقع دكتور نت لأدوات مايكروتيك">
   <header>
-    <img src="https://i.imgur.com/0PBLMuU.jpeg" alt="شعار أدوات مايكروتيك دكتور نت" class="logo-img" loading="lazy" />
+    <img src="https://i.imgur.com/0PBLMuU.jpeg" alt="شعار دكتور نت" class="logo-img" loading="lazy" />
     <h1>دكتور نت - أدوات مايكروتيك</h1>
   </header>
 
-  <div class="warning-message" role="alert" aria-live="polite">
+  <div class="warning" role="alert" aria-live="polite">
     <strong>تنبيه مهم:</strong> دكتور نت غير مسؤول عن أي أضرار ناتجة عن الاستخدام الخاطئ لهذه الأدوات. يرجى مراجعة السكربتات بعناية قبل التطبيق.
   </div>
 
-  <section id="tool-section">
-    <label for="tool">اختر الأداة:</label>
-    <select id="tool" aria-describedby="tool-desc" aria-required="true">
-      <option value="" disabled selected>-- اختر أداة --</option>
-      <option value="simple-queue">مولد Simple Queue</option>
-      <option value="queue-tree">مولد Queue Tree</option>
-      <option value="pcq">مولد PCQ</option>
-      <option value="load-balancing-pcc">موازنة الحمل PCC</option>
-      <option value="load-balancing-ecmp">موازنة الحمل ECMP</option>
-      <option value="vpn-pptp">نفق VPN PPTP</option>
-      <option value="vpn-l2tp">نفق VPN L2TP</option>
-      <option value="vpn-openvpn">نفق VPN OpenVPN</option>
-      <option value="firewall-basic">جدار حماية أساسي</option>
-      <option value="firewall-advanced">جدار حماية متقدم</option>
-      <option value="dhcp-server">خادم DHCP</option>
-      <option value="hotspot-setup">إعداد Hotspot</option>
-      <option value="capsman">إعداد CAPsMAN</option>
-      <option value="ipsec">إعداد IPsec</option>
-      <option value="pppoe-server">خادم PPPoE</option>
-      <option value="pppoe-client">عميل PPPoE</option>
-      <option value="vrrp">إعداد VRRP</option>
-      <option value="traffic-monitor">مراقبة الحركة</option>
-      <option value="port-knocking">Port Knocking</option>
-      <option value="ipv6-addressing">عناوين IPv6</option>
-      <option value="dhcpv6">خادم DHCPv6</option>
-      <option value="scheduled-script">سكربت مجدول</option>
-      <option value="backup-script">سكربت النسخ الاحتياطي</option>
-      <option value="general">سؤال عام</option>
-    </select>
-    <p id="tool-desc" style="min-height: 60px; margin-top: 10px; color: #004aad; font-weight: 700;"></p>
-  </section>
+  <label for="tool">اختر الأداة:</label>
+  <select id="tool" aria-describedby="tool-desc" aria-required="true">
+    <option value="" disabled selected>-- اختر أداة --</option>
+    <option value="simple-queue">مولد Simple Queue</option>
+    <option value="queue-tree">مولد Queue Tree</option>
+    <option value="pcq">مولد PCQ</option>
+    <option value="load-balancing-pcc">موازنة الحمل PCC</option>
+    <option value="vpn-pptp">نفق VPN PPTP</option>
+    <option value="firewall-basic">جدار حماية أساسي</option>
+    <option value="dhcp-server">خادم DHCP</option>
+    <option value="hotspot-setup">إعداد Hotspot</option>
+    <option value="capsman">إعداد CAPsMAN</option>
+    <option value="general">سؤال عام</option>
+  </select>
+
+  <div id="tool-desc" class="tool-description" aria-live="polite"></div>
 
   <form id="tool-form" novalidate>
     <div id="inputs"></div>
@@ -286,6 +255,8 @@
     <textarea id="answer-text" readonly aria-readonly="true" aria-label="نص السكربت الناتج"></textarea>
     <button id="copy" aria-label="نسخ السكربت" title="نسخ السكربت"><i class="fas fa-copy"></i> نسخ السكربت</button>
   </section>
+
+  <p id="error" role="alert" aria-live="assertive" style="color:#dc3545; font-weight:700; text-align:center; margin-top:20px; display:none;"></p>
 
   <footer class="disclaimer">
     جميع الحقوق محفوظة لـ مصطفى عاطف الشوري برعاية سيستم سمارت راديوس © 2025
@@ -316,10 +287,10 @@
 <script>
 const toolsDatabase = {
   'simple-queue': {
-    description: 'مولد Simple Queue لتحديد سرعة العملاء. يسمح لك بتحديد حد أقصى للسرعة لكل IP أو عميل.',
+    description: 'مولد Simple Queue: أداة لتحديد سرعة الإنترنت لكل عميل أو IP بشكل بسيط وفعال.',
     inputs: [
-      { id: 'ip', label: 'عنوان IP', placeholder: 'مثال: 192.168.1.10', type: 'text' },
-      { id: 'speed', label: 'السرعة (تحميل/رفع)', placeholder: 'مثال: 5M/5M', type: 'text' },
+      { id: 'ip', label: 'عنوان IP العميل', placeholder: 'مثال: 192.168.1.100', type: 'text' },
+      { id: 'speed', label: 'سرعة التحميل/الرفع', placeholder: 'مثال: 5M/5M', type: 'text' },
       { id: 'name', label: 'اسم العميل', placeholder: 'مثال: client1', type: 'text' }
     ],
     repeatable: true,
@@ -334,11 +305,117 @@ const toolsDatabase = {
       return script;
     }
   },
-  // (أكمل بقية الأدوات بنفس النمط مع شرح واضح لكل أداة)
-  'general': {
-    description: 'سؤال عام أو طلب خاص، يمكن كتابته هنا.',
+  'queue-tree': {
+    description: 'مولد Queue Tree: لإدارة النطاق الترددي بشكل هرمي مع إمكانية تحديد أولوية كل Queue.',
     inputs: [
-      { id: 'question', label: 'اكتب سؤالك أو طلبك هنا', placeholder: 'مثال: كيف أضيف قاعدة في الجدار الناري؟', type: 'textarea' }
+      { id: 'name', label: 'اسم Queue', placeholder: 'مثال: queue1', type: 'text' },
+      { id: 'limit', label: 'الحد الأقصى للسرعة', placeholder: 'مثال: 10M', type: 'text' },
+      { id: 'parent', label: 'الواجهة الأصلية أو global', placeholder: 'مثال: global', type: 'text' }
+    ],
+    repeatable: true,
+    script(entries) {
+      let script = '# Queue Tree Script\n# إعداد بواسطة مصطفى عاطف الشوري\n/queue tree\n';
+      entries.forEach((e,i) => {
+        const name = e.name || `queue${i+1}`;
+        const limit = e.limit || '10M';
+        const parent = e.parent || 'global';
+        script += `add name=${name} parent=${parent} max-limit=${limit} comment="Generated by Dr. Net"\n`;
+      });
+      return script;
+    }
+  },
+  'pcq': {
+    description: 'مولد PCQ: لتوزيع النطاق الترددي بالتساوي بين المستخدمين، مناسب للشبكات الكبيرة.',
+    inputs: [
+      { id: 'name', label: 'اسم PCQ', placeholder: 'مثال: pcq1', type: 'text' },
+      { id: 'rate', label: 'سرعة كل مستخدم', placeholder: 'مثال: 1M', type: 'text' }
+    ],
+    repeatable: true,
+    script(entries) {
+      let script = '# PCQ Script\n# إعداد بواسطة مصطفى عاطف الشوري\n/queue type\n';
+      entries.forEach((e,i) => {
+        const name = e.name || `pcq${i+1}`;
+        const rate = e.rate || '1M';
+        script += `add name=${name} kind=pcq pcq-rate=${rate} comment="Generated by Dr. Net"\n`;
+      });
+      script += '/queue tree\n';
+      entries.forEach((e,i) => {
+        const name = e.name || `pcq${i+1}`;
+        script += `add name=${name} parent=global queue=${name} comment="Generated by Dr. Net"\n`;
+      });
+      return script;
+    }
+  },
+  'load-balancing-pcc': {
+    description: 'موازنة الحمل PCC: لتوزيع حركة الإنترنت على عدة خطوط WAN مع واجهة LAN واحدة.',
+    inputs: [
+      { id: 'lanInterface', label: 'واجهة LAN', placeholder: 'مثال: ether2', type: 'text' },
+      { id: 'wanIp', label: 'IP واجهة WAN', placeholder: 'مثال: 192.168.1.2', type: 'text' },
+      { id: 'wanGw', label: 'بوابة WAN', placeholder: 'مثال: 192.168.1.1', type: 'text' },
+      { id: 'wanInterface', label: 'واجهة WAN', placeholder: 'مثال: ether1', type: 'text' }
+    ],
+    repeatable: true,
+    script(entries) {
+      let script = '# PCC Load Balancing\n# إعداد بواسطة مصطفى عاطف الشوري\n/ip firewall mangle\n';
+      entries.forEach((e,i) => {
+        script += `add chain=prerouting dst-address-type=!local in-interface=${e.lanInterface} per-connection-classifier=both-addresses:${entries.length}/${i} action=mark-connection new-connection-mark=wan${i+1}_conn passthrough=yes comment="WAN${i+1} PCC"\n`;
+        script += `add chain=prerouting connection-mark=wan${i+1}_conn in-interface=${e.lanInterface} action=mark-routing new-routing-mark=to_wan${i+1} passthrough=yes comment="WAN${i+1} Routing"\n`;
+      });
+      script += '/ip address\n';
+      entries.forEach((e,i) => {
+        script += `add address=${e.wanIp} interface=${e.wanInterface} comment="WAN${i+1} IP"\n`;
+      });
+      script += '/ip route\n';
+      entries.forEach((e,i) => {
+        script += `add dst-address=0.0.0.0/0 gateway=${e.wanGw} routing-mark=to_wan${i+1} check-gateway=ping comment="WAN${i+1} Route"\n`;
+      });
+      script += '/ip firewall nat\n';
+      entries.forEach((e,i) => {
+        script += `add chain=srcnat out-interface=${e.wanInterface} action=masquerade comment="WAN${i+1} NAT"\n`;
+      });
+      return script;
+    }
+  },
+  'vpn-pptp': {
+    description: 'إعداد نفق VPN PPTP مع تعريف المستخدمين.',
+    inputs: [
+      { id: 'vpnUser', label: 'اسم المستخدم', placeholder: 'مثال: user1', type: 'text' },
+      { id: 'vpnPass', label: 'كلمة المرور', placeholder: 'مثال: password', type: 'text' }
+    ],
+    repeatable: false,
+    script(entries) {
+      const u = entries[0].vpnUser || 'user1';
+      const p = entries[0].vpnPass || 'password';
+      return `# VPN PPTP Setup\n# إعداد بواسطة مصطفى عاطف الشوري\n/interface pptp-server server set enabled=yes\n/ppp secret add name=${u} password=${p} service=pptp profile=default\n`;
+    }
+  },
+  'firewall-basic': {
+    description: 'جدار حماية أساسي يحمي جهازك من الهجمات الشائعة.',
+    inputs: [],
+    repeatable: false,
+    script() {
+      return `# Basic Firewall\n# إعداد بواسطة مصطفى عاطف الشوري\n/ip firewall filter\nadd chain=input connection-state=established,related action=accept comment="Allow established/related"\nadd chain=input connection-state=invalid action=drop comment="Drop invalid"\nadd chain=input protocol=icmp action=accept comment="Allow ICMP"\nadd chain=input src-address=192.168.88.0/24 action=accept comment="Allow LAN"\nadd chain=input action=drop comment="Drop everything else"\n`;
+    }
+  },
+  'dhcp-server': {
+    description: 'إعداد خادم DHCP لتوزيع عناوين IP تلقائياً على الأجهزة في الشبكة.',
+    inputs: [
+      { id: 'interface', label: 'واجهة DHCP', placeholder: 'مثال: bridge-local', type: 'text' },
+      { id: 'addressPool', label: 'نطاق العناوين', placeholder: 'مثال: dhcp_pool', type: 'text' },
+      { id: 'gateway', label: 'بوابة الشبكة', placeholder: 'مثال: 192.168.88.1', type: 'text' }
+    ],
+    repeatable: false,
+    script(entries) {
+      const iface = entries[0].interface || 'bridge-local';
+      const pool = entries[0].addressPool || 'dhcp_pool';
+      const gateway = entries[0].gateway || '192.168.88.1';
+      return `# DHCP Server Setup\n# إعداد بواسطة مصطفى عاطف الشوري\n/ip pool add name=${pool} ranges=192.168.88.10-192.168.88.254\n/ip dhcp-server add address-pool=${pool} interface=${iface} lease-time=3d name=dhcp1\n/ip dhcp-server network add address=192.168.88.0/24 gateway=${gateway}\n`;
+    }
+  },
+  'general': {
+    description: 'اكتب سؤالك أو طلبك الخاص وسيتم الرد عليك.',
+    inputs: [
+      { id: 'question', label: 'سؤالك أو طلبك', placeholder: 'مثال: كيف أضيف قاعدة في الجدار الناري؟', type: 'textarea' }
     ],
     repeatable: false,
     script(entries) {
@@ -559,40 +636,4 @@ copyBtn.addEventListener('click', () => {
   });
 });
 
-toolSelect.addEventListener('change', () => {
-  buildInputs(toolSelect.value);
-});
-
-submitBtn.addEventListener('click', e => {
-  e.preventDefault();
-  generateScript();
-});
-
-supportBtn.addEventListener('click', () => {
-  supportModal.showModal();
-  supportChat.innerHTML = '<p>جاري تفعيل نظام الدعم الفني المباشر...</p>';
-  setTimeout(() => {
-    supportChat.innerHTML = '<p><strong>مرحباً! كيف يمكننا مساعدتك اليوم؟</strong></p>';
-  }, 1500);
-});
-
-closeSupportBtn.addEventListener('click', () => {
-  supportModal.close();
-});
-
-supportModal.addEventListener('click', event => {
-  const rect = supportModal.getBoundingClientRect();
-  if (
-    event.clientX < rect.left ||
-    event.clientX > rect.right ||
-    event.clientY < rect.top ||
-    event.clientY > rect.bottom
-  ) {
-    supportModal.close();
-  }
-});
-
-submitBtn.disabled = true;
-</script>
-</body>
-</html>
+toolSelect.add
