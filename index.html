@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap');
-
     * {
       transition: all 0.2s ease-in-out;
       box-sizing: border-box;
@@ -18,7 +17,6 @@
       margin: 0;
       padding: 0;
     }
-
     body {
       background: linear-gradient(135deg, #004aad, #0073e6);
       color: #333;
@@ -31,7 +29,6 @@
       padding: 10px;
       position: relative;
     }
-
     #wrap {
       max-width: 900px;
       width: 100%;
@@ -43,7 +40,6 @@
       position: relative;
       z-index: 1;
     }
-
     .logo-img {
       width: 150px;
       height: 150px;
@@ -55,7 +51,6 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       filter: drop-shadow(0 0 5px #0073e6);
     }
-
     .main-wrap {
       display: flex;
       flex-direction: column;
@@ -63,7 +58,6 @@
       margin: 20px 0 40px 0;
       align-items: center;
     }
-
     .content {
       width: 100%;
       max-width: 700px;
@@ -73,7 +67,6 @@
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
       position: relative;
     }
-
     label {
       font-size: 17px;
       color: #004aad;
@@ -81,7 +74,6 @@
       display: block;
       font-weight: 600;
     }
-
     select,
     input[type='text'],
     textarea {
@@ -96,14 +88,12 @@
       outline-color: #004aad;
       transition: border-color 0.3s ease;
     }
-
     select:focus,
     input[type='text']:focus,
     textarea:focus {
       border-color: #0073e6;
       background: #eaf4ff;
     }
-
     button {
       width: 100%;
       padding: 16px;
@@ -118,18 +108,15 @@
       user-select: none;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
-
     button:hover:not(:disabled) {
       background-color: #003087;
       box-shadow: 0 6px 18px rgba(0, 48, 135, 0.8);
     }
-
     button:disabled {
       background-color: #ccc;
       cursor: not-allowed;
       box-shadow: none;
     }
-
     #answer-text {
       height: 280px;
       padding: 15px;
@@ -145,24 +132,20 @@
       color: #222;
       box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.07);
     }
-
     #answer {
       margin-top: 25px;
       display: none;
     }
-
     #copy {
       margin-top: 12px;
       background-color: #28a745;
       font-weight: 600;
       box-shadow: 0 4px 12px rgba(40, 167, 69, 0.6);
     }
-
     #copy:hover {
       background-color: #218838;
       box-shadow: 0 6px 18px rgba(33, 136, 56, 0.9);
     }
-
     #error {
       color: #dc3545;
       font-size: 15px;
@@ -175,7 +158,6 @@
       padding: 10px 15px;
       border: 1px solid #f5c6cb;
     }
-
     .warning-message {
       background-color: #fff3cd;
       color: #856404;
@@ -188,7 +170,6 @@
       text-align: center;
       box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
     }
-
     .disclaimer {
       font-size: 15px;
       color: #fff;
@@ -198,7 +179,6 @@
       font-weight: 500;
       user-select: none;
     }
-
     .footer {
       text-align: center;
       margin: 30px 0 50px 0;
@@ -206,8 +186,6 @@
       color: #fff;
       user-select: none;
     }
-
-    /* أيقونة التواصل والدعم الفني */
     .support-floating {
       position: fixed;
       bottom: 25px;
@@ -217,7 +195,6 @@
       flex-direction: column;
       gap: 15px;
     }
-
     .support-btn, .booking-btn {
       display: flex;
       align-items: center;
@@ -234,55 +211,25 @@
       user-select: none;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
-
     .support-btn:hover, .booking-btn:hover {
       background-color: #003087;
       box-shadow: 0 8px 28px rgba(0, 48, 135, 0.9);
     }
-
     .support-btn i, .booking-btn i {
       font-size: 20px;
     }
-
-    /* Responsive */
     @media (max-width: 768px) {
-      #wrap {
-        padding: 0 15px 80px 15px;
-      }
-      .logo-img {
-        width: 120px;
-        height: 120px;
-      }
-      button, select, input[type='text'], textarea {
-        font-size: 15px;
-        padding: 12px;
-      }
-      #answer-text {
-        height: 220px;
-      }
+      #wrap { padding: 0 15px 80px 15px; }
+      .logo-img { width: 120px; height: 120px; }
+      button, select, input[type='text'], textarea { font-size: 15px; padding: 12px; }
+      #answer-text { height: 220px; }
     }
-
     @media (max-width: 480px) {
-      .logo-img {
-        width: 100px;
-        height: 100px;
-      }
-      button, select, input[type='text'], textarea {
-        font-size: 14px;
-        padding: 10px;
-      }
-      #answer-text {
-        height: 180px;
-      }
-      .support-floating {
-        bottom: 15px;
-        left: 15px;
-        gap: 10px;
-      }
-      .support-btn, .booking-btn {
-        font-size: 14px;
-        padding: 10px 18px;
-      }
+      .logo-img { width: 100px; height: 100px; }
+      button, select, input[type='text'], textarea { font-size: 14px; padding: 10px; }
+      #answer-text { height: 180px; }
+      .support-floating { bottom: 15px; left: 15px; gap: 10px; }
+      .support-btn, .booking-btn { font-size: 14px; padding: 10px 18px; }
     }
   </style>
 </head>
@@ -352,14 +299,13 @@
     </main>
 
     <footer class="disclaimer" aria-label="معلومات حقوق النشر">
-      تم تطوير هذا الموقع بواسطة مصطفى عاطف الشوري لدعم مجتمع MikroTik.
+      جميع الحقوق محفوظة لـ مصطفى عاطف الشوري برعاية سيستم سمارت راديوس © 2025
     </footer>
     <footer class="footer" aria-label="حقوق النشر">
-      <p>جميع الحقوق محفوظة لـ <span class="brand-name">دكتور نت</span> © 2025</p>
+      <p>تم تطوير الموقع لدعم مجتمع MikroTik بأفضل الأدوات والسكربتات.</p>
     </footer>
   </div>
 
-  <!-- أيقونات الدعم الفني وحجز الموعد -->
   <div class="support-floating" aria-label="التواصل والدعم الفني">
     <button class="support-btn" id="supportBtn" aria-haspopup="dialog" aria-controls="supportModal" title="الدعم الفني المباشر">
       <i class="fas fa-headset"></i> دعم فني مباشر
@@ -369,7 +315,6 @@
     </a>
   </div>
 
-  <!-- مودال الدعم الفني -->
   <dialog id="supportModal" aria-modal="true" role="dialog" aria-labelledby="supportTitle" aria-describedby="supportDesc">
     <h2 id="supportTitle">الدعم الفني المباشر</h2>
     <p id="supportDesc">يمكنك التواصل معنا مباشرة عبر الدردشة أو الفيديو لطلب الدعم الفني.</p>
@@ -380,7 +325,6 @@
   </dialog>
 
   <script>
-    // قاعدة بيانات الأدوات مع السكربتات والتعليقات
     const toolsDatabase = {
       'simple-queue': {
         description: 'مولد Simple Queue لتحديد سرعة العملاء',
@@ -404,7 +348,54 @@
           return script;
         }
       },
-      // ... يمكنك إضافة باقي الأدوات بنفس الشكل ...
+      'queue-tree': {
+        description: 'مولد Queue Tree لإدارة النطاق الترددي',
+        inputs: [
+          { id: 'name', label: 'اسم Queue', placeholder: 'queue1', type: 'text' },
+          { id: 'limit', label: 'الحد الأقصى', placeholder: '10M', type: 'text' },
+          { id: 'parent', label: 'الأصل', placeholder: 'global', type: 'text' }
+        ],
+        repeatable: true,
+        script: function (entries) {
+          let script = '# Queue Tree Script - Generated by Dr. Net\n';
+          script += '# Author: مصطفى عاطف الشوري\n';
+          script += '/queue tree\n';
+          entries.forEach((params, index) => {
+            const name = params.name || `queue${index + 1}`;
+            const limit = params.limit || '10M';
+            const parent = params.parent || 'global';
+            script += `# Add queue tree: ${name}\n`;
+            script += `add name=${name} parent=${parent} max-limit=${limit} comment="Generated by Dr. Net"\n`;
+          });
+          return script;
+        }
+      },
+      'pcq': {
+        description: 'مولد PCQ لتوزيع النطاق الترددي بالتساوي',
+        inputs: [
+          { id: 'name', label: 'اسم PCQ', placeholder: 'pcq1', type: 'text' },
+          { id: 'rate', label: 'السرعة لكل مستخدم', placeholder: '1M', type: 'text' }
+        ],
+        repeatable: true,
+        script: function (entries) {
+          let script = '# PCQ Script - Generated by Dr. Net\n';
+          script += '# Author: مصطفى عاطف الشوري\n';
+          script += '/queue type\n';
+          entries.forEach((params, index) => {
+            const name = params.name || `pcq${index + 1}`;
+            const rate = params.rate || '1M';
+            script += `# Add PCQ type: ${name}\n`;
+            script += `add kind=pcq name=${name} pcq-rate=${rate} comment="Generated by Dr. Net"\n`;
+          });
+          script += '/queue tree\n';
+          entries.forEach((params, index) => {
+            const name = params.name || `pcq${index + 1}`;
+            script += `# Add queue tree for PCQ: ${name}\n`;
+            script += `add name=${name} parent=global queue=${name} comment="Generated by Dr. Net"\n`;
+          });
+          return script;
+        }
+      },
       'general': {
         description: 'سؤال عام أو طلب خاص',
         inputs: [
@@ -417,7 +408,6 @@
       }
     };
 
-    // عناصر DOM
     const toolSelect = document.getElementById('tool');
     const inputsDiv = document.getElementById('inputs');
     const submitBtn = document.getElementById('submit');
@@ -426,18 +416,15 @@
     const answerText = document.getElementById('answer-text');
     const copyBtn = document.getElementById('copy');
 
-    // دعم فني - مودال
     const supportBtn = document.getElementById('supportBtn');
     const supportModal = document.getElementById('supportModal');
     const closeSupportBtn = document.getElementById('closeSupport');
     const supportChat = document.getElementById('supportChat');
 
-    // متغيرات للحالة
     let currentTool = null;
     let repeatableCount = 1;
 
-    // دالة لإنشاء مدخلات الأداة
-    function createInputField(input, index, repeatIndex) {
+    function createInputField(input, repeatIndex) {
       const wrapper = document.createElement('div');
       wrapper.className = 'input-group';
       wrapper.style.marginBottom = '15px';
@@ -470,7 +457,6 @@
       return wrapper;
     }
 
-    // بناء واجهة الإدخال حسب الأداة المختارة
     function buildInputs(toolKey) {
       inputsDiv.innerHTML = '';
       errorP.style.display = 'none';
@@ -482,7 +468,6 @@
 
       currentTool = toolsDatabase[toolKey];
 
-      // عرض وصف الأداة
       const desc = document.createElement('p');
       desc.style.fontWeight = '600';
       desc.style.marginBottom = '15px';
@@ -492,7 +477,6 @@
 
       if (currentTool.repeatable) {
         addRepeatableInputs();
-        // زر إضافة مدخلات إضافية
         const addBtn = document.createElement('button');
         addBtn.type = 'button';
         addBtn.className = 'add-btn';
@@ -511,17 +495,14 @@
         });
         inputsDiv.appendChild(addBtn);
       } else {
-        // غير متكرر
         currentTool.inputs.forEach((input) => {
-          inputsDiv.appendChild(createInputField(input, 0, 0));
+          inputsDiv.appendChild(createInputField(input, 0));
         });
       }
 
-      // تفعيل زر الإنشاء بعد بناء المدخلات
       submitBtn.disabled = false;
     }
 
-    // إضافة مدخلات متكررة
     function addRepeatableInputs() {
       const groupWrapper = document.createElement('fieldset');
       groupWrapper.style.border = '1.5px dashed #ccc';
@@ -537,10 +518,9 @@
       groupWrapper.appendChild(legend);
 
       currentTool.inputs.forEach((input) => {
-        groupWrapper.appendChild(createInputField(input, 0, repeatableCount));
+        groupWrapper.appendChild(createInputField(input, repeatableCount));
       });
 
-      // زر إزالة المجموعة (إذا أكثر من 1)
       if (repeatableCount > 1) {
         const removeBtn = document.createElement('button');
         removeBtn.type = 'button';
@@ -557,7 +537,6 @@
         removeBtn.addEventListener('click', () => {
           groupWrapper.remove();
           repeatableCount--;
-          // إعادة ترقيم المجموعات
           const fieldsets = inputsDiv.querySelectorAll('fieldset');
           fieldsets.forEach((fs, i) => {
             fs.querySelector('legend').textContent = `المدخل رقم ${i + 1}`;
@@ -566,7 +545,6 @@
         groupWrapper.appendChild(removeBtn);
       }
 
-      // أضف المجموعة قبل زر الإضافة
       const addBtn = inputsDiv.querySelector('button.add-btn');
       if (addBtn) {
         inputsDiv.insertBefore(groupWrapper, addBtn);
@@ -575,7 +553,6 @@
       }
     }
 
-    // جمع البيانات من المدخلات
     function collectInputs() {
       if (!currentTool) return [];
 
@@ -601,7 +578,6 @@
       return entries;
     }
 
-    // تحقق بسيط من صحة المدخلات
     function validateInputs(entries) {
       for (const entry of entries) {
         for (const key in entry) {
@@ -613,7 +589,6 @@
       return '';
     }
 
-    // إنشاء السكربت
     function generateScript() {
       errorP.style.display = 'none';
       answerDiv.style.display = 'none';
@@ -639,7 +614,6 @@
       }
     }
 
-    // نسخ السكربت للحافظة
     copyBtn.addEventListener('click', () => {
       answerText.select();
       answerText.setSelectionRange(0, 99999);
@@ -650,23 +624,18 @@
       });
     });
 
-    // حدث تغيير اختيار الأداة
     toolSelect.addEventListener('change', () => {
       buildInputs(toolSelect.value);
     });
 
-    // حدث زر إنشاء السكربت
     submitBtn.addEventListener('click', (e) => {
       e.preventDefault();
       generateScript();
     });
 
-    // دعم فني - فتح وإغلاق المودال
     supportBtn.addEventListener('click', () => {
       supportModal.showModal();
       supportChat.innerHTML = '<p>جاري تفعيل نظام الدعم الفني المباشر...</p>';
-
-      // محاكاة دردشة دعم مباشر (يمكن ربط API حقيقي)
       setTimeout(() => {
         supportChat.innerHTML = '<p><strong>مرحباً! كيف يمكننا مساعدتك اليوم؟</strong></p>';
       }, 1500);
@@ -676,7 +645,6 @@
       supportModal.close();
     });
 
-    // إغلاق المودال عند الضغط خارج المحتوى
     supportModal.addEventListener('click', (event) => {
       const rect = supportModal.getBoundingClientRect();
       if (
@@ -689,7 +657,6 @@
       }
     });
 
-    // تهيئة الصفحة - تعطيل الزر حتى اختيار أداة
     submitBtn.disabled = true;
   </script>
 </body>
