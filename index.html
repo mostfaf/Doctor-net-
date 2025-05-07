@@ -2,262 +2,349 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<meta name="description" content="دكتور نت - أدوات احترافية لإعدادات MikroTik RouterOS" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>دكتور نت 2.0 - أفضل أدوات MikroTik بالعالم</title>
+<meta name="description" content="دكتور نت 2.0 - منصة متطورة لأدوات MikroTik مع تصميم فريد وتجربة مستخدم استثنائية" />
 <meta name="author" content="مصطفى عاطف الشوري" />
-<title>دكتور نت - أدوات مايكروتك</title>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" as="style" onload="this.rel='stylesheet'" />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap');
-* {
-  box-sizing: border-box;
-  font-family: 'Cairo', sans-serif;
-  margin: 0; padding: 0;
-  transition: all 0.2s ease-in-out;
-}
-body {
-  background: linear-gradient(135deg, #004aad, #0073e6);
-  color: #333;
-  min-height: 100vh;
-  font-size: 16px;
-  line-height: 1.6;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
-}
-#wrap {
-  max-width: 900px;
-  width: 100%;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-  padding: 30px 25px 80px 25px;
-  margin-top: 20px;
-  position: relative;
-}
-.logo-img {
-  width: 150px; height: 150px;
-  border-radius: 50%;
-  display: block;
-  margin: 0 auto 25px auto;
-  border: 8px solid #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  filter: drop-shadow(0 0 5px #0073e6);
-}
-label {
-  font-weight: 600;
-  font-size: 17px;
-  color: #004aad;
-  display: block;
-  margin-bottom: 8px;
-}
-select, input[type=text], textarea {
-  width: 100%;
-  padding: 12px 15px;
-  margin-bottom: 18px;
-  border: 1.8px solid #ccc;
-  border-radius: 10px;
-  font-size: 15px;
-  background: #fff;
-  outline-color: #004aad;
-}
-select:focus, input[type=text]:focus, textarea:focus {
-  border-color: #0073e6;
-  background: #eaf4ff;
-}
-button {
-  width: 100%;
-  padding: 16px;
-  font-size: 17px;
-  font-weight: 700;
-  border: none;
-  border-radius: 10px;
-  background-color: #004aad;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,67,173,0.6);
-  user-select: none;
-}
-button:hover:not(:disabled) {
-  background-color: #003087;
-  box-shadow: 0 6px 18px rgba(0,48,135,0.8);
-}
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-#answer-text {
-  height: 280px;
-  padding: 15px;
-  border-radius: 10px;
-  border: 1.8px solid #ccc;
-  font-size: 14px;
-  resize: none;
-  direction: ltr;
-  font-family: Consolas, monospace;
-  white-space: pre-wrap;
-  line-height: 1.4;
-  color: #222;
-  background: #fff;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.07);
-}
-#answer {
-  margin-top: 25px;
-  display: none;
-}
-#copy {
-  margin-top: 12px;
-  background-color: #28a745;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(40,167,69,0.6);
-}
-#copy:hover {
-  background-color: #218838;
-  box-shadow: 0 6px 18px rgba(33,136,56,0.9);
-}
-#error {
-  display: none;
-  margin: 15px 0;
-  padding: 10px 15px;
-  font-weight: 600;
-  font-size: 15px;
-  color: #dc3545;
-  background-color: #f8d7da;
-  border-radius: 8px;
-  border: 1px solid #f5c6cb;
-  text-align: center;
-}
-.warning-message {
-  background-color: #fff3cd;
-  color: #856404;
-  padding: 15px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 15px;
-  margin-bottom: 25px;
-  border: 1px solid #ffeeba;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(255,193,7,0.3);
-}
-.disclaimer, .footer {
-  color: #fff;
-  text-align: center;
-  margin: 25px 0 10px 0;
-  font-weight: 500;
-  user-select: none;
-}
-.footer {
-  margin-bottom: 40px;
-}
-.support-floating {
-  position: fixed;
-  bottom: 25px;
-  left: 25px;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-.support-btn, .booking-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background-color: #004aad;
-  color: white;
-  border-radius: 50px;
-  padding: 12px 20px;
-  font-weight: 600;
-  font-size: 16px;
-  box-shadow: 0 6px 20px rgba(0,67,173,0.7);
-  cursor: pointer;
-  text-decoration: none;
-  user-select: none;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-.support-btn:hover, .booking-btn:hover {
-  background-color: #003087;
-  box-shadow: 0 8px 28px rgba(0,48,135,0.9);
-}
-.support-btn i, .booking-btn i {
-  font-size: 20px;
-}
-@media (max-width: 768px) {
-  #wrap { padding: 30px 15px 80px 15px; }
-  .logo-img { width: 120px; height: 120px; }
-  button, select, input[type=text], textarea { font-size: 15px; padding: 12px; }
-  #answer-text { height: 220px; }
-}
-@media (max-width: 480px) {
-  .logo-img { width: 100px; height: 100px; }
-  button, select, input[type=text], textarea { font-size: 14px; padding: 10px; }
-  #answer-text { height: 180px; }
-  .support-floating { bottom: 15px; left: 15px; gap: 10px; }
-  .support-btn, .booking-btn { font-size: 14px; padding: 10px 18px; }
-}
+  /* Reset and base */
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin:0; padding:0;
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #001f4d, #004aad);
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  a { text-decoration: none; color: inherit; }
+  /* Container */
+  #wrap {
+    max-width: 1000px;
+    width: 95%;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    margin: 40px 0 80px;
+    padding: 30px 40px 50px;
+    position: relative;
+  }
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .logo-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 6px solid #004aad;
+    box-shadow: 0 0 20px #0073e6;
+    transition: transform 0.3s ease;
+  }
+  .logo-img:hover {
+    transform: rotate(10deg);
+  }
+  h1 {
+    font-size: 2.5rem;
+    color: #004aad;
+    margin-top: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  /* Warning */
+  .warning-message {
+    background: #fff3cd;
+    color: #856404;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    border: 1px solid #ffeeba;
+    box-shadow: 0 2px 12px rgba(255,193,7,0.3);
+    text-align: center;
+  }
+  /* Tool selector & description */
+  #tool-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  label {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #004aad;
+  }
+  select {
+    padding: 14px 20px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 2px solid #004aad;
+    background: #eaf4ff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  select:hover, select:focus {
+    background-color: #d1e7ff;
+    outline: none;
+  }
+  #tool-desc {
+    font-size: 1rem;
+    color: #333;
+    min-height: 50px;
+    padding: 10px 15px;
+    background: #f0f8ff;
+    border-radius: 12px;
+    box-shadow: inset 0 0 10px #cce5ff;
+  }
+  /* Inputs container */
+  #inputs {
+    margin-bottom: 20px;
+  }
+  .input-group {
+    margin-bottom: 18px;
+  }
+  .input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #004aad;
+  }
+  .input-group input[type="text"],
+  .input-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    transition: border-color 0.3s ease;
+  }
+  .input-group input[type="text"]:focus,
+  .input-group textarea:focus {
+    border-color: #004aad;
+    background-color: #eaf4ff;
+    outline: none;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  /* Add/Remove buttons for repeatable inputs */
+  .repeat-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .btn-add, .btn-remove {
+    background-color: #004aad;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .btn-add:hover, .btn-remove:hover {
+    background-color: #002e6d;
+  }
+  /* Submit button */
+  #submit {
+    font-size: 1.2rem;
+    padding: 16px;
+    border-radius: 14px;
+    font-weight: 700;
+    box-shadow: 0 6px 16px rgba(0,67,173,0.7);
+  }
+  #submit:disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  /* Error message */
+  #error {
+    color: #dc3545;
+    font-weight: 700;
+    margin: 15px 0;
+    text-align: center;
+    display: none;
+  }
+  /* Script output */
+  #answer {
+    margin-top: 30px;
+    display: none;
+    position: relative;
+  }
+  #answer-text {
+    width: 100%;
+    font-family: 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 20px;
+    border-radius: 14px;
+    border: 2px solid #004aad;
+    background-color: #f0f8ff;
+    min-height: 280px;
+    white-space: pre-wrap;
+    overflow-y: auto;
+  }
+  #copy {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 6px 14px rgba(40,167,69,0.8);
+    transition: background-color 0.3s ease;
+  }
+  #copy:hover {
+    background-color: #1e7e34;
+  }
+  /* Footer */
+  footer.disclaimer, footer.footer {
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    margin-top: 40px;
+    user-select: none;
+  }
+  /* Support floating buttons */
+  .support-floating {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .support-btn, .booking-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #004aad;
+    color: white;
+    border-radius: 50px;
+    padding: 14px 24px;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 6px 20px rgba(0,67,173,0.7);
+    cursor: pointer;
+    user-select: none;
+    border: none;
+  }
+  .support-btn:hover, .booking-btn:hover {
+    background-color: #002e6d;
+    box-shadow: 0 8px 28px rgba(0,48,135,0.9);
+  }
+  .support-btn i, .booking-btn i {
+    font-size: 22px;
+  }
+  /* Responsive */
+  @media (max-width: 768px) {
+    #wrap {
+      padding: 25px 20px 70px 20px;
+    }
+    .logo-img {
+      width: 120px;
+      height: 120px;
+    }
+    #submit {
+      font-size: 1rem;
+      padding: 14px;
+    }
+    .support-btn, .booking-btn {
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 480px) {
+    .logo-img {
+      width: 100px;
+      height: 100px;
+    }
+    #answer-text {
+      min-height: 200px;
+    }
+    .support-floating {
+      bottom: 15px;
+      left: 15px;
+      gap: 10px;
+    }
+  }
 </style>
 </head>
 <body>
 <div id="wrap" role="main" aria-label="موقع دكتور نت لأدوات مايكروتك">
-  <header aria-label="رأس الصفحة">
+  <header>
     <img src="https://i.imgur.com/0PBLMuU.jpeg" alt="شعار دكتور نت" class="logo-img" loading="lazy" />
+    <h1>دكتور نت 2.0 - أفضل أدوات MikroTik بالعالم</h1>
   </header>
 
-  <main>
-    <section class="content" aria-labelledby="tools-label">
-      <div class="warning-message" role="alert" aria-live="polite">
-        <strong>تنبيه مهم:</strong> دكتور نت غير مسؤول عن أي أضرار ناتجة عن الاستخدام الخاطئ لهذه الأدوات. يرجى مراجعة السكربتات بعناية قبل التطبيق.
-      </div>
+  <div class="warning-message" role="alert" aria-live="polite">
+    <strong>تنبيه مهم:</strong> دكتور نت غير مسؤول عن أي أضرار ناتجة عن الاستخدام الخاطئ لهذه الأدوات. يرجى مراجعة السكربتات بعناية قبل التطبيق.
+  </div>
 
-      <label for="tool" id="tools-label">اختر الأداة:</label>
-      <select id="tool" aria-required="true" aria-invalid="false" aria-describedby="tool-desc">
-        <option value="" disabled selected>-- اختر أداة --</option>
-        <option value="simple-queue">مولد Simple Queue</option>
-        <option value="queue-tree">مولد Queue Tree</option>
-        <option value="pcq">مولد PCQ</option>
-        <option value="load-balancing-pcc">موازنة الحمل PCC</option>
-        <option value="load-balancing-ecmp">موازنة الحمل ECMP</option>
-        <option value="vpn-pptp">نفق VPN PPTP</option>
-        <option value="vpn-l2tp">نفق VPN L2TP</option>
-        <option value="vpn-openvpn">نفق VPN OpenVPN</option>
-        <option value="firewall-basic">جدار حماية أساسي</option>
-        <option value="firewall-advanced">جدار حماية متقدم</option>
-        <option value="dhcp-server">خادم DHCP</option>
-        <option value="hotspot-setup">إعداد Hotspot</option>
-        <option value="capsman">إعداد CAPsMAN</option>
-        <option value="ipsec">إعداد IPsec</option>
-        <option value="pppoe-server">خادم PPPoE</option>
-        <option value="pppoe-client">عميل PPPoE</option>
-        <option value="vrrp">إعداد VRRP</option>
-        <option value="traffic-monitor">مراقبة الحركة</option>
-        <option value="port-knocking">Port Knocking</option>
-        <option value="ipv6-addressing">عناوين IPv6</option>
-        <option value="dhcpv6">خادم DHCPv6</option>
-        <option value="scheduled-script">سكربت مجدول</option>
-        <option value="backup-script">سكربت النسخ الاحتياطي</option>
-        <option value="general">سؤال عام</option>
-      </select>
+  <section id="tool-section">
+    <label for="tool">اختر الأداة:</label>
+    <select id="tool" aria-describedby="tool-desc" aria-required="true">
+      <option value="" disabled selected>-- اختر أداة --</option>
+      <option value="simple-queue">مولد Simple Queue</option>
+      <option value="queue-tree">مولد Queue Tree</option>
+      <option value="pcq">مولد PCQ</option>
+      <option value="load-balancing-pcc">موازنة الحمل PCC</option>
+      <option value="load-balancing-ecmp">موازنة الحمل ECMP</option>
+      <option value="vpn-pptp">نفق VPN PPTP</option>
+      <option value="vpn-l2tp">نفق VPN L2TP</option>
+      <option value="vpn-openvpn">نفق VPN OpenVPN</option>
+      <option value="firewall-basic">جدار حماية أساسي</option>
+      <option value="firewall-advanced">جدار حماية متقدم</option>
+      <option value="dhcp-server">خادم DHCP</option>
+      <option value="hotspot-setup">إعداد Hotspot</option>
+      <option value="capsman">إعداد CAPsMAN</option>
+      <option value="ipsec">إعداد IPsec</option>
+      <option value="pppoe-server">خادم PPPoE</option>
+      <option value="pppoe-client">عميل PPPoE</option>
+      <option value="vrrp">إعداد VRRP</option>
+      <option value="traffic-monitor">مراقبة الحركة</option>
+      <option value="port-knocking">Port Knocking</option>
+      <option value="ipv6-addressing">عناوين IPv6</option>
+      <option value="dhcpv6">خادم DHCPv6</option>
+      <option value="scheduled-script">سكربت مجدول</option>
+      <option value="backup-script">سكربت النسخ الاحتياطي</option>
+      <option value="general">سؤال عام</option>
+    </select>
+    <p id="tool-desc" style="min-height: 50px; margin-top: 5px; color: #004aad; font-weight: 600;"></p>
+  </section>
 
-      <div id="inputs" aria-live="polite" aria-atomic="true"></div>
+  <form id="tool-form" novalidate>
+    <div id="inputs"></div>
+    <button id="submit" disabled>إنشاء السكربت</button>
+  </form>
 
-      <button id="submit" aria-describedby="error" disabled>إنشاء السكربت</button>
+  <section id="answer" aria-label="السكريبت الناتج" style="display:none; position: relative; margin-top: 30px;">
+    <textarea id="answer-text" readonly aria-readonly="true" aria-label="نص السكربت الناتج"></textarea>
+    <button id="copy" aria-label="نسخ السكربت" title="نسخ السكربت"><i class="fas fa-copy"></i> نسخ السكربت</button>
+  </section>
 
-      <p id="error" role="alert" aria-live="assertive"></p>
+  <p id="error" role="alert" aria-live="assertive" style="display:none;"></p>
 
-      <div id="answer" aria-label="السكريبت الناتج">
-        <textarea id="answer-text" readonly aria-readonly="true" aria-label="نص السكربت الناتج"></textarea>
-        <button id="copy" aria-label="نسخ السكربت">نسخ السكربت</button>
-      </div>
-    </section>
-  </main>
-
-  <footer class="disclaimer" aria-label="معلومات حقوق النشر">
+  <footer class="disclaimer">
     جميع الحقوق محفوظة لـ مصطفى عاطف الشوري برعاية سيستم سمارت راديوس © 2025
   </footer>
-  <footer class="footer" aria-label="حقوق النشر">
-    <p>تم تطوير الموقع لدعم مجتمع MikroTik بأفضل الأدوات والسكربتات.</p>
+  <footer class="footer">
+    تم تطوير الموقع لدعم مجتمع MikroTik بأفضل الأدوات والسكربتات.
   </footer>
 </div>
 
@@ -289,9 +376,9 @@ const toolsDatabase = {
       { id: 'name', label: 'اسم العميل', placeholder: 'client1', type: 'text' }
     ],
     repeatable: true,
-    script: function(entries) {
+    script(entries) {
       let script = '# Simple Queue Script - Generated by Dr. Net\n# Author: مصطفى عاطف الشوري\n/queue simple\n';
-      entries.forEach((p,i)=>{
+      entries.forEach((p,i) => {
         const ip = p.ip || `192.168.1.${i+2}`;
         const speed = p.speed || '2M/2M';
         const name = p.name || `client${i+1}`;
@@ -300,21 +387,21 @@ const toolsDatabase = {
       return script;
     }
   },
-  // (جميع الأدوات كما في الرد السابق مع السكربتات الموثوقة)
-  // ...
+  // ... (كل الأدوات كما في الرد السابق مع السكربتات المجربة)
   'general': {
     description: 'سؤال عام أو طلب خاص',
     inputs: [
       { id: 'question', label: 'اكتب سؤالك أو طلبك هنا', placeholder: 'مثال: كيف أضيف قاعدة في الجدار الناري؟', type: 'textarea' }
     ],
     repeatable: false,
-    script: function(entries) {
+    script(entries) {
       return `# سؤال عام من المستخدم:\n# ${entries[0].question || ''}\n# يرجى التواصل مع الدعم الفني للمساعدة.`;
     }
   }
 };
 
 const toolSelect = document.getElementById('tool');
+const toolDesc = document.getElementById('tool-desc');
 const inputsDiv = document.getElementById('inputs');
 const submitBtn = document.getElementById('submit');
 const errorP = document.getElementById('error');
@@ -363,50 +450,12 @@ function createInputField(input, repeatIndex) {
   return wrapper;
 }
 
-function buildInputs(toolKey) {
+function clearInputs() {
   inputsDiv.innerHTML = '';
   errorP.style.display = 'none';
   answerDiv.style.display = 'none';
   submitBtn.disabled = true;
   repeatableCount = 1;
-
-  if (!toolKey || !toolsDatabase[toolKey]) return;
-
-  currentTool = toolsDatabase[toolKey];
-
-  const desc = document.createElement('p');
-  desc.style.fontWeight = '600';
-  desc.style.marginBottom = '15px';
-  desc.style.color = '#004aad';
-  desc.textContent = currentTool.description || '';
-  inputsDiv.appendChild(desc);
-
-  if (currentTool.repeatable) {
-    addRepeatableInputs();
-    const addBtn = document.createElement('button');
-    addBtn.type = 'button';
-    addBtn.className = 'add-btn';
-    addBtn.textContent = 'إضافة مدخل جديد +';
-    addBtn.style.backgroundColor = '#28a745';
-    addBtn.style.color = 'white';
-    addBtn.style.border = 'none';
-    addBtn.style.padding = '10px 20px';
-    addBtn.style.borderRadius = '8px';
-    addBtn.style.cursor = 'pointer';
-    addBtn.style.fontWeight = '600';
-    addBtn.style.marginTop = '10px';
-    addBtn.addEventListener('click', () => {
-      repeatableCount++;
-      addRepeatableInputs();
-    });
-    inputsDiv.appendChild(addBtn);
-  } else {
-    currentTool.inputs.forEach((input) => {
-      inputsDiv.appendChild(createInputField(input, 0));
-    });
-  }
-
-  submitBtn.disabled = false;
 }
 
 function addRepeatableInputs() {
@@ -459,15 +508,48 @@ function addRepeatableInputs() {
   }
 }
 
+function buildInputs(toolKey) {
+  clearInputs();
+  if (!toolKey || !toolsDatabase[toolKey]) return;
+
+  currentTool = toolsDatabase[toolKey];
+  toolDesc.textContent = currentTool.description || '';
+
+  if (currentTool.repeatable) {
+    addRepeatableInputs();
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.className = 'add-btn';
+    addBtn.textContent = 'إضافة مدخل جديد +';
+    addBtn.style.backgroundColor = '#28a745';
+    addBtn.style.color = 'white';
+    addBtn.style.border = 'none';
+    addBtn.style.padding = '10px 20px';
+    addBtn.style.borderRadius = '8px';
+    addBtn.style.cursor = 'pointer';
+    addBtn.style.fontWeight = '600';
+    addBtn.style.marginTop = '10px';
+    addBtn.addEventListener('click', () => {
+      repeatableCount++;
+      addRepeatableInputs();
+    });
+    inputsDiv.appendChild(addBtn);
+  } else {
+    currentTool.inputs.forEach(input => {
+      inputsDiv.appendChild(createInputField(input, 0));
+    });
+  }
+  submitBtn.disabled = false;
+}
+
 function collectInputs() {
   if (!currentTool) return [];
-
   let entries = [];
   if (currentTool.repeatable) {
     const fieldsets = inputsDiv.querySelectorAll('fieldset');
-    fieldsets.forEach((fs) => {
+    fieldsets.forEach(fs => {
       let entry = {};
-      currentTool.inputs.forEach((input) => {
+      currentTool.inputs.forEach(input => {
         const el = fs.querySelector(`#${input.id}-${fieldsets.length > 1 ? fs.querySelector('legend').textContent.match(/\d+/)[0] : 1}`);
         if (el) entry[input.id] = el.value.trim();
       });
@@ -475,7 +557,7 @@ function collectInputs() {
     });
   } else {
     let entry = {};
-    currentTool.inputs.forEach((input) => {
+    currentTool.inputs.forEach(input => {
       const el = inputsDiv.querySelector(`#${input.id}-0`);
       if (el) entry[input.id] = el.value.trim();
     });
@@ -534,7 +616,7 @@ toolSelect.addEventListener('change', () => {
   buildInputs(toolSelect.value);
 });
 
-submitBtn.addEventListener('click', (e) => {
+submitBtn.addEventListener('click', e => {
   e.preventDefault();
   generateScript();
 });
@@ -551,7 +633,7 @@ closeSupportBtn.addEventListener('click', () => {
   supportModal.close();
 });
 
-supportModal.addEventListener('click', (event) => {
+supportModal.addEventListener('click', event => {
   const rect = supportModal.getBoundingClientRect();
   if (
     event.clientX < rect.left ||
