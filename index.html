@@ -16,6 +16,8 @@
             --success: #28a745;
             --danger: #dc3545;
             --card-bg: rgba(255, 255, 255, 0.95);
+            --gradient-start: #0f1b31;
+            --gradient-end: #1a3a5f;
         }
 
         * {
@@ -26,7 +28,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, var(--dark), var(--primary));
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
             color: #fff;
             min-height: 100vh;
             line-height: 1.6;
@@ -44,7 +46,8 @@
             bottom: 0;
             background: 
                 radial-gradient(circle at 20% 30%, rgba(26, 35, 126, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(0, 74, 173, 0.2) 0%, transparent 40%);
+                radial-gradient(circle at 80% 70%, rgba(0, 74, 173, 0.2) 0%, transparent 40%),
+                linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
             z-index: -1;
         }
 
@@ -64,12 +67,27 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 214, 0, 0.15));
+            transform: skewX(-20deg);
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 15px;
+            z-index: 1;
         }
 
         .logo-img {
@@ -78,6 +96,7 @@
             border-radius: 50%;
             border: 3px solid var(--accent);
             object-fit: cover;
+            box-shadow: 0 0 15px rgba(255, 214, 0, 0.5);
         }
 
         .logo-text {
@@ -89,12 +108,21 @@
             font-size: 1.8rem;
             color: #fff;
             line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .logo-text span {
             font-size: 0.9rem;
             color: var(--accent);
             font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .nav-text {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
         }
 
         /* تصميم الأدوات */
@@ -110,6 +138,7 @@
             padding: 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             height: fit-content;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .tools-sidebar h2 {
@@ -117,6 +146,17 @@
             margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 2px solid var(--accent);
+            position: relative;
+        }
+
+        .tools-sidebar h2::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
         }
 
         .tool-list {
@@ -132,15 +172,27 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            background: rgba(234, 244, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        .tool-item:hover, .tool-item.active {
+        .tool-item:hover {
             background: var(--light);
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(0, 74, 173, 0.1);
+        }
+
+        .tool-item.active {
+            background: var(--light);
+            border-left: 4px solid var(--accent);
+            font-weight: 700;
         }
 
         .tool-item i {
             color: var(--secondary);
             font-size: 1.2rem;
+            min-width: 25px;
+            text-align: center;
         }
 
         .tool-content {
@@ -149,12 +201,14 @@
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             min-height: 600px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .tool-header {
             margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 2px solid var(--accent);
+            position: relative;
         }
 
         .tool-header h2 {
@@ -177,10 +231,12 @@
             font-weight: 600;
             line-height: 1.7;
             border-left: 4px solid var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
         .tool-form {
             margin-bottom: 25px;
+            transition: all 0.3s ease;
         }
 
         .form-group {
@@ -229,6 +285,20 @@
             cursor: pointer;
             box-shadow: 0 6px 20px rgba(0, 74, 173, 0.5);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
         }
 
         .submit-btn:hover {
@@ -236,10 +306,42 @@
             box-shadow: 0 8px 25px rgba(0, 74, 173, 0.7);
         }
 
+        .submit-btn:hover::after {
+            transform: rotate(30deg) translate(20%, 20%);
+        }
+
+        .submit-btn.loading {
+            padding-right: 50px;
+        }
+
+        .submit-btn .spinner {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: translateY(-50%) rotate(360deg); }
+        }
+
         .answer-container {
             margin-top: 30px;
             display: none;
             position: relative;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .answer-text {
@@ -255,6 +357,7 @@
             white-space: pre-wrap;
             overflow-y: auto;
             line-height: 1.5;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         .copy-btn {
@@ -270,11 +373,19 @@
             font-weight: 700;
             box-shadow: 0 4px 15px rgba(40, 167, 69, 0.5);
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .copy-btn:hover {
             background: #218838;
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.7);
+        }
+
+        .copy-btn.copied {
+            background: #17a2b8;
         }
 
         /* دعم عائم */
@@ -305,11 +416,29 @@
             border: none;
             text-decoration: none;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-btn::after, .booking-btn::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
         }
 
         .support-btn:hover, .booking-btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 30px rgba(0, 48, 135, 0.9);
+        }
+
+        .support-btn:hover::after, .booking-btn:hover::after {
+            transform: rotate(30deg) translate(20%, 20%);
         }
 
         .support-btn i, .booking-btn i {
@@ -343,6 +472,8 @@
             padding: 10px 20px;
             border-radius: 30px;
             font-weight: 600;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         /* رسائل الخطأ */
@@ -354,6 +485,7 @@
             margin-bottom: 20px;
             display: none;
             font-weight: 600;
+            border: 1px solid rgba(220, 53, 69, 0.3);
         }
 
         /* تصميم متجاوب */
@@ -401,6 +533,68 @@
                 gap: 10px;
             }
         }
+
+        /* تأثيرات إضافية */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 214, 0, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 214, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 214, 0, 0); }
+        }
+        
+        .history-container {
+            margin-top: 20px;
+            background: var(--light);
+            border-radius: 15px;
+            padding: 20px;
+            display: none;
+        }
+        
+        .history-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .history-item {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+            border: 1px solid #eee;
+            transition: all 0.2s ease;
+        }
+        
+        .history-item:hover {
+            background: #f0f7ff;
+            border-color: var(--accent);
+        }
+        
+        .tool-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tool-tag {
+            background: rgba(26, 35, 126, 0.1);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -408,7 +602,7 @@
     <!-- شريط التنقل -->
     <nav class="navbar">
         <div class="logo">
-            <img src="https://i.imgur.com/0PBLMuU.jpeg" alt="شعار دكتور نت" class="logo-img">
+            <img src="https://i.imgur.com/0PBLMuU.jpeg" alt="شعار دكتور نت" class="logo-img pulse">
             <div class="logo-text">
                 <h1>دكتور نت</h1>
                 <span>أدوات مايكروتك الاحترافية</span>
@@ -482,12 +676,18 @@
             <div class="tool-header">
                 <h2 id="current-tool-name">مولد Simple Queue</h2>
                 <p id="current-tool-desc">تحديد سرعة الإنترنت لكل عميل أو IP بسهولة</p>
+                
+                <div class="tool-tags">
+                    <div class="tool-tag">نطاق ترددي</div>
+                    <div class="tool-tag">إدارة الشبكة</div>
+                    <div class="tool-tag">مايكروتك</div>
+                </div>
             </div>
             
             <div class="error-message" id="error-message"></div>
             
             <div class="tool-description" id="tool-description">
-                تتيح لك هذه الأداة إنشاء قوائم Simple Queue بسهولة لتحديد سرعات التحميل والرفع لكل عميل أو عنوان IP على شبكتك.
+                تتيح لك هذه الأداة إنشاء قوائم Simple Queue بسهولة لتحديد سرعات التحميل والرفع لكل عميل أو عنوان IP على شبكتك. يمكنك إضافة عدة عملاء في وقت واحد.
             </div>
             
             <form class="tool-form" id="tool-form">
@@ -509,7 +709,10 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="submit-btn">إنشاء السكربت</button>
+                <button type="submit" class="submit-btn">
+                    إنشاء السكربت
+                    <span class="spinner"></span>
+                </button>
             </form>
             
             <div class="answer-container" id="answer">
@@ -517,6 +720,11 @@
                 <button class="copy-btn" id="copy-btn">
                     <i class="fas fa-copy"></i> نسخ السكربت
                 </button>
+            </div>
+            
+            <div class="history-container" id="history">
+                <h3 class="history-title">محفوظات السكربتات</h3>
+                <div id="history-items"></div>
             </div>
         </div>
     </div>
@@ -830,8 +1038,13 @@ const answerText = document.getElementById('answer-text');
 const copyBtn = document.getElementById('copy-btn');
 const errorMessage = document.getElementById('error-message');
 const supportBtn = document.getElementById('supportBtn');
+const historyContainer = document.getElementById('history');
+const historyItems = document.getElementById('history-items');
+const submitBtn = document.querySelector('.submit-btn');
+const spinner = document.querySelector('.spinner');
 
 let currentToolKey = 'simple-queue';
+let scriptHistory = JSON.parse(localStorage.getItem('scriptHistory')) || [];
 
 // تحميل أداة محددة
 function loadTool(toolKey) {
@@ -854,9 +1067,13 @@ function loadTool(toolKey) {
         });
     }
     
-    // إخفاء النتائج
+    // إخفاء النتائج والمحفوظات
     answerContainer.style.display = 'none';
+    historyContainer.style.display = 'none';
     errorMessage.style.display = 'none';
+    
+    // تحميل المحفوظات إذا كانت موجودة
+    loadHistory();
 }
 
 // إنشاء حقل إدخال
@@ -894,7 +1111,7 @@ function loadRepeatableInputs(tool) {
     
     const title = document.createElement('h3');
     title.textContent = 'إضافة عميل جديد';
-    title.style.color = var('--primary');
+    title.style.color = 'var(--primary)';
     title.style.marginBottom = '15px';
     group.appendChild(title);
     
@@ -917,7 +1134,7 @@ function loadRepeatableInputs(tool) {
         
         const title = document.createElement('h3');
         title.textContent = 'عميل إضافي';
-        title.style.color = var('--primary');
+        title.style.color = 'var(--primary)';
         title.style.marginBottom = '15px';
         newGroup.appendChild(title);
         
@@ -1002,20 +1219,35 @@ function generateScript() {
         return;
     }
     
-    // توليد السكربت
-    try {
-        const script = tool.script(entries);
-        answerText.value = script;
-        answerContainer.style.display = 'block';
-        errorMessage.style.display = 'none';
+    // إظهار مؤشر التحميل
+    submitBtn.classList.add('loading');
+    spinner.style.display = 'block';
+    submitBtn.disabled = true;
+    
+    // توليد السكربت (بعد تأخير لمحاكاة التحميل)
+    setTimeout(() => {
+        try {
+            const script = tool.script(entries);
+            answerText.value = script;
+            answerContainer.style.display = 'block';
+            errorMessage.style.display = 'none';
+            
+            // حفظ السكربت في المحفوظات
+            saveToHistory(script, tool.name);
+            
+            // التمرير إلى النتيجة
+            answerContainer.scrollIntoView({ behavior: 'smooth' });
+        } catch (error) {
+            errorMessage.textContent = 'حدث خطأ أثناء توليد السكربت. يرجى المحاولة مرة أخرى.';
+            errorMessage.style.display = 'block';
+            console.error(error);
+        }
         
-        // التمرير إلى النتيجة
-        answerContainer.scrollIntoView({ behavior: 'smooth' });
-    } catch (error) {
-        errorMessage.textContent = 'حدث خطأ أثناء توليد السكربت. يرجى المحاولة مرة أخرى.';
-        errorMessage.style.display = 'block';
-        console.error(error);
-    }
+        // إخفاء مؤشر التحميل
+        submitBtn.classList.remove('loading');
+        spinner.style.display = 'none';
+        submitBtn.disabled = false;
+    }, 800);
 }
 
 // نسخ السكربت
@@ -1024,12 +1256,13 @@ function copyScript() {
     document.execCommand('copy');
     
     // تغيير النص للإشارة إلى النسخ
-    const originalText = copyBtn.innerHTML;
     copyBtn.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+    copyBtn.classList.add('copied');
     
     // العودة إلى الحالة الأصلية بعد ثانيتين
     setTimeout(() => {
-        copyBtn.innerHTML = originalText;
+        copyBtn.innerHTML = '<i class="fas fa-copy"></i> نسخ السكربت';
+        copyBtn.classList.remove('copied');
     }, 2000);
 }
 
@@ -1040,6 +1273,52 @@ function openSupport() {
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     
     window.open(whatsappUrl, '_blank');
+}
+
+// حفظ السكربت في المحفوظات
+function saveToHistory(script, toolName) {
+    const historyItem = {
+        id: Date.now(),
+        date: new Date().toLocaleString(),
+        script: script,
+        tool: toolName
+    };
+    
+    scriptHistory.unshift(historyItem);
+    
+    // الاحتفاظ فقط بـ 10 عناصر في المحفوظات
+    if (scriptHistory.length > 10) {
+        scriptHistory.pop();
+    }
+    
+    localStorage.setItem('scriptHistory', JSON.stringify(scriptHistory));
+    loadHistory();
+}
+
+// تحميل المحفوظات
+function loadHistory() {
+    if (scriptHistory.length === 0) {
+        historyContainer.style.display = 'none';
+        return;
+    }
+    
+    historyItems.innerHTML = '';
+    historyContainer.style.display = 'block';
+    
+    scriptHistory.forEach(item => {
+        const historyItem = document.createElement('div');
+        historyItem.className = 'history-item';
+        historyItem.innerHTML = `<strong>${item.tool}</strong> - ${item.date}`;
+        historyItem.dataset.script = item.script;
+        
+        historyItem.addEventListener('click', () => {
+            answerText.value = item.script;
+            answerContainer.style.display = 'block';
+            answerContainer.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        historyItems.appendChild(historyItem);
+    });
 }
 
 // تهيئة الصفحة
