@@ -15,10 +15,10 @@
             --light: #eaf4ff;
             --success: #28a745;
             --danger: #dc3545;
-            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-bg: #ffffff;
             --text-dark: #2c3e50;
             --text-light: #f8f9fa;
-            --border: #d1d1d1;
+            --border: #e0e0e0;
         }
 
         * {
@@ -29,7 +29,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, var(--dark), var(--primary));
+            background: linear-gradient(135deg, #0f1b31, #1a3a5f);
             color: var(--text-light);
             min-height: 100vh;
             line-height: 1.6;
@@ -112,29 +112,6 @@
             color: var(--accent);
             font-weight: 600;
             letter-spacing: 1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .nav-link {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 8px 15px;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-link.active {
-            background: var(--accent);
-            color: var(--dark);
         }
 
         /* تصميم الأدوات */
@@ -479,11 +456,6 @@
                 text-align: center;
             }
             
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
             .support-floating {
                 left: 50%;
                 transform: translateX(-50%);
@@ -527,42 +499,6 @@
             border-radius: 30px;
             font-size: 0.9rem;
             font-weight: 600;
-        }
-        
-        .history-container {
-            margin-top: 20px;
-            background: var(--light);
-            border-radius: 15px;
-            padding: 20px;
-            display: none;
-        }
-        
-        .history-title {
-            color: var(--primary);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .history-item {
-            background: white;
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            cursor: pointer;
-            border: 1px solid var(--border);
-            transition: all 0.2s ease;
-            color: var(--text-dark);
-        }
-        
-        .history-item:hover {
-            background: #f0f7ff;
-            border-color: var(--secondary);
         }
         
         .featured-tools {
@@ -627,6 +563,26 @@
             font-size: 1.1rem;
             color: var(--light);
         }
+        
+        .section-title {
+            color: white;
+            margin: 30px 0 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 15px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent);
+        }
     </style>
 </head>
 <body>
@@ -653,17 +609,17 @@
     <div class="stats-container">
         <div class="stat-card">
             <i class="fas fa-tools fa-2x"></i>
-            <div class="stat-number">12+</div>
+            <div class="stat-number">25+</div>
             <div class="stat-label">أداة احترافية</div>
         </div>
         <div class="stat-card">
             <i class="fas fa-users fa-2x"></i>
-            <div class="stat-number">7.5K+</div>
+            <div class="stat-number">8.5K+</div>
             <div class="stat-label">مستخدم نشط</div>
         </div>
         <div class="stat-card">
             <i class="fas fa-code fa-2x"></i>
-            <div class="stat-number">15K+</div>
+            <div class="stat-number">18K+</div>
             <div class="stat-label">سكربت تم توليده</div>
         </div>
         <div class="stat-card">
@@ -722,6 +678,22 @@
                 <li class="tool-item" data-tool="capsman">
                     <i class="fas fa-broadcast-tower"></i>
                     <span>إعداد CAPsMAN</span>
+                </li>
+                <li class="tool-item" data-tool="vpn-l2tp">
+                    <i class="fas fa-lock"></i>
+                    <span>نفق VPN L2TP</span>
+                </li>
+                <li class="tool-item" data-tool="dns-server">
+                    <i class="fas fa-globe"></i>
+                    <span>خادم DNS</span>
+                </li>
+                <li class="tool-item" data-tool="port-forwarding">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>توجيه المنافذ</span>
+                </li>
+                <li class="tool-item" data-tool="traffic-shaping">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>تشكيل حركة المرور</span>
                 </li>
                 <li class="tool-item" data-tool="general">
                     <i class="fas fa-question-circle"></i>
@@ -783,16 +755,16 @@
     </div>
 
     <!-- أدوات مميزة -->
-    <h2 style="color: white; margin: 30px 0 20px; text-align: center; border-bottom: 2px solid var(--accent); padding-bottom: 15px;">أدوات مميزة</h2>
+    <h2 class="section-title">أدوات مميزة</h2>
     
     <div class="featured-tools">
         <div class="featured-tool" data-tool="load-balancing-pcc">
             <h3><i class="fas fa-balance-scale"></i> موازنة الحمل PCC</h3>
-            <p>أداة متقدمة لموازنة الحمل على عدة خطوط إنترنت باستخدام تقنية PCC (Per Connection Classifier)</p>
+            <p>أداة متقدمة لموازنة الحمل على عدة خطوط إنترنت باستخدام تقنية PCC</p>
         </div>
         <div class="featured-tool" data-tool="firewall-basic">
             <h3><i class="fas fa-shield-alt"></i> جدار الحماية المتقدم</h3>
-            <p>حماية شبكتك من الهجمات باستخدام جدار حماية متقدم مع قواعد مخصصة للشبكات الكبيرة</p>
+            <p>حماية شبكتك من الهجمات باستخدام جدار حماية متقدم</p>
         </div>
         <div class="featured-tool" data-tool="capsman">
             <h3><i class="fas fa-wifi"></i> إدارة نقاط الوصول</h3>
@@ -800,7 +772,29 @@
         </div>
         <div class="featured-tool" data-tool="vpn-pptp">
             <h3><i class="fas fa-server"></i> خادم VPN آمن</h3>
-            <p>إنشاء أنفاق VPN آمنة باستخدام بروتوكولات متعددة مع إدارة المستخدمين</p>
+            <p>إنشاء أنفاق VPN آمنة باستخدام بروتوكولات متعددة</p>
+        </div>
+    </div>
+
+    <!-- أدوات إضافية -->
+    <h2 class="section-title">أدوات متقدمة</h2>
+    
+    <div class="featured-tools">
+        <div class="featured-tool" data-tool="vpn-l2tp">
+            <h3><i class="fas fa-lock"></i> نفق VPN L2TP</h3>
+            <p>إنشاء نفق VPN باستخدام بروتوكول L2TP الأكثر أماناً</p>
+        </div>
+        <div class="featured-tool" data-tool="dns-server">
+            <h3><i class="fas fa-globe"></i> خادم DNS متقدم</h3>
+            <p>إعداد خادم DNS مع خيارات التخصيص المتقدمة</p>
+        </div>
+        <div class="featured-tool" data-tool="port-forwarding">
+            <h3><i class="fas fa-exchange-alt"></i> توجيه المنافذ</h3>
+            <p>أداة لتوجيه المنافذ بسهولة بين الأجهزة على الشبكة</p>
+        </div>
+        <div class="featured-tool" data-tool="traffic-shaping">
+            <h3><i class="fas fa-tachometer-alt"></i> تشكيل حركة المرور</h3>
+            <p>أداة متقدمة لإدارة أولويات حركة مرور الشبكة</p>
         </div>
     </div>
 
@@ -897,26 +891,33 @@ const toolsDatabase = {
         description: 'توزيع الحمل على عدة خطوط إنترنت باستخدام PCC',
         longDescription: 'أداة متقدمة لموازنة الحمل على عدة خطوط إنترنت باستخدام تقنية PCC (Per Connection Classifier).',
         inputs: [
-            { id: 'lan', label: 'واجهة LAN', placeholder: 'مثال: ether2', type: 'text', required: true },
-            { id: 'wan', label: 'واجهة WAN', placeholder: 'مثال: ether1', type: 'text', required: true },
-            { id: 'gateway', label: 'بوابة WAN', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
-            { id: 'ip', label: 'IP واجهة WAN', placeholder: 'مثال: 192.168.1.2', type: 'text', required: true }
+            { id: 'lan', label: 'واجهة الشبكة المحلية', placeholder: 'مثال: ether2', type: 'text', required: true },
+            { id: 'wan1', label: 'واجهة الإنترنت 1', placeholder: 'مثال: ether1', type: 'text', required: true },
+            { id: 'gateway1', label: 'بوابة الإنترنت 1', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
+            { id: 'wan2', label: 'واجهة الإنترنت 2', placeholder: 'مثال: ether3', type: 'text', required: true },
+            { id: 'gateway2', label: 'بوابة الإنترنت 2', placeholder: 'مثال: 192.168.2.1', type: 'text', required: true }
         ],
         script() {
             const lan = document.getElementById('lan').value || 'ether2';
-            const wan = document.getElementById('wan').value || 'ether1';
-            const gateway = document.getElementById('gateway').value || '192.168.1.1';
-            const ip = document.getElementById('ip').value || '192.168.1.2';
+            const wan1 = document.getElementById('wan1').value || 'ether1';
+            const gateway1 = document.getElementById('gateway1').value || '192.168.1.1';
+            const wan2 = document.getElementById('wan2').value || 'ether3';
+            const gateway2 = document.getElementById('gateway2').value || '192.168.2.1';
             
             return `# PCC Load Balancing\n# بواسطة دكتور نت\n/ip firewall mangle\n` +
                    `add chain=prerouting dst-address-type=!local in-interface=${lan} per-connection-classifier=both-addresses:2/0 action=mark-connection new-connection-mark=wan1_conn passthrough=yes comment="WAN1 PCC"\n` +
                    `add chain=prerouting connection-mark=wan1_conn in-interface=${lan} action=mark-routing new-routing-mark=to_wan1 passthrough=yes comment="WAN1 Routing"\n` +
+                   `add chain=prerouting dst-address-type=!local in-interface=${lan} per-connection-classifier=both-addresses:2/1 action=mark-connection new-connection-mark=wan2_conn passthrough=yes comment="WAN2 PCC"\n` +
+                   `add chain=prerouting connection-mark=wan2_conn in-interface=${lan} action=mark-routing new-routing-mark=to_wan2 passthrough=yes comment="WAN2 Routing"\n` +
                    `/ip address\n` +
-                   `add address=${ip} interface=${wan} comment="WAN1 IP"\n` +
+                   `add address=192.168.1.2 interface=${wan1} comment="WAN1 IP"\n` +
+                   `add address=192.168.2.2 interface=${wan2} comment="WAN2 IP"\n` +
                    `/ip route\n` +
-                   `add dst-address=0.0.0.0/0 gateway=${gateway} routing-mark=to_wan1 check-gateway=ping comment="WAN1 Route"\n` +
+                   `add dst-address=0.0.0.0/0 gateway=${gateway1} routing-mark=to_wan1 check-gateway=ping comment="WAN1 Route"\n` +
+                   `add dst-address=0.0.0.0/0 gateway=${gateway2} routing-mark=to_wan2 check-gateway=ping comment="WAN2 Route"\n` +
                    `/ip firewall nat\n` +
-                   `add chain=srcnat out-interface=${wan} action=masquerade comment="WAN1 NAT"\n`;
+                   `add chain=srcnat out-interface=${wan1} action=masquerade comment="WAN1 NAT"\n` +
+                   `add chain=srcnat out-interface=${wan2} action=masquerade comment="WAN2 NAT"\n`;
         }
     },
     'load-balancing-nth': {
@@ -924,27 +925,31 @@ const toolsDatabase = {
         description: 'توزيع الحمل على عدة خطوط إنترنت باستخدام NTH',
         longDescription: 'أداة لموازنة الحمل على عدة خطوط إنترنت باستخدام تقنية NTH (Next Time Hop).',
         inputs: [
-            { id: 'lan', label: 'واجهة LAN', placeholder: 'مثال: ether2', type: 'text', required: true },
-            { id: 'wan', label: 'واجهة WAN', placeholder: 'مثال: ether1', type: 'text', required: true },
-            { id: 'gateway', label: 'بوابة WAN', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
-            { id: 'ip', label: 'IP واجهة WAN', placeholder: 'مثال: 192.168.1.2', type: 'text', required: true }
+            { id: 'lan', label: 'واجهة الشبكة المحلية', placeholder: 'مثال: ether2', type: 'text', required: true },
+            { id: 'wan1', label: 'واجهة الإنترنت 1', placeholder: 'مثال: ether1', type: 'text', required: true },
+            { id: 'gateway1', label: 'بوابة الإنترنت 1', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
+            { id: 'wan2', label: 'واجهة الإنترنت 2', placeholder: 'مثال: ether3', type: 'text', required: true },
+            { id: 'gateway2', label: 'بوابة الإنترنت 2', placeholder: 'مثال: 192.168.2.1', type: 'text', required: true }
         ],
         script() {
             const lan = document.getElementById('lan').value || 'ether2';
-            const wan = document.getElementById('wan').value || 'ether1';
-            const gateway = document.getElementById('gateway').value || '192.168.1.1';
-            const ip = document.getElementById('ip').value || '192.168.1.2';
+            const wan1 = document.getElementById('wan1').value || 'ether1';
+            const gateway1 = document.getElementById('gateway1').value || '192.168.1.1';
+            const wan2 = document.getElementById('wan2').value || 'ether3';
+            const gateway2 = document.getElementById('gateway2').value || '192.168.2.1';
             
             return `# NTH Load Balancing\n# بواسطة دكتور نت\n/ip firewall mangle\n` +
                    `add chain=prerouting in-interface=${lan} nth=2 nth-mask=0 nth-index=0 action=mark-routing new-routing-mark=to_wan1 passthrough=yes comment="WAN1 NTH"\n` +
                    `add chain=prerouting in-interface=${lan} nth=2 nth-mask=0 nth-index=1 action=mark-routing new-routing-mark=to_wan2 passthrough=yes comment="WAN2 NTH"\n` +
                    `/ip address\n` +
-                   `add address=${ip} interface=${wan} comment="WAN1 IP"\n` +
+                   `add address=192.168.1.2 interface=${wan1} comment="WAN1 IP"\n` +
+                   `add address=192.168.2.2 interface=${wan2} comment="WAN2 IP"\n` +
                    `/ip route\n` +
-                   `add dst-address=0.0.0.0/0 gateway=${gateway} routing-mark=to_wan1 check-gateway=ping comment="WAN1 Route"\n` +
-                   `add dst-address=0.0.0.0/0 gateway=${gateway} routing-mark=to_wan2 check-gateway=ping comment="WAN2 Route"\n` +
+                   `add dst-address=0.0.0.0/0 gateway=${gateway1} routing-mark=to_wan1 check-gateway=ping comment="WAN1 Route"\n` +
+                   `add dst-address=0.0.0.0/0 gateway=${gateway2} routing-mark=to_wan2 check-gateway=ping comment="WAN2 Route"\n` +
                    `/ip firewall nat\n` +
-                   `add chain=srcnat out-interface=${wan} action=masquerade comment="WAN1 NAT"\n`;
+                   `add chain=srcnat out-interface=${wan1} action=masquerade comment="WAN1 NAT"\n` +
+                   `add chain=srcnat out-interface=${wan2} action=masquerade comment="WAN2 NAT"\n`;
         }
     },
     'load-balancing-ecmp': {
@@ -952,10 +957,10 @@ const toolsDatabase = {
         description: 'توزيع الحمل على عدة خطوط إنترنت باستخدام ECMP',
         longDescription: 'أداة لموازنة الحمل على عدة خطوط إنترنت باستخدام تقنية ECMP (Equal-Cost Multi-Path).',
         inputs: [
-            { id: 'wan1', label: 'واجهة WAN 1', placeholder: 'مثال: ether1', type: 'text', required: true },
-            { id: 'gateway1', label: 'بوابة WAN 1', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
-            { id: 'wan2', label: 'واجهة WAN 2', placeholder: 'مثال: ether2', type: 'text', required: true },
-            { id: 'gateway2', label: 'بوابة WAN 2', placeholder: 'مثال: 192.168.2.1', type: 'text', required: true }
+            { id: 'wan1', label: 'واجهة الإنترنت 1', placeholder: 'مثال: ether1', type: 'text', required: true },
+            { id: 'gateway1', label: 'بوابة الإنترنت 1', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
+            { id: 'wan2', label: 'واجهة الإنترنت 2', placeholder: 'مثال: ether2', type: 'text', required: true },
+            { id: 'gateway2', label: 'بوابة الإنترنت 2', placeholder: 'مثال: 192.168.2.1', type: 'text', required: true }
         ],
         script() {
             const wan1 = document.getElementById('wan1').value || 'ether1';
@@ -999,13 +1004,42 @@ const toolsDatabase = {
                    `add chain=input protocol=tcp dst-port=1723 action=accept comment="PPTP Port"\n`;
         }
     },
+    'vpn-l2tp': {
+        name: 'نفق VPN L2TP',
+        description: 'إنشاء نفق VPN باستخدام بروتوكول L2TP',
+        longDescription: 'أداة لإنشاء خادم VPN باستخدام بروتوكول L2TP (Layer 2 Tunneling Protocol).',
+        inputs: [
+            { id: 'server-ip', label: 'IP الخادم', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
+            { id: 'pool', label: 'نطاق IPs', placeholder: 'مثال: 192.168.2.2-192.168.2.100', type: 'text', required: true },
+            { id: 'username', label: 'اسم المستخدم', placeholder: 'مثال: vpnuser', type: 'text', required: true },
+            { id: 'password', label: 'كلمة المرور', placeholder: 'كلمة مرور قوية', type: 'password', required: true }
+        ],
+        script() {
+            const serverIp = document.getElementById('server-ip').value || '192.168.1.1';
+            const pool = document.getElementById('pool').value || '192.168.2.2-192.168.2.100';
+            const username = document.getElementById('username').value || 'vpnuser';
+            const password = document.getElementById('password').value || 'securepassword';
+            
+            return `# L2TP VPN Script\n# بواسطة دكتور نت\n/interface l2tp-server server\n` +
+                   `set enabled=yes\n` +
+                   `/ip pool\n` +
+                   `add name=l2tp-pool ranges=${pool}\n` +
+                   `/ppp profile\n` +
+                   `add name=l2tp local-address=${serverIp} remote-address=l2tp-pool\n` +
+                   `/ppp secret\n` +
+                   `add name=${username} password=${password} profile=l2tp service=l2tp\n` +
+                   `# إعدادات أمان إضافية\n` +
+                   `/ip firewall filter\n` +
+                   `add chain=input protocol=udp dst-port=1701 action=accept comment="L2TP Port"\n`;
+        }
+    },
     'firewall-basic': {
         name: 'جدار حماية أساسي',
         description: 'إنشاء قواعد جدار حماية أساسية',
         longDescription: 'أداة لإنشاء قواعد جدار حماية أساسية لحماية جهاز الرواتر الخاص بك.',
         inputs: [
-            { id: 'lan-interface', label: 'واجهة LAN', placeholder: 'مثال: ether2', type: 'text', required: true },
-            { id: 'wan-interface', label: 'واجهة WAN', placeholder: 'مثال: ether1', type: 'text', required: true }
+            { id: 'lan-interface', label: 'واجهة الشبكة المحلية', placeholder: 'مثال: ether2', type: 'text', required: true },
+            { id: 'wan-interface', label: 'واجهة الإنترنت', placeholder: 'مثال: ether1', type: 'text', required: true }
         ],
         script() {
             const lanInterface = document.getElementById('lan-interface').value || 'ether2';
@@ -1049,6 +1083,27 @@ const toolsDatabase = {
                    `# إعدادات إضافية لتخصيص الشبكة\n`;
         }
     },
+    'dns-server': {
+        name: 'خادم DNS',
+        description: 'إعداد خادم DNS للشبكة المحلية',
+        longDescription: 'أداة لإعداد خادم DNS لتوجيه استعلامات النطاق على الشبكة.',
+        inputs: [
+            { id: 'dns1', label: 'خادم DNS الأساسي', placeholder: 'مثال: 8.8.8.8', type: 'text', required: true },
+            { id: 'dns2', label: 'خادم DNS الثانوي', placeholder: 'مثال: 8.8.4.4', type: 'text', required: true },
+            { id: 'cache-size', label: 'حجم الكاش', placeholder: 'مثال: 2048', type: 'text', required: true }
+        ],
+        script() {
+            const dns1 = document.getElementById('dns1').value || '8.8.8.8';
+            const dns2 = document.getElementById('dns2').value || '8.8.4.4';
+            const cacheSize = document.getElementById('cache-size').value || '2048';
+            
+            return `# DNS Server Script\n# بواسطة دكتور نت\n/ip dns\n` +
+                   `set servers=${dns1},${dns2}\n` +
+                   `set cache-size=${cacheSize}\n` +
+                   `set allow-remote-requests=yes\n` +
+                   `# إعدادات إضافية لتسريع تصفح الإنترنت\n`;
+        }
+    },
     'hotspot-setup': {
         name: 'إعداد Hotspot',
         description: 'إنشاء نقطة اتصال Hotspot',
@@ -1074,6 +1129,28 @@ const toolsDatabase = {
                    `/ip address\n` +
                    `add address=${ip} interface=${interface}\n` +
                    `# إعدادات إضافية للتحكم في المستخدمين\n`;
+        }
+    },
+    'port-forwarding': {
+        name: 'توجيه المنافذ',
+        description: 'إعداد توجيه المنافذ للأجهزة الداخلية',
+        longDescription: 'أداة لتوجيه المنافذ الخارجية إلى أجهزة داخل الشبكة المحلية.',
+        inputs: [
+            { id: 'wan-interface', label: 'واجهة الإنترنت', placeholder: 'مثال: ether1', type: 'text', required: true },
+            { id: 'external-port', label: 'المنفذ الخارجي', placeholder: 'مثال: 80', type: 'number', required: true },
+            { id: 'internal-ip', label: 'IP الجهاز الداخلي', placeholder: 'مثال: 192.168.1.100', type: 'text', required: true },
+            { id: 'internal-port', label: 'المنفذ الداخلي', placeholder: 'مثال: 80', type: 'number', required: true },
+            { id: 'protocol', label: 'البروتوكول', placeholder: 'مثال: tcp', type: 'text', required: true }
+        ],
+        script() {
+            const wanInterface = document.getElementById('wan-interface').value || 'ether1';
+            const externalPort = document.getElementById('external-port').value || '80';
+            const internalIp = document.getElementById('internal-ip').value || '192.168.1.100';
+            const internalPort = document.getElementById('internal-port').value || '80';
+            const protocol = document.getElementById('protocol').value || 'tcp';
+            
+            return `# Port Forwarding Script\n# بواسطة دكتور نت\n/ip firewall nat\n` +
+                   `add chain=dstnat action=dst-nat to-addresses=${internalIp} to-ports=${internalPort} protocol=${protocol} dst-port=${externalPort} in-interface=${wanInterface} comment="Port Forwarding"\n`;
         }
     },
     'capsman': {
@@ -1102,6 +1179,26 @@ const toolsDatabase = {
                    `add interface=cap-bridge\n` +
                    `/ip address\n` +
                    `add address=${ip} interface=cap-bridge\n`;
+        }
+    },
+    'traffic-shaping': {
+        name: 'تشكيل حركة المرور',
+        description: 'إدارة أولويات حركة مرور الشبكة',
+        longDescription: 'أداة متقدمة لإدارة أولويات حركة مرور الشبكة وتشكيلها لتحسين الأداء.',
+        inputs: [
+            { id: 'interface', label: 'الواجهة', placeholder: 'مثال: ether1', type: 'text', required: true },
+            { id: 'download-limit', label: 'حد التحميل', placeholder: 'مثال: 10M', type: 'text', required: true },
+            { id: 'upload-limit', label: 'حد الرفع', placeholder: 'مثال: 5M', type: 'text', required: true },
+            { id: 'priority', label: 'الأولوية', placeholder: 'مثال: 1-8', type: 'text', required: true }
+        ],
+        script() {
+            const interface = document.getElementById('interface').value || 'ether1';
+            const downloadLimit = document.getElementById('download-limit').value || '10M';
+            const uploadLimit = document.getElementById('upload-limit').value || '5M';
+            const priority = document.getElementById('priority').value || '1-8';
+            
+            return `# Traffic Shaping Script\n# بواسطة دكتور نت\n/queue simple\n` +
+                   `add name="Traffic_Shaping" target=${interface} max-limit=${downloadLimit}/${uploadLimit} priority=${priority} comment="Generated by Dr. Net"\n`;
         }
     },
     'general': {
