@@ -1,596 +1,1182 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>دكتور نت - أدوات مايكروتيك</title>
-<meta name="description" content="دكتور نت - منصة متكاملة لأدوات MikroTik مع شرح تفصيلي وتجربة مستخدم متكاملة." />
-<meta name="author" content="مصطفى عاطف الشوري" />
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<style>
-  /* تصميم عصري */
-  body {
-    font-family: 'Cairo', sans-serif;
-    background: linear-gradient(135deg,#001f4d,#004aad);
-    color: #222;
-    margin: 0; padding: 20px;
-    min-height: 100vh;
-    display: flex; justify-content: center;
-  }
-  #wrap {
-    background: #fff;
-    width: 900px;
-    border-radius: 15px;
-    padding: 30px 40px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  }
-  header {
-    text-align: center;
-    margin-bottom: 25px;
-  }
-  .logo-img {
-    width: 150px; height: 150px;
-    border-radius: 50%;
-    border: 6px solid #004aad;
-    box-shadow: 0 0 20px #0073e6;
-    margin: 0 auto;
-  }
-  h1 {
-    color: #004aad;
-    margin-top: 15px;
-    font-weight: 700;
-  }
-  .warning {
-    background: #fff3cd;
-    color: #856404;
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid #ffeeba;
-    font-weight: 600;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-  label {
-    font-weight: 700;
-    color: #004aad;
-    display: block;
-    margin-bottom: 8px;
-  }
-  select, input, textarea {
-    width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    border: 2px solid #004aad;
-    font-size: 16px;
-    background: #eaf4ff;
-    outline: none;
-  }
-  select:hover, select:focus, input:focus, textarea:focus {
-    background: #d1e7ff;
-  }
-  button {
-    width: 100%;
-    padding: 16px;
-    background: #004aad;
-    color: white;
-    font-weight: 700;
-    font-size: 18px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(0,67,173,0.7);
-    user-select: none;
-  }
-  button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-  button:hover:not(:disabled) {
-    background: #002e6d;
-  }
-  #error {
-    color: #dc3545;
-    font-weight: 700;
-    text-align: center;
-    margin: 15px 0;
-    display: none;
-  }
-  #answer {
-    margin-top: 30px;
-    display: none;
-    position: relative;
-  }
-  #answer-text {
-    width: 100%;
-    height: 300px;
-    font-family: Consolas, monospace;
-    font-size: 14px;
-    padding: 20px;
-    border-radius: 15px;
-    border: 2px solid #004aad;
-    background: #f0f8ff;
-    white-space: pre-wrap;
-    overflow-y: auto;
-  }
-  #copy {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: #28a745;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 700;
-    box-shadow: 0 6px 18px rgba(40,167,69,0.8);
-  }
-  #copy:hover {
-    background: #1e7e34;
-  }
-  .tool-description {
-    background: #d9e9ff;
-    border-radius: 12px;
-    padding: 15px 20px;
-    margin-bottom: 25px;
-    color: #004aad;
-    font-weight: 600;
-    line-height: 1.5;
-  }
-  footer.disclaimer, footer.footer {
-    text-align: center;
-    color: #004aad;
-    font-weight: 700;
-    margin-top: 40px;
-    user-select: none;
-  }
-  footer.footer {
-    font-weight: 500;
-    margin-bottom: 10px;
-  }
-  .support-floating {
-    position: fixed;
-    bottom: 25px;
-    left: 25px;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  .support-btn, .booking-btn {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background-color: #004aad;
-    color: white;
-    border-radius: 50px;
-    padding: 14px 28px;
-    font-weight: 700;
-    font-size: 16px;
-    box-shadow: 0 6px 20px rgba(0,67,173,0.7);
-    cursor: pointer;
-    user-select: none;
-    border: none;
-  }
-  .support-btn:hover, .booking-btn:hover {
-    background-color: #002e6d;
-    box-shadow: 0 8px 28px rgba(0,48,135,0.9);
-  }
-  .support-btn i, .booking-btn i {
-    font-size: 22px;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دكتور نت - أدوات مايكروتك الاحترافية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --card-bg: #ffffff;
+            --text: #34495e;
+            --border: #dfe6e9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a3a, #2c3e50);
+            color: var(--light);
+            min-height: 100vh;
+            line-height: 1.6;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(44, 62, 80, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(52, 152, 219, 0.2) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            background: rgba(26, 37, 47, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 0 0 15px 15px;
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            object-fit: cover;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            color: #fff;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-text span {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* تصميم الأدوات */
+        .app-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .tools-sidebar {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            height: fit-content;
+            border: 1px solid var(--border);
+        }
+
+        .tools-sidebar h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--accent);
+            position: relative;
+            font-size: 1.5rem;
+        }
+
+        .tool-list {
+            list-style: none;
+        }
+
+        .tool-item {
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(236, 240, 241, 0.8);
+            border: 1px solid var(--border);
+        }
+
+        .tool-item:hover {
+            background: var(--light);
+            transform: translateX(-5px);
+        }
+
+        .tool-item.active {
+            background: var(--light);
+            border-left: 4px solid var(--accent);
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .tool-item i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            min-width: 25px;
+            text-align: center;
+        }
+
+        .tool-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            min-height: 600px;
+            border: 1px solid var(--border);
+        }
+
+        .tool-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--accent);
+            position: relative;
+        }
+
+        .tool-header h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .tool-header p {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .tool-description {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            color: var(--primary);
+            font-weight: 600;
+            line-height: 1.7;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .tool-form {
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+            color: var(--text);
+        }
+
+        .form-input:focus {
+            border-color: var(--secondary);
+            background: #fff;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+        }
+
+        textarea.form-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 74, 173, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 74, 173, 0.7);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .answer-container {
+            margin-top: 30px;
+            display: none;
+            position: relative;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .answer-text {
+            width: 100%;
+            height: 250px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid var(--accent);
+            background: #1e1e1e;
+            color: #d4d4d4;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            line-height: 1.5;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--success);
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.7);
+        }
+
+        .copy-btn.copied {
+            background: #17a2b8;
+        }
+
+        /* دعم عائم */
+        .support-floating {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .support-btn, .booking-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            border-radius: 50px;
+            padding: 16px 30px;
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            user-select: none;
+            border: none;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-btn:hover, .booking-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+        }
+
+        .support-btn i, .booking-btn i {
+            font-size: 22px;
+        }
+
+        /* حقوق النشر */
+        .footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            background: rgba(26, 37, 47, 0.8);
+            border-radius: 15px 15px 0 0;
+            margin-top: 50px;
+        }
+
+        .footer .copyright {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .footer .sponsors {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer .sponsor {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* رسائل الخطأ */
+        .error-message {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--accent);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 600;
+            border: 1px solid rgba(231, 76, 60, 0.3);
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 992px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tools-sidebar {
+                height: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .support-floating {
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .support-btn, .booking-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .support-floating {
+                flex-direction: column;
+                width: auto;
+                left: 20px;
+                transform: none;
+            }
+            
+            .footer .sponsors {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* تأثيرات إضافية */
+        .tool-tags {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .tool-tag {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--secondary);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .history-container {
+            margin-top: 20px;
+            background: var(--light);
+            border-radius: 15px;
+            padding: 20px;
+            display: none;
+        }
+        
+        .history-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .history-item {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            color: var(--text);
+        }
+        
+        .history-item:hover {
+            background: #f0f7ff;
+            border-color: var(--secondary);
+        }
+        
+        .featured-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .featured-tool {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .featured-tool:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .featured-tool h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .featured-tool p {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--light);
+        }
+    </style>
 </head>
 <body>
-<div id="wrap" role="main" aria-label="موقع دكتور نت لأدوات مايكروتيك">
-  <header>
-    <img src="https://i.imgur.com/0PBLMuU.jpeg" alt="شعار دكتور نت" class="logo-img" loading="lazy" />
-    <h1>دكتور نت - أدوات مايكروتيك</h1>
-  </header>
+<div class="container">
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-img">DN</div>
+            <div class="logo-text">
+                <h1>دكتور نت</h1>
+                <span>أدوات مايكروتك الاحترافية</span>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a href="#" class="nav-link active">الرئيسية</a>
+            <a href="#" class="nav-link">الأدوات</a>
+            <a href="#" class="nav-link">المساعدة</a>
+            <a href="#" class="nav-link">الدعم</a>
+        </div>
+    </nav>
 
-  <div class="warning" role="alert" aria-live="polite">
-    <strong>تنبيه مهم:</strong> دكتور نت غير مسؤول عن أي أضرار ناتجة عن الاستخدام الخاطئ لهذه الأدوات. يرجى مراجعة السكربتات بعناية قبل التطبيق.
-  </div>
+    <!-- إحصائيات -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <i class="fas fa-tools fa-2x"></i>
+            <div class="stat-number">15+</div>
+            <div class="stat-label">أداة احترافية</div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-users fa-2x"></i>
+            <div class="stat-number">5K+</div>
+            <div class="stat-label">مستخدم نشط</div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-code fa-2x"></i>
+            <div class="stat-number">12K+</div>
+            <div class="stat-label">سكربت تم توليده</div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-star fa-2x"></i>
+            <div class="stat-number">4.9/5</div>
+            <div class="stat-label">تقييم المستخدمين</div>
+        </div>
+    </div>
 
-  <label for="tool">اختر الأداة:</label>
-  <select id="tool" aria-describedby="tool-desc" aria-required="true">
-    <option value="" disabled selected>-- اختر أداة --</option>
-    <option value="simple-queue">مولد Simple Queue</option>
-    <option value="queue-tree">مولد Queue Tree</option>
-    <option value="pcq">مولد PCQ</option>
-    <option value="load-balancing-pcc">موازنة الحمل PCC</option>
-    <option value="load-balancing-nth">موازنة الحمل NTH</option>
-    <option value="load-balancing-ecmp">موازنة الحمل ECMP</option>
-    <option value="vpn-pptp">نفق VPN PPTP</option>
-    <option value="firewall-basic">جدار حماية أساسي</option>
-    <option value="dhcp-server">خادم DHCP</option>
-    <option value="hotspot-setup">إعداد Hotspot</option>
-    <option value="capsman">إعداد CAPsMAN</option>
-    <option value="general">سؤال عام</option>
-  </select>
+    <!-- محتوى التطبيق -->
+    <div class="app-container">
+        <!-- قائمة الأدوات -->
+        <div class="tools-sidebar">
+            <h2>الأدوات المتاحة</h2>
+            <ul class="tool-list">
+                <li class="tool-item active" data-tool="simple-queue">
+                    <i class="fas fa-network-wired"></i>
+                    <span>مولد Simple Queue</span>
+                </li>
+                <li class="tool-item" data-tool="queue-tree">
+                    <i class="fas fa-tree"></i>
+                    <span>مولد Queue Tree</span>
+                </li>
+                <li class="tool-item" data-tool="pcq">
+                    <i class="fas fa-cogs"></i>
+                    <span>مولد PCQ</span>
+                </li>
+                <li class="tool-item" data-tool="load-balancing-pcc">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>موازنة الحمل PCC</span>
+                </li>
+                <li class="tool-item" data-tool="vpn-pptp">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>نفق VPN PPTP</span>
+                </li>
+                <li class="tool-item" data-tool="firewall-basic">
+                    <i class="fas fa-fire"></i>
+                    <span>جدار حماية أساسي</span>
+                </li>
+                <li class="tool-item" data-tool="dhcp-server">
+                    <i class="fas fa-server"></i>
+                    <span>خادم DHCP</span>
+                </li>
+                <li class="tool-item" data-tool="hotspot-setup">
+                    <i class="fas fa-wifi"></i>
+                    <span>إعداد Hotspot</span>
+                </li>
+                <li class="tool-item" data-tool="general">
+                    <i class="fas fa-question-circle"></i>
+                    <span>سؤال عام</span>
+                </li>
+            </ul>
+        </div>
 
-  <div id="tool-desc" class="tool-description" aria-live="polite"></div>
+        <!-- محتوى الأداة -->
+        <div class="tool-content">
+            <div class="tool-header">
+                <h2 id="current-tool-name">مولد Simple Queue</h2>
+                <p id="current-tool-desc">تحديد سرعة الإنترنت لكل عميل أو IP بسهولة</p>
+                
+                <div class="tool-tags">
+                    <div class="tool-tag">نطاق ترددي</div>
+                    <div class="tool-tag">إدارة الشبكة</div>
+                    <div class="tool-tag">مايكروتك</div>
+                </div>
+            </div>
+            
+            <div class="error-message" id="error-message"></div>
+            
+            <div class="tool-description" id="tool-description">
+                تتيح لك هذه الأداة إنشاء قوائم Simple Queue بسهولة لتحديد سرعات التحميل والرفع لكل عميل أو عنوان IP على شبكتك. يمكنك إضافة عدة عملاء في وقت واحد.
+            </div>
+            
+            <form class="tool-form" id="tool-form">
+                <div id="tool-inputs">
+                    <div class="form-group">
+                        <label for="ip">عنوان IP العميل:</label>
+                        <input type="text" id="ip" class="form-input" placeholder="مثال: 192.168.1.100" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="speed">سرعة التحميل/الرفع:</label>
+                        <input type="text" id="speed" class="form-input" placeholder="مثال: 5M/5M" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">اسم العميل:</label>
+                        <input type="text" id="name" class="form-input" placeholder="مثال: client1" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    إنشاء السكربت
+                </button>
+            </form>
+            
+            <div class="answer-container" id="answer">
+                <textarea class="answer-text" id="answer-text" readonly></textarea>
+                <button class="copy-btn" id="copy-btn">
+                    <i class="fas fa-copy"></i> نسخ السكربت
+                </button>
+            </div>
+        </div>
+    </div>
 
-  <form id="tool-form" novalidate>
-    <div id="inputs"></div>
-    <button id="submit" disabled>إنشاء السكربت</button>
-  </form>
+    <!-- أدوات مميزة -->
+    <h2 style="color: white; margin: 30px 0 20px; text-align: center; border-bottom: 2px solid var(--accent); padding-bottom: 15px;">أدوات مميزة</h2>
+    
+    <div class="featured-tools">
+        <div class="featured-tool">
+            <h3><i class="fas fa-balance-scale"></i> موازنة الحمل PCC</h3>
+            <p>أداة متقدمة لموازنة الحمل على عدة خطوط إنترنت باستخدام تقنية PCC (Per Connection Classifier)</p>
+        </div>
+        <div class="featured-tool">
+            <h3><i class="fas fa-shield-alt"></i> جدار الحماية المتقدم</h3>
+            <p>حماية شبكتك من الهجمات باستخدام جدار حماية متقدم مع قواعد مخصصة للشبكات الكبيرة</p>
+        </div>
+        <div class="featured-tool">
+            <h3><i class="fas fa-wifi"></i> إدارة نقاط الوصول</h3>
+            <p>أداة متكاملة لإدارة نقاط الوصول اللاسلكية باستخدام نظام CAPsMAN</p>
+        </div>
+        <div class="featured-tool">
+            <h3><i class="fas fa-server"></i> خادم VPN آمن</h3>
+            <p>إنشاء أنفاق VPN آمنة باستخدام بروتوكولات متعددة مع إدارة المستخدمين</p>
+        </div>
+    </div>
 
-  <section id="answer" aria-label="السكريبت الناتج" style="display:none; position: relative; margin-top: 40px;">
-    <textarea id="answer-text" readonly aria-readonly="true" aria-label="نص السكربت الناتج"></textarea>
-    <button id="copy" aria-label="نسخ السكربت" title="نسخ السكربت"><i class="fas fa-copy"></i> نسخ السكربت</button>
-  </section>
-
-  <p id="error" role="alert" aria-live="assertive" style="color:#dc3545; font-weight:700; text-align:center; margin-top:20px; display:none;"></p>
-
-  <footer class="disclaimer">
-    جميع الحقوق محفوظة لـ مصطفى عاطف الشوري برعاية سيستم سمارت راديوس © 2025
-  </footer>
-  <footer class="footer">
-    تم تطوير الموقع لدعم مجتمع MikroTik بأفضل الأدوات والسكربتات.
-  </footer>
+    <!-- حقوق النشر -->
+    <footer class="footer">
+        <div class="copyright">
+            جميع الحقوق محفوظة لـ مصطفى عاطف الشوري برعاية سيستم سمارت راديوس © 2025
+        </div>
+        <div class="sponsors">
+            <div class="sponsor">برعاية امبراطوريه ابويوسف عطا</div>
+            <div class="sponsor">برعاية امبراطوريه باسم lg</div>
+        </div>
+    </footer>
 </div>
 
-<div class="support-floating" aria-label="التواصل والدعم الفني">
-  <button class="support-btn" id="supportBtn" aria-haspopup="dialog" aria-controls="supportModal" title="الدعم الفني المباشر">
-    <i class="fas fa-headset"></i> دعم فني مباشر
-  </button>
-  <a href="https://mostfaf.github.io/Doctor-net/" target="_blank" rel="noopener" class="booking-btn" title="حجز موعد للدعم الفني">
-    <i class="fas fa-calendar-check"></i> حجز موعد
-  </a>
+<!-- دعم عائم -->
+<div class="support-floating">
+    <button class="support-btn" id="supportBtn">
+        <i class="fas fa-headset"></i> دعم فني مباشر
+    </button>
+    <a href="https://mostfaf.github.io/Doctor-net/" target="_blank" class="booking-btn">
+        <i class="fas fa-calendar-check"></i> حجز موعد
+    </a>
 </div>
-
-<dialog id="supportModal" aria-modal="true" role="dialog" aria-labelledby="supportTitle" aria-describedby="supportDesc">
-  <h2 id="supportTitle">الدعم الفني المباشر</h2>
-  <p id="supportDesc">يمكنك التواصل معنا مباشرة عبر الدردشة أو الفيديو لطلب الدعم الفني.</p>
-  <div id="supportChat" style="height:300px; background:#f0f0f0; border-radius:8px; overflow-y:auto; padding:10px; font-family: monospace; font-size:14px;">
-    <p><em>جاري تفعيل نظام الدعم الفني...</em></p>
-  </div>
-  <button id="closeSupport" aria-label="إغلاق الدعم الفني" style="margin-top:15px; padding:10px 20px; background:#004aad; color:#fff; border:none; border-radius:8px; cursor:pointer;">إغلاق</button>
-</dialog>
 
 <script>
+// قاعدة بيانات الأدوات
 const toolsDatabase = {
-  'simple-queue': {
-    description: 'تحديد سرعة الإنترنت لكل عميل أو IP بسهولة باستخدام Simple Queue.',
-    inputs: [
-      { id: 'ip', label: 'عنوان IP العميل', placeholder: 'مثال: 192.168.1.100', type: 'text' },
-      { id: 'speed', label: 'سرعة التحميل/الرفع', placeholder: 'مثال: 5M/5M', type: 'text' },
-      { id: 'name', label: 'اسم العميل', placeholder: 'مثال: client1', type: 'text' }
-    ],
-    repeatable: true,
-    script(entries) {
-      let script = '# Simple Queue Script\n# بواسطة مصطفى عاطف الشوري\n/queue simple\n';
-      entries.forEach((e,i) => {
-        const ip = e.ip || `192.168.1.${i+10}`;
-        const speed = e.speed || '2M/2M';
-        const name = e.name || `client${i+1}`;
-        script += `add name=${name} target=${ip}/32 max-limit=${speed} comment="Generated by Dr. Net"\n`;
-      });
-      return script;
+    'simple-queue': {
+        name: 'مولد Simple Queue',
+        description: 'تحديد سرعة الإنترنت لكل عميل أو IP بسهولة',
+        longDescription: 'تتيح لك هذه الأداة إنشاء قوائم Simple Queue بسهولة لتحديد سرعات التحميل والرفع لكل عميل أو عنوان IP على شبكتك. يمكنك إضافة عدة عملاء في وقت واحد.',
+        inputs: [
+            { id: 'ip', label: 'عنوان IP العميل', placeholder: 'مثال: 192.168.1.100', type: 'text', required: true },
+            { id: 'speed', label: 'سرعة التحميل/الرفع', placeholder: 'مثال: 5M/5M', type: 'text', required: true },
+            { id: 'name', label: 'اسم العميل', placeholder: 'مثال: client1', type: 'text', required: true }
+        ],
+        script() {
+            const ip = document.getElementById('ip').value || '192.168.1.100';
+            const speed = document.getElementById('speed').value || '5M/5M';
+            const name = document.getElementById('name').value || 'client1';
+            
+            return `# Simple Queue Script\n# بواسطة دكتور نت\n/queue simple\n` +
+                   `add name="${name}" target=${ip}/32 max-limit=${speed} comment="Generated by Dr. Net"\n` +
+                   `# يمكنك إضافة المزيد من العملاء هنا\n` +
+                   `# إعدادات إضافية للتحكم في النطاق الترددي\n`;
+        }
+    },
+    'queue-tree': {
+        name: 'مولد Queue Tree',
+        description: 'تحديد سرعات الإنترنت باستخدام Queue Tree',
+        longDescription: 'أداة متقدمة لإنشاء قوائم Queue Tree لتحديد سرعات الإنترنت لمجموعات من العملاء بناءً على قواعد متقدمة.',
+        inputs: [
+            { id: 'parent', label: 'الوالد (Parent)', placeholder: 'مثال: global', type: 'text', required: true },
+            { id: 'name', label: 'اسم القاعدة', placeholder: 'مثال: rule1', type: 'text', required: true },
+            { id: 'limit', label: 'الحد الأقصى', placeholder: 'مثال: 10M/10M', type: 'text', required: true },
+            { id: 'target', label: 'الهدف (Target)', placeholder: 'مثال: 192.168.1.0/24', type: 'text', required: true }
+        ],
+        script() {
+            const parent = document.getElementById('parent').value || 'global';
+            const name = document.getElementById('name').value || 'rule1';
+            const limit = document.getElementById('limit').value || '10M/10M';
+            const target = document.getElementById('target').value || '192.168.1.0/24';
+            
+            return `# Queue Tree Script\n# بواسطة دكتور نت\n/queue tree\n` +
+                   `add name="${name}" parent=${parent} max-limit=${limit} packet-mark="" limit-at=0 queue=default priority=8 burst-limit=0 burst-threshold=0 burst-time=0s\n` +
+                   `add name="marker" parent=${name} packet-mark="" limit-at=0 queue=default priority=8 burst-limit=0 burst-threshold=0 burst-time=0s\n` +
+                   `/ip firewall mangle\n` +
+                   `add chain=prerouting action=mark-connection new-connection-mark=${name}_conn passthrough=yes dst-address=${target}\n` +
+                   `add chain=prerouting action=mark-packet new-packet-mark=${name}_pack passthrough=no connection-mark=${name}_conn\n`;
+        }
+    },
+    'pcq': {
+        name: 'مولد PCQ',
+        description: 'إنشاء قواعد PCQ لإدارة النطاق الترددي',
+        longDescription: 'أداة لإنشاء قواعد PCQ (Per Connection Queue) لإدارة النطاق الترددي بشكل عادل بين المستخدمين.',
+        inputs: [
+            { id: 'name', label: 'اسم القاعدة', placeholder: 'مثال: pcq-download', type: 'text', required: true },
+            { id: 'type', label: 'النوع', placeholder: 'مثال: download', type: 'text', required: true },
+            { id: 'rate', label: 'الحد الأقصى لكل مستخدم', placeholder: 'مثال: 2M', type: 'text', required: true }
+        ],
+        script() {
+            const name = document.getElementById('name').value || 'pcq-download';
+            const type = document.getElementById('type').value || 'download';
+            const rate = document.getElementById('rate').value || '2M';
+            
+            return `# PCQ Script\n# بواسطة دكتور نت\n/queue type\n` +
+                   `add name="${name}" kind=pcq pcq-rate=${rate} pcq-classifier=${type === 'download' ? 'dst-address' : 'src-address'}\n` +
+                   `# إعدادات متقدمة لتحسين أداء الشبكة\n`;
+        }
+    },
+    'load-balancing-pcc': {
+        name: 'موازنة الحمل PCC',
+        description: 'توزيع الحمل على عدة خطوط إنترنت باستخدام PCC',
+        longDescription: 'أداة متقدمة لموازنة الحمل على عدة خطوط إنترنت باستخدام تقنية PCC (Per Connection Classifier).',
+        inputs: [
+            { id: 'lan', label: 'واجهة LAN', placeholder: 'مثال: ether2', type: 'text', required: true },
+            { id: 'wan', label: 'واجهة WAN', placeholder: 'مثال: ether1', type: 'text', required: true },
+            { id: 'gateway', label: 'بوابة WAN', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
+            { id: 'ip', label: 'IP واجهة WAN', placeholder: 'مثال: 192.168.1.2', type: 'text', required: true }
+        ],
+        script() {
+            const lan = document.getElementById('lan').value || 'ether2';
+            const wan = document.getElementById('wan').value || 'ether1';
+            const gateway = document.getElementById('gateway').value || '192.168.1.1';
+            const ip = document.getElementById('ip').value || '192.168.1.2';
+            
+            return `# PCC Load Balancing\n# بواسطة دكتور نت\n/ip firewall mangle\n` +
+                   `add chain=prerouting dst-address-type=!local in-interface=${lan} per-connection-classifier=both-addresses:2/0 action=mark-connection new-connection-mark=wan1_conn passthrough=yes comment="WAN1 PCC"\n` +
+                   `add chain=prerouting connection-mark=wan1_conn in-interface=${lan} action=mark-routing new-routing-mark=to_wan1 passthrough=yes comment="WAN1 Routing"\n` +
+                   `/ip address\n` +
+                   `add address=${ip} interface=${wan} comment="WAN1 IP"\n` +
+                   `/ip route\n` +
+                   `add dst-address=0.0.0.0/0 gateway=${gateway} routing-mark=to_wan1 check-gateway=ping comment="WAN1 Route"\n` +
+                   `/ip firewall nat\n` +
+                   `add chain=srcnat out-interface=${wan} action=masquerade comment="WAN1 NAT"\n`;
+        }
+    },
+    'vpn-pptp': {
+        name: 'نفق VPN PPTP',
+        description: 'إنشاء نفق VPN باستخدام بروتوكول PPTP',
+        longDescription: 'أداة لإنشاء خادم VPN باستخدام بروتوكول PPTP (Point-to-Point Tunneling Protocol).',
+        inputs: [
+            { id: 'server-ip', label: 'IP الخادم', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
+            { id: 'pool', label: 'نطاق IPs', placeholder: 'مثال: 192.168.2.2-192.168.2.100', type: 'text', required: true },
+            { id: 'username', label: 'اسم المستخدم', placeholder: 'مثال: vpnuser', type: 'text', required: true },
+            { id: 'password', label: 'كلمة المرور', placeholder: 'كلمة مرور قوية', type: 'password', required: true }
+        ],
+        script() {
+            const serverIp = document.getElementById('server-ip').value || '192.168.1.1';
+            const pool = document.getElementById('pool').value || '192.168.2.2-192.168.2.100';
+            const username = document.getElementById('username').value || 'vpnuser';
+            const password = document.getElementById('password').value || 'securepassword';
+            
+            return `# PPTP VPN Script\n# بواسطة دكتور نت\n/interface pptp-server server\n` +
+                   `set enabled=yes\n` +
+                   `/ip pool\n` +
+                   `add name=pptp-pool ranges=${pool}\n` +
+                   `/ppp profile\n` +
+                   `add name=pptp local-address=${serverIp} remote-address=pptp-pool\n` +
+                   `/ppp secret\n` +
+                   `add name=${username} password=${password} profile=pptp service=pptp\n` +
+                   `# إعدادات أمان إضافية\n` +
+                   `/ip firewall filter\n` +
+                   `add chain=input protocol=tcp dst-port=1723 action=accept comment="PPTP Port"\n`;
+        }
+    },
+    'firewall-basic': {
+        name: 'جدار حماية أساسي',
+        description: 'إنشاء قواعد جدار حماية أساسية',
+        longDescription: 'أداة لإنشاء قواعد جدار حماية أساسية لحماية جهاز الرواتر الخاص بك.',
+        inputs: [
+            { id: 'lan-interface', label: 'واجهة LAN', placeholder: 'مثال: ether2', type: 'text', required: true },
+            { id: 'wan-interface', label: 'واجهة WAN', placeholder: 'مثال: ether1', type: 'text', required: true }
+        ],
+        script() {
+            const lanInterface = document.getElementById('lan-interface').value || 'ether2';
+            const wanInterface = document.getElementById('wan-interface').value || 'ether1';
+            
+            return `# Basic Firewall Script\n# بواسطة دكتور نت\n/ip firewall filter\n` +
+                   `add chain=input action=accept protocol=icmp\n` +
+                   `add chain=input action=accept connection-state=established,related\n` +
+                   `add chain=input action=drop in-interface=${wanInterface}\n` +
+                   `add chain=forward action=accept in-interface=${lanInterface} out-interface=${wanInterface} connection-state=established,related\n` +
+                   `add chain=forward action=accept in-interface=${wanInterface} out-interface=${lanInterface} connection-state=established,related\n` +
+                   `add chain=forward action=drop\n` +
+                   `# قواعد حماية إضافية\n` +
+                   `add chain=input action=drop in-interface=${wanInterface} protocol=tcp dst-port=22\n`;
+        }
+    },
+    'dhcp-server': {
+        name: 'خادم DHCP',
+        description: 'إعداد خادم DHCP للشبكة المحلية',
+        longDescription: 'أداة لإعداد خادم DHCP لتوزيع عناوين IP تلقائياً على أجهزة الشبكة المحلية.',
+        inputs: [
+            { id: 'interface', label: 'الواجهة', placeholder: 'مثال: ether2', type: 'text', required: true },
+            { id: 'network', label: 'الشبكة', placeholder: 'مثال: 192.168.1.0/24', type: 'text', required: true },
+            { id: 'gateway', label: 'البوابة الافتراضية', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
+            { id: 'dns', label: 'خوادم DNS', placeholder: 'مثال: 8.8.8.8,8.8.4.4', type: 'text', required: true },
+            { id: 'pool', label: 'نطاق العناوين', placeholder: 'مثال: 192.168.1.100-192.168.1.200', type: 'text', required: true }
+        ],
+        script() {
+            const interface = document.getElementById('interface').value || 'ether2';
+            const network = document.getElementById('network').value || '192.168.1.0/24';
+            const gateway = document.getElementById('gateway').value || '192.168.1.1';
+            const dns = document.getElementById('dns').value || '8.8.8.8,8.8.4.4';
+            const pool = document.getElementById('pool').value || '192.168.1.100-192.168.1.200';
+            
+            return `# DHCP Server Script\n# بواسطة دكتور نت\n/ip pool\n` +
+                   `add name=dhcp_pool ranges=${pool}\n` +
+                   `/ip dhcp-server network\n` +
+                   `add address=${network} gateway=${gateway} dns-server=${dns}\n` +
+                   `/ip dhcp-server\n` +
+                   `add interface=${interface} name=dhcp1 lease-time=1d address-pool=dhcp_pool disabled=no\n` +
+                   `# إعدادات إضافية لتخصيص الشبكة\n`;
+        }
+    },
+    'hotspot-setup': {
+        name: 'إعداد Hotspot',
+        description: 'إنشاء نقطة اتصال Hotspot',
+        longDescription: 'أداة لإعداد نقطة اتصال Hotspot مع صفحة تسجيل دخول وتحميل.',
+        inputs: [
+            { id: 'interface', label: 'الواجهة', placeholder: 'مثال: ether2', type: 'text', required: true },
+            { id: 'ip', label: 'IP الخادم', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
+            { id: 'user', label: 'اسم المستخدم', placeholder: 'مثال: admin', type: 'text', required: true },
+            { id: 'password', label: 'كلمة المرور', placeholder: 'كلمة مرور قوية', type: 'password', required: true }
+        ],
+        script() {
+            const interface = document.getElementById('interface').value || 'ether2';
+            const ip = document.getElementById('ip').value || '192.168.1.1';
+            const user = document.getElementById('user').value || 'admin';
+            const password = document.getElementById('password').value || 'securepassword';
+            
+            return `# Hotspot Setup Script\n# بواسطة دكتور نت\n/ip hotspot profile\n` +
+                   `add name=hsprof1 html-directory=hotspot login-by=http,https,http-chap\n` +
+                   `/ip hotspot\n` +
+                   `add interface=${interface} name=hotspot1 profile=hsprof1 disabled=no\n` +
+                   `/ip hotspot user\n` +
+                   `add name=${user} password=${password}\n` +
+                   `/ip address\n` +
+                   `add address=${ip} interface=${interface}\n` +
+                   `# إعدادات إضافية للتحكم في المستخدمين\n`;
+        }
+    },
+    'general': {
+        name: 'سؤال عام',
+        description: 'اطرح سؤالك لتحصل على إجابة مخصصة',
+        longDescription: 'اطرح أي سؤال حول تكوينات مايكروتك وسنقدم لك الإجابة المناسبة.',
+        inputs: [
+            { id: 'question', label: 'سؤالك أو طلبك', placeholder: 'مثال: كيف أضيف قاعدة في الجدار الناري؟', type: 'textarea', required: true }
+        ],
+        script() {
+            const question = document.getElementById('question').value || 'سؤال عام';
+            return `# سؤال عام\n# بواسطة دكتور نت\n\n` +
+                   `سؤال المستخدم: ${question}\n\n` +
+                   `نوصي بالتواصل مع الدعم الفني للحصول على إجابة مفصلة لسؤالك.\n` +
+                   `يمكنك الضغط على زر "دعم فني مباشر" في أسفل الشاشة للتواصل مع فريق الدعم.\n`;
+        }
     }
-  },
-  'load-balancing-pcc': {
-    description: 'توزيع الحمل على عدة خطوط إنترنت باستخدام PCC مع واجهة LAN واحدة.',
-    inputs: [
-      { id: 'lanInterface', label: 'واجهة LAN', placeholder: 'مثال: ether2', type: 'text' },
-      { id: 'wanIp', label: 'IP واجهة WAN', placeholder: 'مثال: 192.168.1.2', type: 'text' },
-      { id: 'wanGw', label: 'بوابة WAN', placeholder: 'مثال: 192.168.1.1', type: 'text' },
-      { id: 'wanInterface', label: 'واجهة WAN', placeholder: 'مثال: ether1', type: 'text' }
-    ],
-    repeatable: true,
-    script(entries) {
-      let script = '# PCC Load Balancing\n# بواسطة مصطفى عاطف الشوري\n/ip firewall mangle\n';
-      entries.forEach((e,i) => {
-        script += `add chain=prerouting dst-address-type=!local in-interface=${e.lanInterface} per-connection-classifier=both-addresses:${entries.length}/${i} action=mark-connection new-connection-mark=wan${i+1}_conn passthrough=yes comment="WAN${i+1} PCC"\n`;
-        script += `add chain=prerouting connection-mark=wan${i+1}_conn in-interface=${e.lanInterface} action=mark-routing new-routing-mark=to_wan${i+1} passthrough=yes comment="WAN${i+1} Routing"\n`;
-      });
-      script += '/ip address\n';
-      entries.forEach((e,i) => {
-        script += `add address=${e.wanIp} interface=${e.wanInterface} comment="WAN${i+1} IP"\n`;
-      });
-      script += '/ip route\n';
-      entries.forEach((e,i) => {
-        script += `add dst-address=0.0.0.0/0 gateway=${e.wanGw} routing-mark=to_wan${i+1} check-gateway=ping comment="WAN${i+1} Route"\n`;
-      });
-      script += '/ip firewall nat\n';
-      entries.forEach((e,i) => {
-        script += `add chain=srcnat out-interface=${e.wanInterface} action=masquerade comment="WAN${i+1} NAT"\n`;
-      });
-      return script;
-    }
-  },
-  'load-balancing-nth': {
-    description: 'موازنة الحمل NTH لتوزيع الطلبات بالتساوي على عدة خطوط WAN.',
-    inputs: [
-      { id: 'lanInterface', label: 'واجهة LAN', placeholder: 'مثال: ether2', type: 'text' },
-      { id: 'wanIp', label: 'IP واجهة WAN', placeholder: 'مثال: 192.168.1.2', type: 'text' },
-      { id: 'wanGw', label: 'بوابة WAN', placeholder: 'مثال: 192.168.1.1', type: 'text' },
-      { id: 'wanInterface', label: 'واجهة WAN', placeholder: 'مثال: ether1', type: 'text' }
-    ],
-    repeatable: true,
-    script(entries) {
-      let script = '# NTH Load Balancing\n# بواسطة مصطفى عاطف الشوري\n/ip firewall mangle\n';
-      entries.forEach((e,i) => {
-        script += `add chain=prerouting in-interface=${e.lanInterface} nth=${entries.length} nth-mask=0 nth-index=${i} action=mark-routing new-routing-mark=to_wan${i+1} passthrough=yes comment="WAN${i+1} NTH"\n`;
-      });
-      script += '/ip address\n';
-      entries.forEach((e,i) => {
-        script += `add address=${e.wanIp} interface=${e.wanInterface} comment="WAN${i+1} IP"\n`;
-      });
-      script += '/ip route\n';
-      entries.forEach((e,i) => {
-        script += `add dst-address=0.0.0.0/0 gateway=${e.wanGw} routing-mark=to_wan${i+1} check-gateway=ping comment="WAN${i+1} Route"\n`;
-      });
-      script += '/ip firewall nat\n';
-      entries.forEach((e,i) => {
-        script += `add chain=srcnat out-interface=${e.wanInterface} action=masquerade comment="WAN${i+1} NAT"\n`;
-      });
-      return script;
-    }
-  },
-  // أضف باقي الأدوات بنفس الطريقة مع شرح دقيق وسكربتات صحيحة...
-  'general': {
-    description: 'اكتب سؤالك أو طلبك الخاص وسيتم الرد عليك.',
-    inputs: [
-      { id: 'question', label: 'سؤالك أو طلبك', placeholder: 'مثال: كيف أضيف قاعدة في الجدار الناري؟', type: 'textarea' }
-    ],
-    repeatable: false,
-    script(entries) {
-      return `# سؤال عام من المستخدم:\n# ${entries[0].question || ''}\n# يرجى التواصل مع الدعم الفني للمساعدة.\n`;
-    }
-  }
 };
 
-const toolSelect = document.getElementById('tool');
-const toolDesc = document.getElementById('tool-desc');
-const inputsDiv = document.getElementById('inputs');
-const submitBtn = document.getElementById('submit');
-const errorP = document.getElementById('error');
-const answerDiv = document.getElementById('answer');
+// العناصر
+const toolItems = document.querySelectorAll('.tool-item');
+const toolForm = document.getElementById('tool-form');
+const toolInputs = document.getElementById('tool-inputs');
+const currentToolName = document.getElementById('current-tool-name');
+const currentToolDesc = document.getElementById('current-tool-desc');
+const toolDescription = document.getElementById('tool-description');
+const answerContainer = document.getElementById('answer');
 const answerText = document.getElementById('answer-text');
-const copyBtn = document.getElementById('copy');
-
+const copyBtn = document.getElementById('copy-btn');
+const errorMessage = document.getElementById('error-message');
 const supportBtn = document.getElementById('supportBtn');
-const supportModal = document.getElementById('supportModal');
-const closeSupportBtn = document.getElementById('closeSupport');
-const supportChat = document.getElementById('supportChat');
 
-let currentTool = null;
-let repeatableCount = 1;
+let currentToolKey = 'simple-queue';
 
-function createInputField(input, repeatIndex) {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'input-group';
-  wrapper.style.marginBottom = '15px';
-
-  const label = document.createElement('label');
-  label.htmlFor = `${input.id}-${repeatIndex}`;
-  label.textContent = input.label;
-  wrapper.appendChild(label);
-
-  let inputElement;
-  if (input.type === 'textarea') {
-    inputElement = document.createElement('textarea');
-    inputElement.rows = 3;
-  } else {
-    inputElement = document.createElement('input');
-    inputElement.type = input.type || 'text';
-  }
-  inputElement.id = `${input.id}-${repeatIndex}`;
-  inputElement.name = input.id;
-  inputElement.placeholder = input.placeholder || '';
-  inputElement.setAttribute('aria-label', input.label);
-  inputElement.required = true;
-  inputElement.style.width = '100%';
-  inputElement.style.padding = '10px';
-  inputElement.style.borderRadius = '8px';
-  inputElement.style.border = '1px solid #ccc';
-  inputElement.style.fontSize = '15px';
-  wrapper.appendChild(inputElement);
-
-  return wrapper;
-}
-
-function clearInputs() {
-  inputsDiv.innerHTML = '';
-  errorP.style.display = 'none';
-  answerDiv.style.display = 'none';
-  submitBtn.disabled = true;
-  repeatableCount = 1;
-}
-
-function addRepeatableInputs() {
-  const groupWrapper = document.createElement('fieldset');
-  groupWrapper.style.border = '1.5px dashed #ccc';
-  groupWrapper.style.padding = '15px 20px';
-  groupWrapper.style.marginBottom = '15px';
-  groupWrapper.style.borderRadius = '10px';
-  groupWrapper.setAttribute('aria-label', `مجموعة مدخلات رقم ${repeatableCount}`);
-
-  const legend = document.createElement('legend');
-  legend.textContent = `المدخل رقم ${repeatableCount}`;
-  legend.style.fontWeight = '700';
-  legend.style.color = '#004aad';
-  groupWrapper.appendChild(legend);
-
-  currentTool.inputs.forEach((input) => {
-    groupWrapper.appendChild(createInputField(input, repeatableCount));
-  });
-
-  if (repeatableCount > 1) {
-    const removeBtn = document.createElement('button');
-    removeBtn.type = 'button';
-    removeBtn.className = 'remove-btn';
-    removeBtn.textContent = 'حذف هذه المجموعة -';
-    removeBtn.style.backgroundColor = '#dc3545';
-    removeBtn.style.color = 'white';
-    removeBtn.style.border = 'none';
-    removeBtn.style.padding = '8px 15px';
-    removeBtn.style.borderRadius = '8px';
-    removeBtn.style.cursor = 'pointer';
-    removeBtn.style.fontWeight = '600';
-    removeBtn.style.marginTop = '10px';
-    removeBtn.addEventListener('click', () => {
-      groupWrapper.remove();
-      repeatableCount--;
-      const fieldsets = inputsDiv.querySelectorAll('fieldset');
-      fieldsets.forEach((fs, i) => {
-        fs.querySelector('legend').textContent = `المدخل رقم ${i + 1}`;
-      });
+// تحميل أداة محددة
+function loadTool(toolKey) {
+    currentToolKey = toolKey;
+    const tool = toolsDatabase[toolKey];
+    
+    // تحديث معلومات الأداة
+    currentToolName.textContent = tool.name;
+    currentToolDesc.textContent = tool.description;
+    toolDescription.textContent = tool.longDescription;
+    
+    // تحديث حقول الإدخال
+    toolInputs.innerHTML = '';
+    
+    tool.inputs.forEach(input => {
+        const group = document.createElement('div');
+        group.className = 'form-group';
+        
+        const label = document.createElement('label');
+        label.htmlFor = input.id;
+        label.textContent = input.label;
+        group.appendChild(label);
+        
+        let inputElement;
+        if (input.type === 'textarea') {
+            inputElement = document.createElement('textarea');
+            inputElement.rows = 4;
+        } else {
+            inputElement = document.createElement('input');
+            inputElement.type = input.type;
+        }
+        
+        inputElement.id = input.id;
+        inputElement.className = 'form-input';
+        inputElement.placeholder = input.placeholder;
+        inputElement.required = input.required;
+        
+        group.appendChild(inputElement);
+        toolInputs.appendChild(group);
     });
-    groupWrapper.appendChild(removeBtn);
-  }
-
-  const addBtn = inputsDiv.querySelector('button.add-btn');
-  if (addBtn) {
-    inputsDiv.insertBefore(groupWrapper, addBtn);
-  } else {
-    inputsDiv.appendChild(groupWrapper);
-  }
+    
+    // إخفاء النتائج
+    answerContainer.style.display = 'none';
+    errorMessage.style.display = 'none';
 }
 
-function buildInputs(toolKey) {
-  clearInputs();
-  if (!toolKey || !toolsDatabase[toolKey]) return;
-
-  currentTool = toolsDatabase[toolKey];
-  toolDesc.textContent = currentTool.description || '';
-
-  if (currentTool.repeatable) {
-    addRepeatableInputs();
-    const addBtn = document.createElement('button');
-    addBtn.type = 'button';
-    addBtn.className = 'add-btn';
-    addBtn.textContent = 'إضافة مدخل جديد +';
-    addBtn.style.backgroundColor = '#28a745';
-    addBtn.style.color = 'white';
-    addBtn.style.border = 'none';
-    addBtn.style.padding = '10px 20px';
-    addBtn.style.borderRadius = '8px';
-    addBtn.style.cursor = 'pointer';
-    addBtn.style.fontWeight = '600';
-    addBtn.style.marginTop = '10px';
-    addBtn.addEventListener('click', () => {
-      repeatableCount++;
-      addRepeatableInputs();
-    });
-    inputsDiv.appendChild(addBtn);
-  } else {
-    currentTool.inputs.forEach(input => {
-      inputsDiv.appendChild(createInputField(input, 0));
-    });
-  }
-  submitBtn.disabled = false;
-}
-
-function collectInputs() {
-  if (!currentTool) return [];
-  let entries = [];
-  if (currentTool.repeatable) {
-    const fieldsets = inputsDiv.querySelectorAll('fieldset');
-    fieldsets.forEach(fs => {
-      let entry = {};
-      currentTool.inputs.forEach(input => {
-        const el = fs.querySelector(`#${input.id}-${fieldsets.length > 1 ? fs.querySelector('legend').textContent.match(/\d+/)[0] : 1}`);
-        if (el) entry[input.id] = el.value.trim();
-      });
-      entries.push(entry);
-    });
-  } else {
-    let entry = {};
-    currentTool.inputs.forEach(input => {
-      const el = inputsDiv.querySelector(`#${input.id}-0`);
-      if (el) entry[input.id] = el.value.trim();
-    });
-    entries.push(entry);
-  }
-  return entries;
-}
-
-function validateInputs(entries) {
-  for (const entry of entries) {
-    for (const key in entry) {
-      if (!entry[key]) {
-        return `الرجاء تعبئة الحقل "${key}" في جميع المجموعات.`;
-      }
-    }
-  }
-  return '';
-}
-
+// توليد السكربت وعرضه
 function generateScript() {
-  errorP.style.display = 'none';
-  answerDiv.style.display = 'none';
-  answerText.value = '';
-
-  const entries = collectInputs();
-  const validationError = validateInputs(entries);
-  if (validationError) {
-    errorP.textContent = validationError;
-    errorP.style.display = 'block';
-    return;
-  }
-
-  try {
-    const script = currentTool.script(entries);
-    answerText.value = script;
-    answerDiv.style.display = 'block';
-    errorP.style.display = 'none';
-  } catch (e) {
-    errorP.textContent = 'حدث خطأ أثناء إنشاء السكربت. يرجى المحاولة مرة أخرى.';
-    errorP.style.display = 'block';
-    console.error(e);
-  }
+    const tool = toolsDatabase[currentToolKey];
+    
+    // التحقق من صحة البيانات
+    let valid = true;
+    tool.inputs.forEach(input => {
+        const inputElement = document.getElementById(input.id);
+        if (input.required && (!inputElement.value || inputElement.value.trim() === '')) {
+            errorMessage.textContent = `الرجاء تعبئة الحقل: ${input.label}`;
+            errorMessage.style.display = 'block';
+            valid = false;
+        }
+    });
+    
+    if (!valid) return;
+    
+    // توليد السكربت
+    try {
+        const script = tool.script();
+        answerText.value = script;
+        answerContainer.style.display = 'block';
+        errorMessage.style.display = 'none';
+        
+        // التمرير إلى النتيجة
+        answerContainer.scrollIntoView({ behavior: 'smooth' });
+    } catch (error) {
+        errorMessage.textContent = 'حدث خطأ أثناء توليد السكربت. يرجى المحاولة مرة أخرى.';
+        errorMessage.style.display = 'block';
+        console.error(error);
+    }
 }
 
-copyBtn.addEventListener('click', () => {
-  answerText.select();
-  answerText.setSelectionRange(0, 99999);
-  navigator.clipboard.writeText(answerText.value).then(() => {
-    alert('تم نسخ السكربت إلى الحافظة!');
-  }).catch(() => {
-    alert('فشل النسخ. يرجى النسخ يدوياً.');
-  });
-});
+// نسخ السكربت
+function copyScript() {
+    answerText.select();
+    document.execCommand('copy');
+    
+    // تغيير النص للإشارة إلى النسخ
+    copyBtn.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+    copyBtn.classList.add('copied');
+    
+    // العودة إلى الحالة الأصلية بعد ثانيتين
+    setTimeout(() => {
+        copyBtn.innerHTML = '<i class="fas fa-copy"></i> نسخ السكربت';
+        copyBtn.classList.remove('copied');
+    }, 2000);
+}
 
-toolSelect.addEventListener('change', () => {
-  buildInputs(toolSelect.value);
-});
+// دعم فني مباشر
+function openSupport() {
+    const phoneNumber = '201064496440';
+    const message = encodeURIComponent('مرحباً، أود الحصول على دعم فني بخصوص أدوات مايكروتك');
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    
+    window.open(whatsappUrl, '_blank');
+}
 
-submitBtn.addEventListener('click', e => {
-  e.preventDefault();
-  generateScript();
+// تهيئة الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    // تحميل الأداة الأولى
+    loadTool(currentToolKey);
+    
+    // تحديث الأداة النشطة
+    toolItems.forEach(item => {
+        item.addEventListener('click', function() {
+            toolItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            loadTool(this.dataset.tool);
+        });
+    });
+    
+    // معالجة إرسال النموذج
+    toolForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        generateScript();
+    });
+    
+    // نسخ السكربت
+    copyBtn.addEventListener('click', copyScript);
+    
+    // دعم فني مباشر
+    supportBtn.addEventListener('click', openSupport);
+    
+    // إضافة تأثيرات للواجهة
+    setTimeout(() => {
+        document.body.style.opacity = 1;
+    }, 100);
+    
+    // إضافة تأثيرات تفاعلية للبطاقات
+    const featuredTools = document.querySelectorAll('.featured-tool');
+    featuredTools.forEach(tool => {
+        tool.addEventListener('click', function() {
+            const toolName = this.querySelector('h3').textContent.trim();
+            const toolKey = Object.keys(toolsDatabase).find(key => 
+                toolsDatabase[key].name === toolName
+            );
+            
+            if (toolKey) {
+                toolItems.forEach(i => i.classList.remove('active'));
+                document.querySelector(`.tool-item[data-tool="${toolKey}"]`).classList.add('active');
+                loadTool(toolKey);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    });
 });
-
-supportBtn.addEventListener('click', () => {
-  supportModal.showModal();
-  supportChat.innerHTML = '<p>جاري تفعيل نظام الدعم الفني المباشر...</p>';
-  setTimeout(() => {
-    supportChat.innerHTML = '<p><strong>مرحباً! كيف يمكننا مساعدتك اليوم؟</strong></p>';
-  }, 1500);
-});
-
-closeSupportBtn.addEventListener('click', () => {
-  supportModal.close();
-});
-
-supportModal.addEventListener('click', event => {
-  const rect = supportModal.getBoundingClientRect();
-  if (
-    event.clientX < rect.left ||
-    event.clientX > rect.right ||
-    event.clientY < rect.top ||
-    event.clientY > rect.bottom
-  ) {
-    supportModal.close();
-  }
-});
-
-submitBtn.disabled = true;
 </script>
 </body>
 </html>
