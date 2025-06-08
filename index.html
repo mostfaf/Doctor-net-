@@ -8,16 +8,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #1a252f;
-            --success: #27ae60;
-            --warning: #f39c12;
-            --card-bg: #ffffff;
-            --text: #34495e;
-            --border: #dfe6e9;
+            --primary: #1a237e;
+            --secondary: #004aad;
+            --accent: #ffd600;
+            --dark: #001f4d;
+            --light: #eaf4ff;
+            --success: #28a745;
+            --danger: #dc3545;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-dark: #2c3e50;
+            --text-light: #f8f9fa;
+            --border: #d1d1d1;
         }
 
         * {
@@ -28,8 +29,8 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1a2a3a, #2c3e50);
-            color: var(--light);
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: var(--text-light);
             min-height: 100vh;
             line-height: 1.6;
             padding: 0;
@@ -45,8 +46,8 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(44, 62, 80, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(52, 152, 219, 0.2) 0%, transparent 40%);
+                radial-gradient(circle at 20% 30%, rgba(26, 35, 126, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(0, 74, 173, 0.2) 0%, transparent 40%);
             z-index: -1;
         }
 
@@ -58,7 +59,7 @@
 
         /* شريط التنقل */
         .navbar {
-            background: rgba(26, 37, 47, 0.95);
+            background: rgba(26, 35, 126, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 0 0 15px 15px;
             padding: 15px 25px;
@@ -133,7 +134,7 @@
 
         .nav-link.active {
             background: var(--accent);
-            color: white;
+            color: var(--dark);
         }
 
         /* تصميم الأدوات */
@@ -164,6 +165,23 @@
 
         .tool-list {
             list-style: none;
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .tool-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .tool-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .tool-list::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 10px;
         }
 
         .tool-item {
@@ -221,7 +239,7 @@
         }
 
         .tool-header p {
-            color: var(--text);
+            color: var(--text-dark);
             font-size: 1.1rem;
         }
 
@@ -262,14 +280,14 @@
             font-size: 1rem;
             transition: all 0.3s ease;
             background: #f8f9ff;
-            color: var(--text);
+            color: var(--text-dark);
         }
 
         .form-input:focus {
-            border-color: var(--secondary);
+            border-color: var(--accent);
             background: #fff;
             outline: none;
-            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 0 0 4px rgba(255, 214, 0, 0.2);
         }
 
         textarea.form-input {
@@ -539,7 +557,7 @@
             cursor: pointer;
             border: 1px solid var(--border);
             transition: all 0.2s ease;
-            color: var(--text);
+            color: var(--text-dark);
         }
         
         .history-item:hover {
@@ -561,6 +579,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .featured-tool:hover {
@@ -577,7 +596,7 @@
         }
         
         .featured-tool p {
-            color: var(--text);
+            color: var(--text-dark);
             font-size: 0.95rem;
         }
         
@@ -634,17 +653,17 @@
     <div class="stats-container">
         <div class="stat-card">
             <i class="fas fa-tools fa-2x"></i>
-            <div class="stat-number">15+</div>
+            <div class="stat-number">12+</div>
             <div class="stat-label">أداة احترافية</div>
         </div>
         <div class="stat-card">
             <i class="fas fa-users fa-2x"></i>
-            <div class="stat-number">5K+</div>
+            <div class="stat-number">7.5K+</div>
             <div class="stat-label">مستخدم نشط</div>
         </div>
         <div class="stat-card">
             <i class="fas fa-code fa-2x"></i>
-            <div class="stat-number">12K+</div>
+            <div class="stat-number">15K+</div>
             <div class="stat-label">سكربت تم توليده</div>
         </div>
         <div class="stat-card">
@@ -676,6 +695,14 @@
                     <i class="fas fa-balance-scale"></i>
                     <span>موازنة الحمل PCC</span>
                 </li>
+                <li class="tool-item" data-tool="load-balancing-nth">
+                    <i class="fas fa-balance-scale-left"></i>
+                    <span>موازنة الحمل NTH</span>
+                </li>
+                <li class="tool-item" data-tool="load-balancing-ecmp">
+                    <i class="fas fa-balance-scale-right"></i>
+                    <span>موازنة الحمل ECMP</span>
+                </li>
                 <li class="tool-item" data-tool="vpn-pptp">
                     <i class="fas fa-shield-alt"></i>
                     <span>نفق VPN PPTP</span>
@@ -691,6 +718,10 @@
                 <li class="tool-item" data-tool="hotspot-setup">
                     <i class="fas fa-wifi"></i>
                     <span>إعداد Hotspot</span>
+                </li>
+                <li class="tool-item" data-tool="capsman">
+                    <i class="fas fa-broadcast-tower"></i>
+                    <span>إعداد CAPsMAN</span>
                 </li>
                 <li class="tool-item" data-tool="general">
                     <i class="fas fa-question-circle"></i>
@@ -720,6 +751,7 @@
             
             <form class="tool-form" id="tool-form">
                 <div id="tool-inputs">
+                    <!-- سيتم تعبئة المدخلات ديناميكيًا هنا -->
                     <div class="form-group">
                         <label for="ip">عنوان IP العميل:</label>
                         <input type="text" id="ip" class="form-input" placeholder="مثال: 192.168.1.100" required>
@@ -754,19 +786,19 @@
     <h2 style="color: white; margin: 30px 0 20px; text-align: center; border-bottom: 2px solid var(--accent); padding-bottom: 15px;">أدوات مميزة</h2>
     
     <div class="featured-tools">
-        <div class="featured-tool">
+        <div class="featured-tool" data-tool="load-balancing-pcc">
             <h3><i class="fas fa-balance-scale"></i> موازنة الحمل PCC</h3>
             <p>أداة متقدمة لموازنة الحمل على عدة خطوط إنترنت باستخدام تقنية PCC (Per Connection Classifier)</p>
         </div>
-        <div class="featured-tool">
+        <div class="featured-tool" data-tool="firewall-basic">
             <h3><i class="fas fa-shield-alt"></i> جدار الحماية المتقدم</h3>
             <p>حماية شبكتك من الهجمات باستخدام جدار حماية متقدم مع قواعد مخصصة للشبكات الكبيرة</p>
         </div>
-        <div class="featured-tool">
+        <div class="featured-tool" data-tool="capsman">
             <h3><i class="fas fa-wifi"></i> إدارة نقاط الوصول</h3>
             <p>أداة متكاملة لإدارة نقاط الوصول اللاسلكية باستخدام نظام CAPsMAN</p>
         </div>
-        <div class="featured-tool">
+        <div class="featured-tool" data-tool="vpn-pptp">
             <h3><i class="fas fa-server"></i> خادم VPN آمن</h3>
             <p>إنشاء أنفاق VPN آمنة باستخدام بروتوكولات متعددة مع إدارة المستخدمين</p>
         </div>
@@ -887,6 +919,57 @@ const toolsDatabase = {
                    `add chain=srcnat out-interface=${wan} action=masquerade comment="WAN1 NAT"\n`;
         }
     },
+    'load-balancing-nth': {
+        name: 'موازنة الحمل NTH',
+        description: 'توزيع الحمل على عدة خطوط إنترنت باستخدام NTH',
+        longDescription: 'أداة لموازنة الحمل على عدة خطوط إنترنت باستخدام تقنية NTH (Next Time Hop).',
+        inputs: [
+            { id: 'lan', label: 'واجهة LAN', placeholder: 'مثال: ether2', type: 'text', required: true },
+            { id: 'wan', label: 'واجهة WAN', placeholder: 'مثال: ether1', type: 'text', required: true },
+            { id: 'gateway', label: 'بوابة WAN', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
+            { id: 'ip', label: 'IP واجهة WAN', placeholder: 'مثال: 192.168.1.2', type: 'text', required: true }
+        ],
+        script() {
+            const lan = document.getElementById('lan').value || 'ether2';
+            const wan = document.getElementById('wan').value || 'ether1';
+            const gateway = document.getElementById('gateway').value || '192.168.1.1';
+            const ip = document.getElementById('ip').value || '192.168.1.2';
+            
+            return `# NTH Load Balancing\n# بواسطة دكتور نت\n/ip firewall mangle\n` +
+                   `add chain=prerouting in-interface=${lan} nth=2 nth-mask=0 nth-index=0 action=mark-routing new-routing-mark=to_wan1 passthrough=yes comment="WAN1 NTH"\n` +
+                   `add chain=prerouting in-interface=${lan} nth=2 nth-mask=0 nth-index=1 action=mark-routing new-routing-mark=to_wan2 passthrough=yes comment="WAN2 NTH"\n` +
+                   `/ip address\n` +
+                   `add address=${ip} interface=${wan} comment="WAN1 IP"\n` +
+                   `/ip route\n` +
+                   `add dst-address=0.0.0.0/0 gateway=${gateway} routing-mark=to_wan1 check-gateway=ping comment="WAN1 Route"\n` +
+                   `add dst-address=0.0.0.0/0 gateway=${gateway} routing-mark=to_wan2 check-gateway=ping comment="WAN2 Route"\n` +
+                   `/ip firewall nat\n` +
+                   `add chain=srcnat out-interface=${wan} action=masquerade comment="WAN1 NAT"\n`;
+        }
+    },
+    'load-balancing-ecmp': {
+        name: 'موازنة الحمل ECMP',
+        description: 'توزيع الحمل على عدة خطوط إنترنت باستخدام ECMP',
+        longDescription: 'أداة لموازنة الحمل على عدة خطوط إنترنت باستخدام تقنية ECMP (Equal-Cost Multi-Path).',
+        inputs: [
+            { id: 'wan1', label: 'واجهة WAN 1', placeholder: 'مثال: ether1', type: 'text', required: true },
+            { id: 'gateway1', label: 'بوابة WAN 1', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true },
+            { id: 'wan2', label: 'واجهة WAN 2', placeholder: 'مثال: ether2', type: 'text', required: true },
+            { id: 'gateway2', label: 'بوابة WAN 2', placeholder: 'مثال: 192.168.2.1', type: 'text', required: true }
+        ],
+        script() {
+            const wan1 = document.getElementById('wan1').value || 'ether1';
+            const gateway1 = document.getElementById('gateway1').value || '192.168.1.1';
+            const wan2 = document.getElementById('wan2').value || 'ether2';
+            const gateway2 = document.getElementById('gateway2').value || '192.168.2.1';
+            
+            return `# ECMP Load Balancing\n# بواسطة دكتور نت\n/ip route\n` +
+                   `add dst-address=0.0.0.0/0 gateway=${gateway1},${gateway2} check-gateway=ping comment="ECMP Load Balancing"\n` +
+                   `/ip firewall nat\n` +
+                   `add chain=srcnat out-interface=${wan1} action=masquerade comment="WAN1 NAT"\n` +
+                   `add chain=srcnat out-interface=${wan2} action=masquerade comment="WAN2 NAT"\n`;
+        }
+    },
     'vpn-pptp': {
         name: 'نفق VPN PPTP',
         description: 'إنشاء نفق VPN باستخدام بروتوكول PPTP',
@@ -993,6 +1076,34 @@ const toolsDatabase = {
                    `# إعدادات إضافية للتحكم في المستخدمين\n`;
         }
     },
+    'capsman': {
+        name: 'إعداد CAPsMAN',
+        description: 'إعداد نظام CAPsMAN لإدارة نقاط الوصول',
+        longDescription: 'أداة لإعداد نظام CAPsMAN (Controlled Access Point system Manager) لإدارة وتكوين نقاط الوصول اللاسلكية.',
+        inputs: [
+            { id: 'interface', label: 'واجهة الإدارة', placeholder: 'مثال: ether1', type: 'text', required: true },
+            { id: 'ssid', label: 'اسم الشبكة (SSID)', placeholder: 'مثال: DrNet-WiFi', type: 'text', required: true },
+            { id: 'password', label: 'كلمة مرور WiFi', placeholder: 'كلمة مرور قوية', type: 'password', required: true },
+            { id: 'ip', label: 'IP الخادم', placeholder: 'مثال: 192.168.1.1', type: 'text', required: true }
+        ],
+        script() {
+            const interface = document.getElementById('interface').value || 'ether1';
+            const ssid = document.getElementById('ssid').value || 'DrNet-WiFi';
+            const password = document.getElementById('password').value || 'securepassword';
+            const ip = document.getElementById('ip').value || '192.168.1.1';
+            
+            return `# CAPsMAN Setup Script\n# بواسطة دكتور نت\n/interface bridge\n` +
+                   `add name=cap-bridge\n` +
+                   `/caps-man configuration\n` +
+                   `add name=cap-config mode=ap ssid="${ssid}" security=wpa2-psk authentication-types=wpa2-psk passphrase="${password}"\n` +
+                   `/caps-man manager\n` +
+                   `set enabled=yes\n` +
+                   `/caps-man manager interface\n` +
+                   `add interface=cap-bridge\n` +
+                   `/ip address\n` +
+                   `add address=${ip} interface=cap-bridge\n`;
+        }
+    },
     'general': {
         name: 'سؤال عام',
         description: 'اطرح سؤالك لتحصل على إجابة مخصصة',
@@ -1022,6 +1133,7 @@ const answerText = document.getElementById('answer-text');
 const copyBtn = document.getElementById('copy-btn');
 const errorMessage = document.getElementById('error-message');
 const supportBtn = document.getElementById('supportBtn');
+const featuredTools = document.querySelectorAll('.featured-tool');
 
 let currentToolKey = 'simple-queue';
 
@@ -1154,20 +1266,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // دعم فني مباشر
     supportBtn.addEventListener('click', openSupport);
     
-    // إضافة تأثيرات للواجهة
-    setTimeout(() => {
-        document.body.style.opacity = 1;
-    }, 100);
-    
     // إضافة تأثيرات تفاعلية للبطاقات
-    const featuredTools = document.querySelectorAll('.featured-tool');
     featuredTools.forEach(tool => {
         tool.addEventListener('click', function() {
-            const toolName = this.querySelector('h3').textContent.trim();
-            const toolKey = Object.keys(toolsDatabase).find(key => 
-                toolsDatabase[key].name === toolName
-            );
-            
+            const toolKey = this.dataset.tool;
             if (toolKey) {
                 toolItems.forEach(i => i.classList.remove('active'));
                 document.querySelector(`.tool-item[data-tool="${toolKey}"]`).classList.add('active');
